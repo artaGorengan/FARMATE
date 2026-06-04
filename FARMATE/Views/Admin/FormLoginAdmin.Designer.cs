@@ -31,23 +31,24 @@
             txtUsername = new TextBox();
             txtPassword = new TextBox();
             btnLogin = new Button();
+            lblPassword = new Label();
+            lblUsername = new Label();
             SuspendLayout();
             // 
             // txtUsername
             // 
-            txtUsername.Location = new Point(234, 96);
+            txtUsername.Location = new Point(257, 101);
             txtUsername.Name = "txtUsername";
-            txtUsername.Size = new Size(150, 31);
-            txtUsername.TabIndex = 0;
+            txtUsername.Size = new Size(100, 31);
+            txtUsername.TabIndex = 5;
             txtUsername.TextChanged += txtUsername_TextChanged;
             // 
             // txtPassword
             // 
-            txtPassword.Location = new Point(234, 154);
+            txtPassword.Location = new Point(257, 198);
             txtPassword.Name = "txtPassword";
-            txtPassword.Size = new Size(150, 31);
-            txtPassword.TabIndex = 1;
-            txtPassword.TextChanged += txtPassword_TextChanged;
+            txtPassword.Size = new Size(100, 31);
+            txtPassword.TabIndex = 4;
             // 
             // btnLogin
             // 
@@ -59,11 +60,33 @@
             btnLogin.UseVisualStyleBackColor = true;
             btnLogin.Click += btnLogin_Click;
             // 
+            // lblPassword
+            // 
+            lblPassword.AutoSize = true;
+            lblPassword.Location = new Point(263, 173);
+            lblPassword.Name = "lblPassword";
+            lblPassword.Size = new Size(87, 25);
+            lblPassword.TabIndex = 7;
+            lblPassword.Text = "Password";
+            lblPassword.Click += lblPassword_Click;
+            // 
+            // lblUsername
+            // 
+            lblUsername.AutoSize = true;
+            lblUsername.Location = new Point(273, 65);
+            lblUsername.Name = "lblUsername";
+            lblUsername.Size = new Size(91, 25);
+            lblUsername.TabIndex = 8;
+            lblUsername.Text = "Username";
+            lblUsername.Click += lblUsername_Click;
+            // 
             // FormLoginAdmin
             // 
             AutoScaleDimensions = new SizeF(10F, 25F);
             AutoScaleMode = AutoScaleMode.Font;
             ClientSize = new Size(800, 450);
+            Controls.Add(lblUsername);
+            Controls.Add(lblPassword);
             Controls.Add(btnLogin);
             Controls.Add(txtPassword);
             Controls.Add(txtUsername);
@@ -79,5 +102,7 @@
         private TextBox txtUsername;
         private TextBox txtPassword;
         private Button btnLogin;
+        private Label lblPassword;
+        private Label lblUsername;
     }
 }

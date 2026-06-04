@@ -31,11 +31,11 @@ namespace FARMATE.Views.Auth
                     conn.Open();
 
                     string passwordHash = Helper.HashPassword(txtPassword.Text);
-                    
+
 
                     string query = @"INSERT INTO Users( nama_user,  username, password,email, no_telepon,  alamat)
                     VALUES  ( @nama, @username, @password,  @email,    @telepon,  @alamat )";
-               
+
                     NpgsqlCommand cmd = new NpgsqlCommand(query, conn);
 
 
@@ -62,6 +62,31 @@ namespace FARMATE.Views.Auth
         }
 
         private void FormRegisterUser_Load(object sender, EventArgs e)
+        {
+
+        }
+
+        private void lblUsername_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void txtEmail_TextChanged(object sender, EventArgs e)
+        {
+
+        }
+
+        private void lblNama_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void lblAlamat_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void label1_Click(object sender, EventArgs e)
         {
 
         }

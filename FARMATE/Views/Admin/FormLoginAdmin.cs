@@ -17,18 +17,10 @@ namespace FARMATE
 
         private void FormLogin_Load(object sender, EventArgs e)
         {
-           
-        }
-
-        private void txtUsername_TextChanged(object sender, EventArgs e)
-        {
 
         }
 
-        private void txtPassword_TextChanged(object sender, EventArgs e)
-        {
 
-        }
 
         private void btnLogin_Click(object sender, EventArgs e)
         {
@@ -44,6 +36,7 @@ namespace FARMATE
 
                     NpgsqlCommand cmd = new NpgsqlCommand(query, conn);
 
+                    cmd.Parameters.AddWithValue("@username", txtUsername.Text);
                     cmd.Parameters.AddWithValue("@password", passwordHash);
 
                     NpgsqlDataReader rd = cmd.ExecuteReader();
@@ -70,7 +63,25 @@ namespace FARMATE
             {
                 MessageBox.Show(ex.Message);
             }
-            
+
         }
+
+        private void lblPassword_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void txtUsername_TextChanged(object sender, EventArgs e)
+        {
+
+        }
+
+        private void lblUsername_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        
+      
     }
 }

@@ -38,7 +38,7 @@
             // 
             // txtEmail
             // 
-            txtEmail.Location = new Point(354, 119);
+            txtEmail.Location = new Point(267, 116);
             txtEmail.Name = "txtEmail";
             txtEmail.Size = new Size(150, 31);
             txtEmail.TabIndex = 0;
@@ -46,7 +46,7 @@
             // 
             // txtPassword
             // 
-            txtPassword.Location = new Point(354, 204);
+            txtPassword.Location = new Point(267, 204);
             txtPassword.Name = "txtPassword";
             txtPassword.Size = new Size(150, 31);
             txtPassword.TabIndex = 1;
@@ -54,7 +54,7 @@
             // lblEmail
             // 
             lblEmail.AutoSize = true;
-            lblEmail.Location = new Point(354, 91);
+            lblEmail.Location = new Point(267, 88);
             lblEmail.Name = "lblEmail";
             lblEmail.Size = new Size(54, 25);
             lblEmail.TabIndex = 2;
@@ -63,7 +63,7 @@
             // lblPassword
             // 
             lblPassword.AutoSize = true;
-            lblPassword.Location = new Point(354, 176);
+            lblPassword.Location = new Point(267, 176);
             lblPassword.Name = "lblPassword";
             lblPassword.Size = new Size(87, 25);
             lblPassword.TabIndex = 3;
@@ -71,7 +71,7 @@
             // 
             // btnLogin
             // 
-            btnLogin.Location = new Point(373, 253);
+            btnLogin.Location = new Point(280, 287);
             btnLogin.Name = "btnLogin";
             btnLogin.Size = new Size(112, 34);
             btnLogin.TabIndex = 4;
@@ -82,7 +82,7 @@
             // lblRegister
             // 
             lblRegister.AutoSize = true;
-            lblRegister.Location = new Point(293, 320);
+            lblRegister.Location = new Point(213, 333);
             lblRegister.Name = "lblRegister";
             lblRegister.Size = new Size(274, 25);
             lblRegister.TabIndex = 5;
