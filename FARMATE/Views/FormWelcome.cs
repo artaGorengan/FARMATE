@@ -6,6 +6,7 @@ using System.Data;
 using System.Drawing;
 using System.Text;
 using System.Windows.Forms;
+using System.Drawing;
 
 namespace FARMATE.Views
 {
@@ -14,6 +15,8 @@ namespace FARMATE.Views
         public FormWelcome()
         {
             InitializeComponent();
+            this.Size = new Size(800, 500);
+
         }
 
         private void btnLoginUser_Click(object sender, EventArgs e)
@@ -34,5 +37,7 @@ namespace FARMATE.Views
         {
 
         }
+
+       
     }
 }

@@ -28,15 +28,17 @@
         /// </summary>
         private void InitializeComponent()
         {
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(FormWelcome));
             btnLoginUser = new Button();
             btnLoginAdmin = new Button();
             SuspendLayout();
             // 
             // btnLoginUser
             // 
-            btnLoginUser.Location = new Point(547, 175);
+            btnLoginUser.BackgroundImageLayout = ImageLayout.Zoom;
+            btnLoginUser.Location = new Point(353, 308);
             btnLoginUser.Name = "btnLoginUser";
-            btnLoginUser.Size = new Size(232, 188);
+            btnLoginUser.Size = new Size(171, 95);
             btnLoginUser.TabIndex = 0;
             btnLoginUser.Text = "User";
             btnLoginUser.UseVisualStyleBackColor = true;
@@ -44,9 +46,9 @@
             // 
             // btnLoginAdmin
             // 
-            btnLoginAdmin.Location = new Point(236, 175);
+            btnLoginAdmin.Location = new Point(97, 308);
             btnLoginAdmin.Name = "btnLoginAdmin";
-            btnLoginAdmin.Size = new Size(232, 188);
+            btnLoginAdmin.Size = new Size(171, 95);
             btnLoginAdmin.TabIndex = 1;
             btnLoginAdmin.Text = "Admin";
             btnLoginAdmin.UseVisualStyleBackColor = true;
@@ -56,7 +58,9 @@
             // 
             AutoScaleDimensions = new SizeF(10F, 25F);
             AutoScaleMode = AutoScaleMode.Font;
-            ClientSize = new Size(1083, 450);
+            BackgroundImage = (Image)resources.GetObject("$this.BackgroundImage");
+            BackgroundImageLayout = ImageLayout.Zoom;
+            ClientSize = new Size(643, 447);
             Controls.Add(btnLoginAdmin);
             Controls.Add(btnLoginUser);
             Name = "FormWelcome";
