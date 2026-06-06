@@ -14,5 +14,36 @@ namespace FARMATE.Views.Admin
         {
             InitializeComponent();
         }
+
+        private void btnKelolaAlat_Click(object sender, EventArgs e)
+        {
+            FormKelolaAlat form = new FormKelolaAlat();
+            form.Show();
+            this.Hide();
+        }
+
+        private void btnDataUser_Click(object sender, EventArgs e)
+        {
+            FormDataUser form = new FormDataUser();
+            form.Show();
+            this.Hide();
+        }
+
+        private void btnRiwayatPengembalian_Click(object sender, EventArgs e)
+        {
+            FormRiwayatPengembalian form = new FormRiwayatPengembalian();
+
+            form.Show();
+            this.Hide();
+        }
+
+        private void btnLogout_Click(object sender, EventArgs e)
+        {
+            FormWelcome form = new FormWelcome();
+
+            form.Show();
+
+            this.Close();
+        }
     }
 }

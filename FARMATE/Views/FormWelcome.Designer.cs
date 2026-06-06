@@ -36,7 +36,7 @@
             // btnLoginUser
             // 
             btnLoginUser.BackgroundImageLayout = ImageLayout.Zoom;
-            btnLoginUser.Location = new Point(353, 308);
+            btnLoginUser.Location = new Point(360, 308);
             btnLoginUser.Name = "btnLoginUser";
             btnLoginUser.Size = new Size(171, 95);
             btnLoginUser.TabIndex = 0;
@@ -46,7 +46,7 @@
             // 
             // btnLoginAdmin
             // 
-            btnLoginAdmin.Location = new Point(97, 308);
+            btnLoginAdmin.Location = new Point(104, 308);
             btnLoginAdmin.Name = "btnLoginAdmin";
             btnLoginAdmin.Size = new Size(171, 95);
             btnLoginAdmin.TabIndex = 1;
@@ -63,6 +63,7 @@
             ClientSize = new Size(643, 447);
             Controls.Add(btnLoginAdmin);
             Controls.Add(btnLoginUser);
+            DoubleBuffered = true;
             Name = "FormWelcome";
             Text = "FormWelcome";
             Load += FormWelcome_Load;
