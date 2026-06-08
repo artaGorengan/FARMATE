@@ -39,14 +39,11 @@ namespace FARMATE.Views.User
                 {
                     conn.Open();
 
-                    string passwordHash = Helper.HashPassword(txtPassword.Text);
-                   
-
                     string query = @"SELECT * FROM Users WHERE email=@email AND password=@password";
                        NpgsqlCommand cmd = new NpgsqlCommand(query, conn);
                    
                        cmd.Parameters.AddWithValue("@email", txtEmail.Text);
-                       cmd.Parameters.AddWithValue("@password", passwordHash);
+                       cmd.Parameters.AddWithValue("@password", txtPassword.Text);
 
                         
                     

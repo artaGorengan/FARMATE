@@ -8,9 +8,9 @@ using System.Windows.Forms;
 
 namespace FARMATE.Views.Admin
 {
-    public partial class FormDataCustomer : Form
+    public partial class FormDataUser : Form
     {
-        public FormDataCustomer()
+        public FormDataUser()
         {
             InitializeComponent();
         }

@@ -19,7 +19,7 @@ namespace FARMATE.Services
             if (string.IsNullOrWhiteSpace(username) || string.IsNullOrWhiteSpace(password))
                 return (false, "Username dan password tidak boleh kosong.");
 
-            string hash = Helper.HashPassword(password);
+            string plainPassword = password;
             try
             {
                 using var conn = Koneksi.GetConnection();
@@ -27,7 +27,7 @@ namespace FARMATE.Services
                 string sql = "SELECT * FROM Atmin WHERE username=@u AND password=@p LIMIT 1";
                 using var cmd = new NpgsqlCommand(sql, conn);
                 cmd.Parameters.AddWithValue("@u", username);
-                cmd.Parameters.AddWithValue("@p", hash);
+                cmd.Parameters.AddWithValue("@p", password);
                 using var rd = cmd.ExecuteReader();
                 if (rd.Read())
                 {
@@ -47,8 +47,8 @@ namespace FARMATE.Services
             if (string.IsNullOrWhiteSpace(email) || string.IsNullOrWhiteSpace(password))
                 return (false, "Email dan password tidak boleh kosong.");
 
-            string hash = Helper.HashPassword(password);
-            User? u = _userRepo.GetByEmailAndPassword(email, hash);
+            string plainPassword = password;
+            User? u = _userRepo.GetByEmailAndPassword(email, password);
             if (u == null) return (false, "Email atau password salah.");
 
             UserSession.UserID = u.IdUser;
@@ -77,7 +77,7 @@ namespace FARMATE.Services
                 NoHp = noHp,
                 Alamat = alamat,
                 Email = email
-            }, Helper.HashPassword(password));
+            }, password);
 
             return (true, "Akun berhasil dibuat!");
         }

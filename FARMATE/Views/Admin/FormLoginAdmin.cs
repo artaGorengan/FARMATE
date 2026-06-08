@@ -30,14 +30,14 @@ namespace FARMATE
                 {
                     conn.Open();
 
-                    string passwordHash = Helper.HashPassword(txtPassword.Text);
 
-                    string query = @"SELECT * FROM Admin WHERE username=@username AND password=@password";
+
+                    string query = @"SELECT * FROM Atmin WHERE username=@username AND password=@password";
 
                     NpgsqlCommand cmd = new NpgsqlCommand(query, conn);
 
                     cmd.Parameters.AddWithValue("@username", txtUsername.Text);
-                    cmd.Parameters.AddWithValue("@password", passwordHash);
+                    cmd.Parameters.AddWithValue("@password", txtPassword.Text);
 
                     NpgsqlDataReader rd = cmd.ExecuteReader();
 
@@ -49,7 +49,7 @@ namespace FARMATE
 
                         UserSession.Role = "ADMIN";
 
-                        FormDashboardAdmin form = new FormDashboardAdmin();
+                        FormKelolaAlat form = new FormKelolaAlat();
                         form.Show();
                         this.Hide();
                     }
@@ -81,7 +81,5 @@ namespace FARMATE
 
         }
 
-        
-      
     }
 }

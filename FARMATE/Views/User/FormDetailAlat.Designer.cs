@@ -1,6 +1,6 @@
 ﻿namespace FARMATE.Views.Admin
 {
-    partial class FormDetailAlat
+    partial class FormDetailAlat : Form
     {
         /// <summary>
         /// Required designer variable.

@@ -14,5 +14,10 @@ namespace FARMATE.Views.Admin
         {
             InitializeComponent();
         }
+
+        private void InitializeComponent()
+        {
+            throw new NotImplementedException();
+        }
     }
 }

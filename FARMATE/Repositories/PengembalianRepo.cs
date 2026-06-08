@@ -52,5 +52,7 @@ namespace FARMATE.Repositories
             NamaAlat = rd["nama_alat"]?.ToString() ?? string.Empty,
             TglSewa = rd["tgl_sewa"] == DBNull.Value ? DateTime.MinValue : Convert.ToDateTime(rd["tgl_sewa"]),
             TglPengembalian = rd["tgl_pengembalian"] == DBNull.Value ? null : (DateTime?)Convert.ToDateTime(rd["tgl_pengembalian"])
-        }
+        };
+    }
+
 }

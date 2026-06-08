@@ -30,8 +30,6 @@ namespace FARMATE.Views.Auth
                 {
                     conn.Open();
 
-                    string passwordHash = Helper.HashPassword(txtPassword.Text);
-
 
                     string query = @"INSERT INTO Users( nama_user,  username, password,email, no_telepon,  alamat)
                     VALUES  ( @nama, @username, @password,  @email,    @telepon,  @alamat )";
@@ -41,7 +39,7 @@ namespace FARMATE.Views.Auth
 
                     cmd.Parameters.AddWithValue("@nama", txtNama.Text);
                     cmd.Parameters.AddWithValue("@username", txtUsername.Text);
-                    cmd.Parameters.AddWithValue("@password", passwordHash);
+                    cmd.Parameters.AddWithValue("@password", txtPassword.Text);
                     cmd.Parameters.AddWithValue("@email", txtEmail.Text);
                     cmd.Parameters.AddWithValue("@telepon", txtNoHp.Text);
                     cmd.Parameters.AddWithValue("@alamat", txtAlamat.Text);

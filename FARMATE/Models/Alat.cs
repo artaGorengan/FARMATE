@@ -14,7 +14,8 @@ namespace FARMATE.Models
         public decimal HargaPerhari { get; set; }
         public int StokTotal { get; set; }
         public int StokTersedia { get; set; }
-        public string BahanBakar { get; set; } = string.Empty;
+        public string BahanBakar { get; set; } 
+        public string Gambar { get; set; }
 
         // JOIN fields untuk tampilan
         public string NamaKategori { get; set; } = string.Empty;
