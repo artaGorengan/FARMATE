@@ -59,7 +59,7 @@
             AutoScaleDimensions = new SizeF(10F, 25F);
             AutoScaleMode = AutoScaleMode.Font;
             BackgroundImage = (Image)resources.GetObject("$this.BackgroundImage");
-            BackgroundImageLayout = ImageLayout.Zoom;
+            BackgroundImageLayout = ImageLayout.Stretch;
             ClientSize = new Size(643, 447);
             Controls.Add(btnLoginAdmin);
             Controls.Add(btnLoginUser);
@@ -67,6 +67,7 @@
             Name = "FormWelcome";
             Text = "FormWelcome";
             Load += FormWelcome_Load;
+            Resize += FormWelcome_Resize;
             ResumeLayout(false);
         }
 

@@ -45,9 +45,6 @@ namespace FARMATE.Views.User
                        cmd.Parameters.AddWithValue("@email", txtEmail.Text);
                        cmd.Parameters.AddWithValue("@password", txtPassword.Text);
 
-                        
-                    
-
                     NpgsqlDataReader rd = cmd.ExecuteReader();
 
                     if (rd.Read())
@@ -56,9 +53,9 @@ namespace FARMATE.Views.User
                         UserSession.Username = rd["username"].ToString();
                         UserSession.Role = "USER";
 
-                        MessageBox.Show("Login berhasil");
+                
 
-                        FormDashboardUser form = new FormDashboardUser();
+                        FormDaftarAlat form = new FormDaftarAlat();
                         form.Show();
                         this.Hide();
                     }

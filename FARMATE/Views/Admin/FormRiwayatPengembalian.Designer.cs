@@ -34,6 +34,8 @@
             btnRiwayat = new Button();
             btnKelolaAlat = new Button();
             panelHeader = new Panel();
+            label6 = new Label();
+            label5 = new Label();
             panelStatistik = new Panel();
             panelTerlambat = new Panel();
             lblTerlambat = new Label();
@@ -57,8 +59,6 @@
             lblDurasi = new Label();
             lblAlat = new Label();
             lblNama = new Label();
-            label5 = new Label();
-            label6 = new Label();
             panelNavbar.SuspendLayout();
             panelHeader.SuspendLayout();
             panelStatistik.SuspendLayout();
@@ -132,6 +132,24 @@
             panelHeader.Name = "panelHeader";
             panelHeader.Size = new Size(1233, 77);
             panelHeader.TabIndex = 1;
+            // 
+            // label6
+            // 
+            label6.AutoSize = true;
+            label6.Location = new Point(36, 30);
+            label6.Name = "label6";
+            label6.Size = new Size(515, 25);
+            label6.TabIndex = 1;
+            label6.Text = "Lihat seluruh riwayat penyewaan alat yang pernah Anda lakukan";
+            // 
+            // label5
+            // 
+            label5.AutoSize = true;
+            label5.Location = new Point(36, 5);
+            label5.Name = "label5";
+            label5.Size = new Size(189, 25);
+            label5.TabIndex = 0;
+            label5.Text = "Riwayat Pengembalian";
             // 
             // panelStatistik
             // 
@@ -212,7 +230,7 @@
             // lblSedangDisewa
             // 
             lblSedangDisewa.AutoSize = true;
-            lblSedangDisewa.Location = new Point(66, 62);
+            lblSedangDisewa.Location = new Point(78, 71);
             lblSedangDisewa.Name = "lblSedangDisewa";
             lblSedangDisewa.Size = new Size(22, 25);
             lblSedangDisewa.TabIndex = 1;
@@ -356,24 +374,6 @@
             lblNama.Size = new Size(59, 25);
             lblNama.TabIndex = 0;
             lblNama.Text = "Nama";
-            // 
-            // label5
-            // 
-            label5.AutoSize = true;
-            label5.Location = new Point(36, 5);
-            label5.Name = "label5";
-            label5.Size = new Size(189, 25);
-            label5.TabIndex = 0;
-            label5.Text = "Riwayat Pengembalian";
-            // 
-            // label6
-            // 
-            label6.AutoSize = true;
-            label6.Location = new Point(36, 30);
-            label6.Name = "label6";
-            label6.Size = new Size(515, 25);
-            label6.TabIndex = 1;
-            label6.Text = "Lihat seluruh riwayat penyewaan alat yang pernah Anda lakukan";
             // 
             // FormRiwayatPengembalian
             // 

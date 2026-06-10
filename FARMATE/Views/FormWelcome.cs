@@ -15,10 +15,37 @@ namespace FARMATE.Views
         public FormWelcome()
         {
             InitializeComponent();
-            this.Size = new Size(800, 500);
-
+          
         }
+        private void RepositionButtons()
+        {
+            int formW = this.ClientSize.Width;
+            int formH = this.ClientSize.Height;
 
+            int btnW = (int)(formW * 0.2785);
+            int btnH = (int)(formH * 0.2188);
+
+            btnLoginAdmin.Size = new Size(btnW, btnH);
+            btnLoginAdmin.Size = new Size(btnW, btnH);
+            btnLoginAdmin.Location = new Point((int)(formW * 0.1521), (int)(formH * 0.6826));
+
+            btnLoginUser.Size = new Size(btnW, btnH);
+            btnLoginUser.Location = new Point((int)(formW * 0.5576), (int)(formH * 0.6826));
+
+            btnLoginAdmin.BackColor = Color.Transparent;
+            btnLoginAdmin.FlatStyle = FlatStyle.Flat;
+            btnLoginAdmin.FlatAppearance.BorderSize = 0;
+            btnLoginAdmin.FlatAppearance.MouseOverBackColor = Color.Transparent;
+            btnLoginAdmin.FlatAppearance.MouseDownBackColor = Color.FromArgb(30, 0, 0, 0);
+            btnLoginAdmin.Text = "";
+
+            btnLoginUser.BackColor = Color.Transparent;
+            btnLoginUser.FlatStyle = FlatStyle.Flat;
+            btnLoginUser.FlatAppearance.BorderSize = 0;
+            btnLoginUser.FlatAppearance.MouseOverBackColor = Color.Transparent;
+            btnLoginUser.FlatAppearance.MouseDownBackColor = Color.FromArgb(30, 0, 0, 0);
+            btnLoginUser.Text = "";
+        }
         private void btnLoginUser_Click(object sender, EventArgs e)
         {
             FormLoginUser form = new FormLoginUser();
@@ -35,9 +62,16 @@ namespace FARMATE.Views
 
         private void FormWelcome_Load(object sender, EventArgs e)
         {
+            RepositionButtons();
 
         }
 
-       
+        private void FormWelcome_Resize(object sender, EventArgs e)
+        {
+            RepositionButtons();
+        }
+
+
+
     }
 }
