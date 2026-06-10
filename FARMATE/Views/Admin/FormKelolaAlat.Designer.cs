@@ -28,66 +28,57 @@
         /// </summary>
         private void InitializeComponent()
         {
-            btnTambah = new Button();
-            btnEdit = new Button();
+            panelSidebar = new Panel();
             btnHapus = new Button();
-            btnLogout = new Button();
-            panelMenu = new Panel();
-            panelContent = new Panel();
-            panelHeader = new Panel();
+            btnEdit = new Button();
+            btnTambah = new Button();
             panelTambahAlat = new Panel();
-            lblStok = new Label();
-            lblDeskripsi = new Label();
-            blbHarga = new Label();
-            lblMerk = new Label();
-            lblBahanBakar = new Label();
-            lblKategori = new Label();
+            btnPilihGambar = new Button();
+            pbFotoAlat = new PictureBox();
             btnBatal = new Button();
             btnSimpan = new Button();
-            cmbBahanBakar = new ComboBox();
+            cmbBBM = new ComboBox();
+            cmbKategori = new ComboBox();
             txtStok = new TextBox();
             txtHarga = new TextBox();
             txtDeskripsi = new TextBox();
             txtMerk = new TextBox();
-            cmbKategori = new ComboBox();
-            panelDaftarAlat = new Panel();
+            lblBBM = new Label();
+            lblStok = new Label();
+            lblHarga = new Label();
+            lblDeskripsi = new Label();
+            lblMerk = new Label();
+            lblKategori = new Label();
+            btnLogout = new Button();
+            panelNavbar = new Panel();
+            btnDataUser = new Button();
+            btnRiwayat = new Button();
+            btnKelolaAlat = new Button();
+            panelContent = new Panel();
             flowPanen = new FlowLayoutPanel();
-            panelEditAlat = new Panel();
             flowTraktor = new FlowLayoutPanel();
             flowDrone = new FlowLayoutPanel();
-            lblPanen = new Label();
-            lblTraktor = new Label();
-            lblDrone = new Label();
-            openFileDialog1 = new OpenFileDialog();
-            panelMenu.SuspendLayout();
-            panelContent.SuspendLayout();
+            panelSidebar.SuspendLayout();
             panelTambahAlat.SuspendLayout();
-            panelDaftarAlat.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)pbFotoAlat).BeginInit();
+            panelNavbar.SuspendLayout();
+            panelContent.SuspendLayout();
             SuspendLayout();
             // 
-            // btnTambah
+            // panelSidebar
             // 
-            btnTambah.Location = new Point(23, 83);
-            btnTambah.Name = "btnTambah";
-            btnTambah.Size = new Size(112, 34);
-            btnTambah.TabIndex = 0;
-            btnTambah.Text = "Tambah";
-            btnTambah.UseVisualStyleBackColor = true;
-            btnTambah.Click += btnTambah_Click;
-            // 
-            // btnEdit
-            // 
-            btnEdit.Location = new Point(23, 132);
-            btnEdit.Name = "btnEdit";
-            btnEdit.Size = new Size(112, 34);
-            btnEdit.TabIndex = 1;
-            btnEdit.Text = "Edit";
-            btnEdit.UseVisualStyleBackColor = true;
-            btnEdit.Click += btnEdit_Click;
+            panelSidebar.Controls.Add(btnHapus);
+            panelSidebar.Controls.Add(btnEdit);
+            panelSidebar.Controls.Add(btnTambah);
+            panelSidebar.Dock = DockStyle.Left;
+            panelSidebar.Location = new Point(0, 0);
+            panelSidebar.Name = "panelSidebar";
+            panelSidebar.Size = new Size(233, 1050);
+            panelSidebar.TabIndex = 0;
             // 
             // btnHapus
             // 
-            btnHapus.Location = new Point(23, 172);
+            btnHapus.Location = new Point(62, 242);
             btnHapus.Name = "btnHapus";
             btnHapus.Size = new Size(112, 34);
             btnHapus.TabIndex = 2;
@@ -95,9 +86,193 @@
             btnHapus.UseVisualStyleBackColor = true;
             btnHapus.Click += btnHapus_Click;
             // 
+            // btnEdit
+            // 
+            btnEdit.Location = new Point(62, 190);
+            btnEdit.Name = "btnEdit";
+            btnEdit.Size = new Size(112, 34);
+            btnEdit.TabIndex = 1;
+            btnEdit.Text = "Edit";
+            btnEdit.UseVisualStyleBackColor = true;
+            btnEdit.Click += btnEdit_Click;
+            // 
+            // btnTambah
+            // 
+            btnTambah.Location = new Point(62, 136);
+            btnTambah.Name = "btnTambah";
+            btnTambah.Size = new Size(112, 34);
+            btnTambah.TabIndex = 0;
+            btnTambah.Text = "Tambah";
+            btnTambah.UseVisualStyleBackColor = true;
+            btnTambah.Click += btnTambah_Click;
+            // 
+            // panelTambahAlat
+            // 
+            panelTambahAlat.BackColor = SystemColors.Window;
+            panelTambahAlat.BorderStyle = BorderStyle.FixedSingle;
+            panelTambahAlat.Controls.Add(btnPilihGambar);
+            panelTambahAlat.Controls.Add(pbFotoAlat);
+            panelTambahAlat.Controls.Add(btnBatal);
+            panelTambahAlat.Controls.Add(btnSimpan);
+            panelTambahAlat.Controls.Add(cmbBBM);
+            panelTambahAlat.Controls.Add(cmbKategori);
+            panelTambahAlat.Controls.Add(txtStok);
+            panelTambahAlat.Controls.Add(txtHarga);
+            panelTambahAlat.Controls.Add(txtDeskripsi);
+            panelTambahAlat.Controls.Add(txtMerk);
+            panelTambahAlat.Controls.Add(lblBBM);
+            panelTambahAlat.Controls.Add(lblStok);
+            panelTambahAlat.Controls.Add(lblHarga);
+            panelTambahAlat.Controls.Add(lblDeskripsi);
+            panelTambahAlat.Controls.Add(lblMerk);
+            panelTambahAlat.Controls.Add(lblKategori);
+            panelTambahAlat.Location = new Point(356, 682);
+            panelTambahAlat.Name = "panelTambahAlat";
+            panelTambahAlat.Size = new Size(594, 333);
+            panelTambahAlat.TabIndex = 3;
+            panelTambahAlat.Visible = false;
+            // 
+            // btnPilihGambar
+            // 
+            btnPilihGambar.Location = new Point(68, 173);
+            btnPilihGambar.Name = "btnPilihGambar";
+            btnPilihGambar.Size = new Size(138, 34);
+            btnPilihGambar.TabIndex = 15;
+            btnPilihGambar.Text = "Pilih Gambar";
+            btnPilihGambar.UseVisualStyleBackColor = true;
+            btnPilihGambar.Click += btnPilihGambar_Click;
+            // 
+            // pbFotoAlat
+            // 
+            pbFotoAlat.BorderStyle = BorderStyle.FixedSingle;
+            pbFotoAlat.Location = new Point(40, 13);
+            pbFotoAlat.Name = "pbFotoAlat";
+            pbFotoAlat.Size = new Size(180, 140);
+            pbFotoAlat.TabIndex = 14;
+            pbFotoAlat.TabStop = false;
+            pbFotoAlat.Click += pbFotoAlat_Click;
+            // 
+            // btnBatal
+            // 
+            btnBatal.Location = new Point(145, 259);
+            btnBatal.Name = "btnBatal";
+            btnBatal.Size = new Size(72, 34);
+            btnBatal.TabIndex = 13;
+            btnBatal.Text = "Batal";
+            btnBatal.UseVisualStyleBackColor = true;
+            btnBatal.Click += btnBatal_Click;
+            // 
+            // btnSimpan
+            // 
+            btnSimpan.Location = new Point(40, 259);
+            btnSimpan.Name = "btnSimpan";
+            btnSimpan.Size = new Size(88, 34);
+            btnSimpan.TabIndex = 12;
+            btnSimpan.Text = "Simpan";
+            btnSimpan.UseVisualStyleBackColor = true;
+            btnSimpan.Click += btnSimpan_Click;
+            // 
+            // cmbBBM
+            // 
+            cmbBBM.FormattingEnabled = true;
+            cmbBBM.Location = new Point(444, 248);
+            cmbBBM.Name = "cmbBBM";
+            cmbBBM.Size = new Size(108, 33);
+            cmbBBM.TabIndex = 11;
+            // 
+            // cmbKategori
+            // 
+            cmbKategori.FormattingEnabled = true;
+            cmbKategori.Location = new Point(287, 41);
+            cmbKategori.Name = "cmbKategori";
+            cmbKategori.Size = new Size(92, 33);
+            cmbKategori.TabIndex = 10;
+            // 
+            // txtStok
+            // 
+            txtStok.Location = new Point(280, 248);
+            txtStok.Name = "txtStok";
+            txtStok.Size = new Size(99, 31);
+            txtStok.TabIndex = 9;
+            // 
+            // txtHarga
+            // 
+            txtHarga.Location = new Point(448, 148);
+            txtHarga.Name = "txtHarga";
+            txtHarga.Size = new Size(104, 31);
+            txtHarga.TabIndex = 8;
+            // 
+            // txtDeskripsi
+            // 
+            txtDeskripsi.Location = new Point(287, 148);
+            txtDeskripsi.Name = "txtDeskripsi";
+            txtDeskripsi.Size = new Size(92, 31);
+            txtDeskripsi.TabIndex = 7;
+            // 
+            // txtMerk
+            // 
+            txtMerk.Location = new Point(448, 41);
+            txtMerk.Name = "txtMerk";
+            txtMerk.Size = new Size(104, 31);
+            txtMerk.TabIndex = 6;
+            // 
+            // lblBBM
+            // 
+            lblBBM.AutoSize = true;
+            lblBBM.Location = new Point(444, 220);
+            lblBBM.Name = "lblBBM";
+            lblBBM.Size = new Size(108, 25);
+            lblBBM.TabIndex = 5;
+            lblBBM.Text = "Bahan Bakar";
+            // 
+            // lblStok
+            // 
+            lblStok.AutoSize = true;
+            lblStok.Location = new Point(295, 220);
+            lblStok.Name = "lblStok";
+            lblStok.Size = new Size(47, 25);
+            lblStok.TabIndex = 4;
+            lblStok.Text = "Stok";
+            // 
+            // lblHarga
+            // 
+            lblHarga.AutoSize = true;
+            lblHarga.Location = new Point(472, 120);
+            lblHarga.Name = "lblHarga";
+            lblHarga.Size = new Size(60, 25);
+            lblHarga.TabIndex = 3;
+            lblHarga.Text = "Harga";
+            // 
+            // lblDeskripsi
+            // 
+            lblDeskripsi.AutoSize = true;
+            lblDeskripsi.Location = new Point(295, 120);
+            lblDeskripsi.Name = "lblDeskripsi";
+            lblDeskripsi.Size = new Size(84, 25);
+            lblDeskripsi.TabIndex = 2;
+            lblDeskripsi.Text = "Deskripsi";
+            // 
+            // lblMerk
+            // 
+            lblMerk.AutoSize = true;
+            lblMerk.Location = new Point(472, 13);
+            lblMerk.Name = "lblMerk";
+            lblMerk.Size = new Size(52, 25);
+            lblMerk.TabIndex = 1;
+            lblMerk.Text = "Merk";
+            // 
+            // lblKategori
+            // 
+            lblKategori.AutoSize = true;
+            lblKategori.Location = new Point(295, 13);
+            lblKategori.Name = "lblKategori";
+            lblKategori.Size = new Size(78, 25);
+            lblKategori.TabIndex = 0;
+            lblKategori.Text = "Kategori";
+            // 
             // btnLogout
             // 
-            btnLogout.Location = new Point(23, 342);
+            btnLogout.Location = new Point(1175, 47);
             btnLogout.Name = "btnLogout";
             btnLogout.Size = new Size(112, 34);
             btnLogout.TabIndex = 3;
@@ -105,318 +280,139 @@
             btnLogout.UseVisualStyleBackColor = true;
             btnLogout.Click += btnLogout_Click;
             // 
-            // panelMenu
+            // panelNavbar
             // 
-            panelMenu.Controls.Add(btnTambah);
-            panelMenu.Controls.Add(btnLogout);
-            panelMenu.Controls.Add(btnEdit);
-            panelMenu.Controls.Add(btnHapus);
-            panelMenu.Dock = DockStyle.Left;
-            panelMenu.Location = new Point(0, 0);
-            panelMenu.Name = "panelMenu";
-            panelMenu.Size = new Size(160, 722);
-            panelMenu.TabIndex = 5;
-            panelMenu.Paint += panelMenu_Paint;
+            panelNavbar.Controls.Add(btnLogout);
+            panelNavbar.Controls.Add(btnDataUser);
+            panelNavbar.Controls.Add(btnRiwayat);
+            panelNavbar.Controls.Add(btnKelolaAlat);
+            panelNavbar.Dock = DockStyle.Top;
+            panelNavbar.Location = new Point(233, 0);
+            panelNavbar.Name = "panelNavbar";
+            panelNavbar.Size = new Size(1361, 130);
+            panelNavbar.TabIndex = 1;
+            panelNavbar.Paint += panelNavbar_Paint;
+            // 
+            // btnDataUser
+            // 
+            btnDataUser.Location = new Point(641, 47);
+            btnDataUser.Name = "btnDataUser";
+            btnDataUser.Size = new Size(112, 34);
+            btnDataUser.TabIndex = 2;
+            btnDataUser.Text = "Data User";
+            btnDataUser.UseVisualStyleBackColor = true;
+            btnDataUser.Click += btnDataUser_Click;
+            // 
+            // btnRiwayat
+            // 
+            btnRiwayat.Location = new Point(443, 47);
+            btnRiwayat.Name = "btnRiwayat";
+            btnRiwayat.Size = new Size(112, 34);
+            btnRiwayat.TabIndex = 1;
+            btnRiwayat.Text = "Riwayat";
+            btnRiwayat.UseVisualStyleBackColor = true;
+            btnRiwayat.Click += btnRiwayat_Click;
+            // 
+            // btnKelolaAlat
+            // 
+            btnKelolaAlat.Location = new Point(262, 47);
+            btnKelolaAlat.Name = "btnKelolaAlat";
+            btnKelolaAlat.Size = new Size(112, 34);
+            btnKelolaAlat.TabIndex = 0;
+            btnKelolaAlat.Text = "Kelola Alat";
+            btnKelolaAlat.UseVisualStyleBackColor = true;
+            btnKelolaAlat.Click += btnKelolaAlat_Click;
             // 
             // panelContent
             // 
-            panelContent.Controls.Add(panelTambahAlat);
-            panelContent.Controls.Add(panelHeader);
-            panelContent.Controls.Add(panelDaftarAlat);
-            panelContent.Dock = DockStyle.Fill;
-            panelContent.Location = new Point(160, 0);
+            panelContent.Controls.Add(flowPanen);
+            panelContent.Controls.Add(flowTraktor);
+            panelContent.Controls.Add(flowDrone);
+            panelContent.Location = new Point(233, 130);
             panelContent.Name = "panelContent";
-            panelContent.Size = new Size(1072, 722);
-            panelContent.TabIndex = 7;
-            panelContent.Paint += panelContent_Paint;
-            // 
-            // panelHeader
-            // 
-            panelHeader.Dock = DockStyle.Top;
-            panelHeader.Location = new Point(0, 0);
-            panelHeader.Name = "panelHeader";
-            panelHeader.Size = new Size(1072, 65);
-            panelHeader.TabIndex = 0;
-            // 
-            // panelTambahAlat
-            // 
-            panelTambahAlat.Controls.Add(lblStok);
-            panelTambahAlat.Controls.Add(lblDeskripsi);
-            panelTambahAlat.Controls.Add(blbHarga);
-            panelTambahAlat.Controls.Add(lblMerk);
-            panelTambahAlat.Controls.Add(lblBahanBakar);
-            panelTambahAlat.Controls.Add(lblKategori);
-            panelTambahAlat.Controls.Add(btnBatal);
-            panelTambahAlat.Controls.Add(btnSimpan);
-            panelTambahAlat.Controls.Add(cmbBahanBakar);
-            panelTambahAlat.Controls.Add(txtStok);
-            panelTambahAlat.Controls.Add(txtHarga);
-            panelTambahAlat.Controls.Add(txtDeskripsi);
-            panelTambahAlat.Controls.Add(txtMerk);
-            panelTambahAlat.Controls.Add(cmbKategori);
-            panelTambahAlat.Location = new Point(0, 58);
-            panelTambahAlat.Name = "panelTambahAlat";
-            panelTambahAlat.Size = new Size(467, 443);
-            panelTambahAlat.TabIndex = 2;
-            panelTambahAlat.Visible = false;
-            panelTambahAlat.Paint += panelTambahAlat_Paint;
-            // 
-            // lblStok
-            // 
-            lblStok.AutoSize = true;
-            lblStok.Location = new Point(243, 166);
-            lblStok.Name = "lblStok";
-            lblStok.Size = new Size(47, 25);
-            lblStok.TabIndex = 13;
-            lblStok.Text = "Stok";
-            // 
-            // lblDeskripsi
-            // 
-            lblDeskripsi.AutoSize = true;
-            lblDeskripsi.Location = new Point(37, 165);
-            lblDeskripsi.Name = "lblDeskripsi";
-            lblDeskripsi.Size = new Size(84, 25);
-            lblDeskripsi.TabIndex = 12;
-            lblDeskripsi.Text = "Deskripsi";
-            // 
-            // blbHarga
-            // 
-            blbHarga.AutoSize = true;
-            blbHarga.Location = new Point(259, 97);
-            blbHarga.Name = "blbHarga";
-            blbHarga.Size = new Size(60, 25);
-            blbHarga.TabIndex = 11;
-            blbHarga.Text = "Harga";
-            // 
-            // lblMerk
-            // 
-            lblMerk.AutoSize = true;
-            lblMerk.Location = new Point(36, 95);
-            lblMerk.Name = "lblMerk";
-            lblMerk.Size = new Size(52, 25);
-            lblMerk.TabIndex = 10;
-            lblMerk.Text = "Merk";
-            // 
-            // lblBahanBakar
-            // 
-            lblBahanBakar.AutoSize = true;
-            lblBahanBakar.Location = new Point(263, 18);
-            lblBahanBakar.Name = "lblBahanBakar";
-            lblBahanBakar.Size = new Size(108, 25);
-            lblBahanBakar.TabIndex = 9;
-            lblBahanBakar.Text = "Bahan Bakar";
-            // 
-            // lblKategori
-            // 
-            lblKategori.AutoSize = true;
-            lblKategori.Location = new Point(29, 18);
-            lblKategori.Name = "lblKategori";
-            lblKategori.Size = new Size(78, 25);
-            lblKategori.TabIndex = 8;
-            lblKategori.Text = "Kategori";
-            // 
-            // btnBatal
-            // 
-            btnBatal.Location = new Point(332, 255);
-            btnBatal.Name = "btnBatal";
-            btnBatal.Size = new Size(88, 34);
-            btnBatal.TabIndex = 7;
-            btnBatal.Text = "Batal";
-            btnBatal.UseVisualStyleBackColor = true;
-            btnBatal.Click += btnBatal_Click;
-            // 
-            // btnSimpan
-            // 
-            btnSimpan.Location = new Point(213, 255);
-            btnSimpan.Name = "btnSimpan";
-            btnSimpan.Size = new Size(92, 34);
-            btnSimpan.TabIndex = 6;
-            btnSimpan.Text = "Simpan";
-            btnSimpan.UseVisualStyleBackColor = true;
-            btnSimpan.Click += btnSimpan_Click;
-            // 
-            // cmbBahanBakar
-            // 
-            cmbBahanBakar.FormattingEnabled = true;
-            cmbBahanBakar.Location = new Point(263, 57);
-            cmbBahanBakar.Name = "cmbBahanBakar";
-            cmbBahanBakar.Size = new Size(182, 33);
-            cmbBahanBakar.TabIndex = 5;
-            // 
-            // txtStok
-            // 
-            txtStok.Location = new Point(242, 193);
-            txtStok.Name = "txtStok";
-            txtStok.Size = new Size(165, 31);
-            txtStok.TabIndex = 4;
-            // 
-            // txtHarga
-            // 
-            txtHarga.Location = new Point(257, 124);
-            txtHarga.Name = "txtHarga";
-            txtHarga.Size = new Size(150, 31);
-            txtHarga.TabIndex = 3;
-            // 
-            // txtDeskripsi
-            // 
-            txtDeskripsi.Location = new Point(29, 193);
-            txtDeskripsi.Name = "txtDeskripsi";
-            txtDeskripsi.Size = new Size(182, 31);
-            txtDeskripsi.TabIndex = 2;
-            // 
-            // txtMerk
-            // 
-            txtMerk.Location = new Point(38, 124);
-            txtMerk.Name = "txtMerk";
-            txtMerk.Size = new Size(150, 31);
-            txtMerk.TabIndex = 1;
-            // 
-            // cmbKategori
-            // 
-            cmbKategori.FormattingEnabled = true;
-            cmbKategori.Location = new Point(29, 57);
-            cmbKategori.Name = "cmbKategori";
-            cmbKategori.Size = new Size(182, 33);
-            cmbKategori.TabIndex = 0;
-            cmbKategori.SelectedIndexChanged += cmbKategori_SelectedIndexChanged;
-            // 
-            // panelDaftarAlat
-            // 
-            panelDaftarAlat.Controls.Add(flowPanen);
-            panelDaftarAlat.Controls.Add(panelEditAlat);
-            panelDaftarAlat.Controls.Add(flowTraktor);
-            panelDaftarAlat.Controls.Add(flowDrone);
-            panelDaftarAlat.Controls.Add(lblPanen);
-            panelDaftarAlat.Controls.Add(lblTraktor);
-            panelDaftarAlat.Controls.Add(lblDrone);
-            panelDaftarAlat.Dock = DockStyle.Fill;
-            panelDaftarAlat.Location = new Point(0, 0);
-            panelDaftarAlat.Name = "panelDaftarAlat";
-            panelDaftarAlat.Size = new Size(1072, 722);
-            panelDaftarAlat.TabIndex = 1;
-            panelDaftarAlat.Paint += panelDaftarAlat_Paint;
+            panelContent.Size = new Size(1137, 546);
+            panelContent.TabIndex = 2;
             // 
             // flowPanen
             // 
             flowPanen.AutoScroll = true;
-            flowPanen.Location = new Point(48, 414);
+            flowPanen.Location = new Point(18, 369);
             flowPanen.Name = "flowPanen";
-            flowPanen.Size = new Size(987, 140);
-            flowPanen.TabIndex = 6;
+            flowPanen.Size = new Size(1107, 150);
+            flowPanen.TabIndex = 2;
             flowPanen.WrapContents = false;
-            flowPanen.Paint += flowPanen_Paint;
-            // 
-            // panelEditAlat
-            // 
-            panelEditAlat.Location = new Point(314, 478);
-            panelEditAlat.Name = "panelEditAlat";
-            panelEditAlat.Size = new Size(385, 167);
-            panelEditAlat.TabIndex = 3;
-            panelEditAlat.Paint += panelEditAlat_Paint;
             // 
             // flowTraktor
             // 
             flowTraktor.AutoScroll = true;
-            flowTraktor.Location = new Point(47, 252);
+            flowTraktor.Location = new Point(18, 177);
             flowTraktor.Name = "flowTraktor";
-            flowTraktor.Size = new Size(988, 130);
-            flowTraktor.TabIndex = 5;
+            flowTraktor.Size = new Size(1107, 169);
+            flowTraktor.TabIndex = 1;
             flowTraktor.WrapContents = false;
-            flowTraktor.Paint += flowTraktor_Paint;
             // 
             // flowDrone
             // 
             flowDrone.AutoScroll = true;
-            flowDrone.Location = new Point(45, 58);
+            flowDrone.Location = new Point(16, 6);
             flowDrone.Name = "flowDrone";
-            flowDrone.Size = new Size(990, 150);
-            flowDrone.TabIndex = 4;
+            flowDrone.Size = new Size(1109, 153);
+            flowDrone.TabIndex = 0;
             flowDrone.WrapContents = false;
             flowDrone.Paint += flowDrone_Paint;
             // 
-            // lblPanen
-            // 
-            lblPanen.AutoSize = true;
-            lblPanen.Location = new Point(36, 385);
-            lblPanen.Name = "lblPanen";
-            lblPanen.Size = new Size(114, 25);
-            lblPanen.TabIndex = 3;
-            lblPanen.Text = "ALAT PANEN";
-            // 
-            // lblTraktor
-            // 
-            lblTraktor.AutoSize = true;
-            lblTraktor.Location = new Point(39, 211);
-            lblTraktor.Name = "lblTraktor";
-            lblTraktor.Size = new Size(87, 25);
-            lblTraktor.TabIndex = 2;
-            lblTraktor.Text = "TRAKTOR";
-            // 
-            // lblDrone
-            // 
-            lblDrone.AutoSize = true;
-            lblDrone.Location = new Point(39, 23);
-            lblDrone.Name = "lblDrone";
-            lblDrone.Size = new Size(72, 25);
-            lblDrone.TabIndex = 1;
-            lblDrone.Text = "DRONE";
-            // 
-            // openFileDialog1
-            // 
-            openFileDialog1.FileName = "[Pilih Gambar]";
-            openFileDialog1.Title = "[Pilih Gambar]";
-            openFileDialog1.FileOk += openFileDialog1_FileOk;
-            // 
             // FormKelolaAlat
             // 
-            ClientSize = new Size(1232, 722);
+            AutoScaleDimensions = new SizeF(10F, 25F);
+            AutoScaleMode = AutoScaleMode.Font;
+            ClientSize = new Size(1594, 1050);
+            Controls.Add(panelTambahAlat);
             Controls.Add(panelContent);
-            Controls.Add(panelMenu);
+            Controls.Add(panelNavbar);
+            Controls.Add(panelSidebar);
             Name = "FormKelolaAlat";
+            Text = "FormKelolaAlat";
             Load += FormKelolaAlat_Load;
-            panelMenu.ResumeLayout(false);
-            panelContent.ResumeLayout(false);
+            panelSidebar.ResumeLayout(false);
             panelTambahAlat.ResumeLayout(false);
             panelTambahAlat.PerformLayout();
-            panelDaftarAlat.ResumeLayout(false);
-            panelDaftarAlat.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)pbFotoAlat).EndInit();
+            panelNavbar.ResumeLayout(false);
+            panelContent.ResumeLayout(false);
             ResumeLayout(false);
-            // 
-            // FormKelolaAlat
-
         }
 
         #endregion
-        private Button btnTambah;
-        private Button btnEdit;
-        private Button btnHapus;
-        private Button btnLogout;
-        private Panel panelMenu;
+
+        private Panel panelSidebar;
+        private Panel panelNavbar;
         private Panel panelContent;
-        private Panel panelHeader;
-        private Panel panelEditAlat;
+        private FlowLayoutPanel flowPanen;
+        private FlowLayoutPanel flowTraktor;
+        private FlowLayoutPanel flowDrone;
+        private Button btnLogout;
+        private Button btnHapus;
+        private Button btnEdit;
+        private Button btnTambah;
         private Panel panelTambahAlat;
-        private Panel panelDaftarAlat;
+        private Label lblHarga;
+        private Label lblDeskripsi;
+        private Label lblMerk;
+        private Label lblKategori;
+        private Button btnSimpan;
+        private ComboBox cmbBBM;
+        private ComboBox cmbKategori;
+        private TextBox txtStok;
         private TextBox txtHarga;
         private TextBox txtDeskripsi;
         private TextBox txtMerk;
-        private ComboBox cmbKategori;
-        private ComboBox cmbBahanBakar;
-        private TextBox txtStok;
-        private Button btnSimpan;
-        private Button btnBatal;
-        private Label lblBahanBakar;
-        private Label lblKategori;
+        private Label lblBBM;
         private Label lblStok;
-        private Label lblDeskripsi;
-        private Label blbHarga;
-        private Label lblMerk;
-        private Label lblDrone;
-        private FlowLayoutPanel flowDrone;
-        private Label lblPanen;
-        private Label lblTraktor;
-        private FlowLayoutPanel flowPanen;
-        private FlowLayoutPanel flowTraktor;
-        private OpenFileDialog openFileDialog1;
+        private Button btnBatal;
+        private Button btnPilihGambar;
+        private PictureBox pbFotoAlat;
+        private Button btnRiwayat;
+        private Button btnKelolaAlat;
+        private Button btnDataUser;
     }
 }
