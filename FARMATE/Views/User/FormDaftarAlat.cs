@@ -88,8 +88,7 @@ namespace FARMATE.Views.User
                 new Point(65, 350);
 
             btnDetail.Tag = idAlat;
-
-
+            btnDetail.Click += BtnDetail_Click;
 
             card.Controls.Add(pb);
             card.Controls.Add(lblMerk);
@@ -100,18 +99,17 @@ namespace FARMATE.Views.User
             flowAlat.Controls.Add(card);
         }
 
+        private void BtnDetail_Click(object sender, EventArgs e)
+        {
+            Button btn = (Button)sender;
+
+            int idAlat = Convert.ToInt32(btn.Tag);
+
+            MessageBox.Show("ID Alat = " + idAlat);
+        }
+
         private void LoadDataAlat()
         {
-            if (cmbKategori.SelectedValue == null)
-                return;
-
-            if (cmbKategori.SelectedValue is DataRowView)
-                return;
-
-            int idKategori =
-    Convert.ToInt32(
-    cmbKategori.SelectedValue);
-
             flowAlat.Controls.Clear();
 
             using (var conn = Koneksi.GetConnection())
@@ -123,7 +121,31 @@ namespace FARMATE.Views.User
         FROM Alat";
 
                 NpgsqlCommand cmd =
-                    new NpgsqlCommand(sql, conn);
+                    new NpgsqlCommand();
+
+                cmd.Connection = conn;
+
+                int kategori = 0;
+
+                if (cmbKategori.SelectedValue != null &&
+                    !(cmbKategori.SelectedValue is DataRowView))
+                {
+                    kategori =
+                        Convert.ToInt32(
+                        cmbKategori.SelectedValue);
+                }
+
+                if (kategori != 0)
+                {
+                    sql +=
+                        " WHERE id_kategori = @kategori";
+
+                    cmd.Parameters.AddWithValue(
+                        "@kategori",
+                        kategori);
+                }
+
+                cmd.CommandText = sql;
 
                 NpgsqlDataReader rd =
                     cmd.ExecuteReader();
@@ -136,18 +158,24 @@ namespace FARMATE.Views.User
                         rd["deskripsi"].ToString(),
                         Convert.ToDecimal(rd["harga_perhari"]),
                         rd["foto_alat"].ToString()
-
                     );
                 }
             }
+        
         }
+
+        
+                
 
         private void FormDaftarAlat_Load(object sender, EventArgs e)
         {
 
             LoadKategori();
-
+            cmbKategori.SelectedIndex = 0;
+            LoadDataAlat();
         }
+
+        
 
         private void flowAlat_Paint(object sender, PaintEventArgs e)
         {
@@ -164,7 +192,7 @@ namespace FARMATE.Views.User
                 @"SELECT id_kategori,
                  nama_kategori
           FROM KategoriAlat
-          ORDER BY nama_kategori";
+          ORDER BY id_kategori";
 
                 NpgsqlDataAdapter da =
                     new NpgsqlDataAdapter(sql, conn);
@@ -172,6 +200,12 @@ namespace FARMATE.Views.User
                 DataTable dt = new DataTable();
 
                 da.Fill(dt);
+
+                DataRow row = dt.NewRow();
+                row["id_kategori"] = 0;
+                row["nama_kategori"] = "Semua Kategori";
+
+                dt.Rows.InsertAt(row, 0);
 
                 cmbKategori.DataSource = dt;
 
@@ -182,69 +216,7 @@ namespace FARMATE.Views.User
                     "id_kategori";
             }
         }
-        private void BuatCardAlat(
-    int idAlat,
-    string merk,
-    string deskripsi,
-    string harga,
-    string gambarPath)
-        {
-            Panel card = new Panel();
-            card.Width = 280;
-            card.Height = 420;
-            card.BorderStyle = BorderStyle.FixedSingle;
-            card.BackColor = Color.White;
-            card.Tag = idAlat;
-
-            // Gambar
-            PictureBox pb = new PictureBox();
-            pb.Width = 280;
-            pb.Height = 180;
-            pb.Location = new Point(0, 0);
-            pb.SizeMode = PictureBoxSizeMode.StretchImage;
-
-            if (!string.IsNullOrEmpty(gambarPath) && File.Exists(gambarPath))
-            {
-                pb.Image = Image.FromFile(gambarPath);
-            }
-
-            // Merk
-            Label lblMerk = new Label();
-            lblMerk.Text = merk;
-            lblMerk.Font = new Font("Segoe UI", 12, FontStyle.Bold);
-            lblMerk.Location = new Point(20, 200);
-            lblMerk.AutoSize = true;
-
-            // Deskripsi
-            Label lblDeskripsi = new Label();
-            lblDeskripsi.Text = deskripsi;
-            lblDeskripsi.Location = new Point(20, 240);
-            lblDeskripsi.Size = new Size(220, 50);
-
-            // Harga
-            Label lblHarga = new Label();
-            lblHarga.Text = "Rp " + harga + " /hari";
-            lblHarga.Font = new Font("Segoe UI", 11, FontStyle.Bold);
-            lblHarga.ForeColor = Color.DarkGreen;
-            lblHarga.Location = new Point(20, 300);
-            lblHarga.AutoSize = true;
-
-            // Button Detail
-            Button btnDetail = new Button();
-            btnDetail.Text = "Lihat Detail";
-            btnDetail.Width = 150;
-            btnDetail.Height = 40;
-            btnDetail.Location = new Point(60, 350);
-            btnDetail.Tag = idAlat;
-
-            card.Controls.Add(pb);
-            card.Controls.Add(lblMerk);
-            card.Controls.Add(lblDeskripsi);
-            card.Controls.Add(lblHarga);
-            card.Controls.Add(btnDetail);
-
-            flowAlat.Controls.Add(card);
-        }
+        
 
         private void cmbKategori_SelectedIndexChanged(object sender, EventArgs e)
         {
@@ -255,8 +227,6 @@ namespace FARMATE.Views.User
 
             if (cmbKategori.SelectedValue is DataRowView)
                 return;
-
-            MessageBox.Show(cmbKategori.SelectedValue.ToString());
 
 
             LoadDataAlat();

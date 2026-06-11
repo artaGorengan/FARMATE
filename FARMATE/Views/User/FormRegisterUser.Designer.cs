@@ -88,6 +88,7 @@
             txtConfirmPassword.Name = "txtConfirmPassword";
             txtConfirmPassword.Size = new Size(150, 31);
             txtConfirmPassword.TabIndex = 5;
+            txtConfirmPassword.TextChanged += txtConfirmPassword_TextChanged;
             // 
             // btnRegister
             // 

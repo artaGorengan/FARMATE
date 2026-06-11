@@ -74,7 +74,7 @@ namespace FARMATE.Views.User
 
         private void FormLoginUser_Load(object sender, EventArgs e)
         {
-
+            txtPassword.UseSystemPasswordChar = true;
         }
     }
 }

@@ -13,7 +13,7 @@ namespace FARMATE.Repositories
         {
             var list = new List<Alat>();
             using var conn = Koneksi.GetConnection();
-            conn.Open();
+            conn.Open(); 
             string sql = @"
                 SELECT a.*, k.nama_kategori
                 FROM   Alat a

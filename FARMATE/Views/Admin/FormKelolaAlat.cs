@@ -39,7 +39,11 @@ namespace FARMATE.Views.Admin
             cmbBBM.Items.Add("Solar");
             cmbBBM.Items.Add("Listrik");
 
+            panelTambahAlat.Visible = false;
+
             LoadDataAlat();
+            LoadStatistik();
+            LoadKategori();
         }
         private void flowDrone_Paint(object sender, PaintEventArgs e)
         {
@@ -53,6 +57,7 @@ namespace FARMATE.Views.Admin
 
         private void btnTambah_Click(object sender, EventArgs e)
         {
+
 
             panelTambahAlat.Visible = true;
             panelTambahAlat.BringToFront();
@@ -74,6 +79,8 @@ namespace FARMATE.Views.Admin
 
             panelTambahAlat.Visible = false;
 
+
+
         }
 
         private void btnPilihGambar_Click(object sender, EventArgs e)
@@ -91,7 +98,8 @@ namespace FARMATE.Views.Admin
 
         private void pbFotoAlat_Click(object sender, EventArgs e)
         {
-
+            pbFotoAlat.SizeMode =
+    PictureBoxSizeMode.Zoom;
         }
         private void LoadKategori()
         {
@@ -103,13 +111,8 @@ namespace FARMATE.Views.Admin
                 SELECT
                 id_kategori,
                 nama_kategori
-                FROM KategoriAlat
-                ORDER BY
-                CASE
-                WHEN nama_kategori = 'Drone Pertanian' THEN 1
-                WHEN nama_kategori = 'Traktor' THEN 2
-                WHEN nama_kategori = 'Mesin Panen' THEN 3
-                END";
+                FROM KategoriAlat;";
+
 
                 NpgsqlCommand cmd = new NpgsqlCommand(sql, conn);
 
@@ -120,6 +123,8 @@ namespace FARMATE.Views.Admin
                 cmbKategori.DataSource = dt;
                 cmbKategori.DisplayMember = "nama_kategori";
                 cmbKategori.ValueMember = "id_kategori";
+
+
             }
         }
         private void TambahAlat()
@@ -138,16 +143,7 @@ namespace FARMATE.Views.Admin
 
                 cmd.Parameters.AddWithValue("@admin", UserSession.AdminID);
 
-                int idKategori = 0;
-
-                if (cmbKategori.Text == "Drone Pertanian")
-                    idKategori = 1;
-                else if (cmbKategori.Text == "Traktor")
-                    idKategori = 2;
-                else if (cmbKategori.Text == "Mesin Panen")
-                    idKategori = 3;
-
-                cmd.Parameters.AddWithValue("@kategori", idKategori);
+                cmd.Parameters.AddWithValue("@kategori", Convert.ToInt32(cmbKategori.SelectedValue));
                 cmd.Parameters.AddWithValue("@merk", txtMerk.Text);
                 cmd.Parameters.AddWithValue("@deskripsi", txtDeskripsi.Text);
                 cmd.Parameters.AddWithValue("@harga", decimal.Parse(txtHarga.Text));
@@ -159,6 +155,9 @@ namespace FARMATE.Views.Admin
             }
 
             MessageBox.Show("Alat berhasil ditambahkan");
+
+            LoadStatistik();
+            LoadDataAlat();
         }
         private void BuatCardAlat(FlowLayoutPanel panel, int idAlat, string merk, string harga, string stok)
         {
@@ -308,6 +307,10 @@ namespace FARMATE.Views.Admin
             isEditMode = false;
 
             btnSimpan.Text = "Simpan";
+
+            LoadDataAlat();
+            LoadStatistik();
+
         }
         private void btnSimpan_Click(object sender, EventArgs e)
         {
@@ -329,6 +332,10 @@ namespace FARMATE.Views.Admin
 
         private void LoadDataEdit(int idAlat)
         {
+
+            panelTambahAlat.Visible = true;
+            panelTambahAlat.BringToFront();
+
             using (var conn = Koneksi.GetConnection())
             {
                 conn.Open();
@@ -446,6 +453,7 @@ namespace FARMATE.Views.Admin
             selectedIdAlat = 0;
 
             LoadDataAlat();
+            LoadStatistik();
         }
 
         private void btnLogout_Click(object sender, EventArgs e)
@@ -474,6 +482,89 @@ namespace FARMATE.Views.Admin
             FormDataUser form = new FormDataUser();
             form.Show();
             this.Hide();
+        }
+
+        private void LoadStatistik()
+        {
+            using (var conn = Koneksi.GetConnection())
+            {
+                conn.Open();
+
+                // Total Alat
+                string sqlTotal =
+                    "SELECT COUNT(*) FROM Alat";
+
+                lblTotalAlat.Text =
+                    new NpgsqlCommand(sqlTotal, conn)
+                    .ExecuteScalar()
+                    .ToString();
+
+
+                // Drone
+                string sqlDrone = @"
+        SELECT COUNT(*)
+        FROM Alat a
+        JOIN KategoriAlat k
+        ON a.id_kategori = k.id_kategori
+        WHERE k.nama_kategori='Drone Pertanian'";
+
+                lblTotalDrone.Text =
+                    new NpgsqlCommand(sqlDrone, conn)
+                    .ExecuteScalar()
+                    .ToString();
+
+
+                // Traktor
+                string sqlTraktor = @"
+        SELECT COUNT(*)
+        FROM Alat a
+        JOIN KategoriAlat k
+        ON a.id_kategori = k.id_kategori
+        WHERE k.nama_kategori='Traktor'";
+
+                lblTotalTraktor.Text =
+                    new NpgsqlCommand(sqlTraktor, conn)
+                    .ExecuteScalar()
+                    .ToString();
+
+
+                // Mesin Panen
+                string sqlPanen = @"
+        SELECT COUNT(*)
+        FROM Alat a
+        JOIN KategoriAlat k
+        ON a.id_kategori = k.id_kategori
+        WHERE k.nama_kategori='Mesin Panen'";
+
+                lblTotalPanen.Text =
+                    new NpgsqlCommand(sqlPanen, conn)
+                    .ExecuteScalar()
+                    .ToString();
+            }
+        }
+        private void panelTambahAlat_Paint(object sender, PaintEventArgs e)
+        {
+
+        }
+
+        private void flowTraktor_Paint(object sender, PaintEventArgs e)
+        {
+
+        }
+
+        private void flowPanen_Paint(object sender, PaintEventArgs e)
+        {
+
+        }
+
+        private void cmbKategori_SelectedIndexChanged(object sender, EventArgs e)
+        {
+
+        }
+
+        private void cmbBBM_SelectedIndexChanged(object sender, EventArgs e)
+        {
+
         }
     }
 

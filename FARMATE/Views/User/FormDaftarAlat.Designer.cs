@@ -49,7 +49,7 @@
             panelNavbar.Dock = DockStyle.Top;
             panelNavbar.Location = new Point(0, 0);
             panelNavbar.Name = "panelNavbar";
-            panelNavbar.Size = new Size(800, 78);
+            panelNavbar.Size = new Size(1038, 78);
             panelNavbar.TabIndex = 0;
             // 
             // btnLogout
@@ -84,6 +84,7 @@
             // 
             // cmbKategori
             // 
+            cmbKategori.DropDownStyle = ComboBoxStyle.DropDownList;
             cmbKategori.FormattingEnabled = true;
             cmbKategori.Location = new Point(139, 23);
             cmbKategori.Name = "cmbKategori";
@@ -102,9 +103,10 @@
             // flowAlat
             // 
             flowAlat.AutoScroll = true;
+            flowAlat.Dock = DockStyle.Fill;
             flowAlat.Location = new Point(0, 78);
             flowAlat.Name = "flowAlat";
-            flowAlat.Size = new Size(800, 372);
+            flowAlat.Size = new Size(1038, 650);
             flowAlat.TabIndex = 1;
             flowAlat.Paint += flowAlat_Paint;
             // 
@@ -112,7 +114,7 @@
             // 
             AutoScaleDimensions = new SizeF(10F, 25F);
             AutoScaleMode = AutoScaleMode.Font;
-            ClientSize = new Size(800, 450);
+            ClientSize = new Size(1038, 728);
             Controls.Add(flowAlat);
             Controls.Add(panelNavbar);
             Name = "FormDaftarAlat";
