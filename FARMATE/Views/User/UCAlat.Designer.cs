@@ -93,6 +93,7 @@
             Controls.Add(pbFoto);
             Name = "UCAlat";
             Size = new Size(280, 420);
+            Load += UCAlat_Load_1;
             ((System.ComponentModel.ISupportInitialize)pbFoto).EndInit();
             ResumeLayout(false);
             PerformLayout();

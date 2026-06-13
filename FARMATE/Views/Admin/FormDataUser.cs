@@ -1,4 +1,6 @@
-﻿using System;
+﻿using FARMATE.Utils;
+using Npgsql;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
@@ -17,21 +19,7 @@ namespace FARMATE.Views.Admin
 
         private void FormDataUser_Load(object sender, EventArgs e)
         {
-            BuatBarisUser(
-        "Andi",
-        "andi123",
-        "andi@gmail.com",
-        "08123456789",
-        "Malang",
-        "3");
-
-            BuatBarisUser(
-                "Budi",
-                "budi77",
-                "budi@gmail.com",
-                "08111111111",
-                "Blitar",
-                "5");
+            LoadDataUser();
         }
 
         private void btnKelolaAlat_Click(object sender, EventArgs e)
@@ -102,11 +90,67 @@ namespace FARMATE.Views.Admin
             flowUser.Controls.Add(row);
         }
 
+        private void LoadDataUser()
+        {
+            flowUser.Controls.Clear();
+
+            using (var conn = Koneksi.GetConnection())
+            {
+                conn.Open();
+
+                string sql = @"
+SELECT
+    u.nama_user,
+    u.username,
+    u.email,
+    u.no_telepon,
+    u.alamat,
+    COUNT(p.id_sewa) AS total_sewa
+FROM Users u
+LEFT JOIN Penyewaan p
+    ON u.id_user = p.id_user
+GROUP BY
+    u.id_user,
+    u.nama_user,
+    u.username,
+    u.email,
+    u.no_telepon,
+    u.alamat";
+
+                NpgsqlCommand cmd =
+                    new NpgsqlCommand(sql, conn);
+
+                NpgsqlDataReader rd =
+                    cmd.ExecuteReader();
+
+                while (rd.Read())
+                {
+                    UCDataUser row =
+                        new UCDataUser();
+
+                    row.SetData(
+    rd["nama_user"].ToString(),
+    rd["username"].ToString(),
+    rd["email"].ToString(),
+    rd["no_telepon"].ToString(),
+    rd["alamat"].ToString(),
+    rd["total_sewa"].ToString()
+);
+
+                    flowUser.Controls.Add(row);
+                }
+            }
+        }
         private void btnDataUser_Click(object sender, EventArgs e)
         {
             FormDataUser form = new FormDataUser();
             form.Show();
             this.Hide();
+        }
+
+        private void flowUser_Paint(object sender, PaintEventArgs e)
+        {
+
         }
     }
 }

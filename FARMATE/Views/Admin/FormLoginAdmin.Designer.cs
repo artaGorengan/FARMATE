@@ -33,6 +33,7 @@
             btnLogin = new Button();
             lblPassword = new Label();
             lblUsername = new Label();
+            btnKeluar = new Button();
             SuspendLayout();
             // 
             // txtUsername
@@ -80,11 +81,22 @@
             lblUsername.Text = "Username";
             lblUsername.Click += lblUsername_Click;
             // 
+            // btnKeluar
+            // 
+            btnKeluar.Location = new Point(257, 327);
+            btnKeluar.Name = "btnKeluar";
+            btnKeluar.Size = new Size(112, 34);
+            btnKeluar.TabIndex = 9;
+            btnKeluar.Text = "Keluar";
+            btnKeluar.UseVisualStyleBackColor = true;
+            btnKeluar.Click += btnKeluar_Click;
+            // 
             // FormLoginAdmin
             // 
             AutoScaleDimensions = new SizeF(10F, 25F);
             AutoScaleMode = AutoScaleMode.Font;
             ClientSize = new Size(800, 450);
+            Controls.Add(btnKeluar);
             Controls.Add(lblUsername);
             Controls.Add(lblPassword);
             Controls.Add(btnLogin);
@@ -104,5 +116,6 @@
         private Button btnLogin;
         private Label lblPassword;
         private Label lblUsername;
+        private Button btnKeluar;
     }
 }

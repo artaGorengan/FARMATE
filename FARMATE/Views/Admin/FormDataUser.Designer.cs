@@ -37,7 +37,6 @@
             lblsubjudul = new Label();
             lblUIser = new Label();
             panelContainer = new Panel();
-            flowUser = new FlowLayoutPanel();
             panelKolom = new Panel();
             lblTotalSewa = new Label();
             lblAlamat = new Label();
@@ -45,6 +44,7 @@
             lblEmail = new Label();
             lblUsername = new Label();
             lblNama = new Label();
+            flowUser = new FlowLayoutPanel();
             panelNavbar.SuspendLayout();
             panelHeader.SuspendLayout();
             panelContainer.SuspendLayout();
@@ -140,16 +140,6 @@
             panelContainer.Size = new Size(800, 339);
             panelContainer.TabIndex = 2;
             // 
-            // flowUser
-            // 
-            flowUser.AutoScroll = true;
-            flowUser.FlowDirection = FlowDirection.TopDown;
-            flowUser.Location = new Point(0, 47);
-            flowUser.Name = "flowUser";
-            flowUser.Size = new Size(800, 292);
-            flowUser.TabIndex = 1;
-            flowUser.WrapContents = false;
-            // 
             // panelKolom
             // 
             panelKolom.BackColor = SystemColors.ActiveCaption;
@@ -218,6 +208,17 @@
             lblNama.TabIndex = 0;
             lblNama.Text = "Nama";
             // 
+            // flowUser
+            // 
+            flowUser.AutoScroll = true;
+            flowUser.FlowDirection = FlowDirection.TopDown;
+            flowUser.Location = new Point(0, 47);
+            flowUser.Name = "flowUser";
+            flowUser.Size = new Size(800, 292);
+            flowUser.TabIndex = 1;
+            flowUser.WrapContents = false;
+            flowUser.Paint += flowUser_Paint;
+            // 
             // FormDataUser
             // 
             AutoScaleDimensions = new SizeF(10F, 25F);
@@ -243,7 +244,6 @@
         private Panel panelNavbar;
         private Panel panelHeader;
         private Panel panelContainer;
-        private FlowLayoutPanel flowUser;
         private Panel panelKolom;
         private Label lblNama;
         private Label lblUIser;
@@ -257,5 +257,6 @@
         private Button btnDataUser;
         private Button btnRiwayat;
         private Button btnLogout;
+        private FlowLayoutPanel flowUser;
     }
 }

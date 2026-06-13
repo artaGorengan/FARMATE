@@ -56,5 +56,10 @@ namespace FARMATE.Views.User
         {
 
         }
+
+        private void UCAlat_Load_1(object sender, EventArgs e)
+        {
+
+        }
     }
 }

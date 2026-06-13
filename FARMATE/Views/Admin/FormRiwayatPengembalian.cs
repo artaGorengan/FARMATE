@@ -114,24 +114,32 @@ namespace FARMATE.Views.Admin
 
                     if (rd["status_sewa"].ToString() == "Sedang Disewa")
                     {
-                        DateTime batas = Convert.ToDateTime(rd["tgl_pengembalian"]);
-                        if (DateTime.Today > batas)
+                        DateOnly batas =
+                        (DateOnly)rd["tgl_pengembalian"];
+                        DateOnly hariIni =
+                        DateOnly.FromDateTime(
+                        DateTime.Today);
+
+                        if (hariIni > batas)
                         {
-                            int telat = (DateTime.Today - batas).Days;
+                            int telat = hariIni.DayNumber - batas.DayNumber;
                             denda = telat * 50000;
                         }
+
                     }
 
                     BuatCardRiwayat(
-                        Convert.ToInt32(rd["id_sewa"]),
-                        rd["nama_user"].ToString(),
-                        rd["merk_alat"].ToString(),
-                        durasi + " Hari",
-                        tglSewa.ToString("dd/MM/yyyy"),
-                        tglKembali.ToString("dd/MM/yyyy"),
-                        "Rp " + denda.ToString("N0"),
-                        rd["status_sewa"].ToString()
+                    Convert.ToInt32(rd["id_sewa"]),
+                    rd["nama_user"].ToString(),
+                    rd["merk_alat"].ToString(),
+                    durasi + " Hari",
+                    tglSewa.ToString("dd/MM/yyyy"),
+                    tglKembali.ToString("dd/MM/yyyy"),
+                    "Rp " + denda.ToString("N0"),
+                    rd["status_sewa"].ToString()
                     );
+
+
                 }
             }
         }
@@ -204,6 +212,11 @@ namespace FARMATE.Views.Admin
             btnKonfirmasi.Width = 100;
             btnKonfirmasi.Height = 35;
 
+            if (status.ToString() == "Selesai")
+            {
+                btnKonfirmasi.Visible = false;
+            }
+
             btnKonfirmasi.Location =
                 new Point(1020, 12);
 
@@ -252,35 +265,24 @@ namespace FARMATE.Views.Admin
                     int idAlat = Convert.ToInt32(cmdAlat.ExecuteScalar());
 
                     string sqlTanggal = @"
-SELECT tgl_pengembalian
-FROM Penyewaan
-WHERE id_sewa=@id";
+                    SELECT tgl_pengembalian
+                    FROM Penyewaan
+                    WHERE id_sewa=@id";
 
-                    NpgsqlCommand cmdTanggal =
-                        new NpgsqlCommand(
-                            sqlTanggal,
-                            conn);
-
+                    NpgsqlCommand cmdTanggal = new NpgsqlCommand(sqlTanggal, conn);
                     cmdTanggal.Transaction = trans;
+                    cmdTanggal.Parameters.AddWithValue("@id", idSewa);
+                    DateOnly batasKembali = (DateOnly)
 
-                    cmdTanggal.Parameters.AddWithValue(
-                        "@id",
-                        idSewa);
-
-                    DateTime batasKembali =
-                        Convert.ToDateTime(
-                        cmdTanggal.ExecuteScalar());
+                    cmdTanggal.ExecuteScalar();
 
                     decimal denda = 0;
 
-                    if (DateTime.Today > batasKembali)
+                    DateOnly hariIni = DateOnly.FromDateTime(DateTime.Today);
+                    if (hariIni > batasKembali)
                     {
-                        int hariTelat =
-                            (DateTime.Today - batasKembali)
-                            .Days;
-
-                        denda =
-                            hariTelat * 50000;
+                        int hariTelat = hariIni.DayNumber - batasKembali.DayNumber;
+                        denda = hariTelat * 50000;
                     }
 
                     string sqlInsert = @"

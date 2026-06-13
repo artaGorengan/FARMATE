@@ -1,10 +1,11 @@
+using FARMATE.Session;
 using FARMATE.Utils;
+using FARMATE.Views;
 using FARMATE.Views.Admin;
 using FARMATE.Views.User;
 using Npgsql;
 using System.Diagnostics.Eventing.Reader;
 using System.Drawing.Text;
-using FARMATE.Session;
 
 namespace FARMATE
 {
@@ -81,5 +82,11 @@ namespace FARMATE
 
         }
 
+        private void btnKeluar_Click(object sender, EventArgs e)
+        {
+            FormWelcome form = new FormWelcome();
+            form.Show();
+            this.Close();
+        }
     }
 }

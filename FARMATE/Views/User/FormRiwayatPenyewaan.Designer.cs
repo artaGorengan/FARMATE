@@ -280,6 +280,7 @@
             flowRiwayat.Size = new Size(1251, 282);
             flowRiwayat.TabIndex = 0;
             flowRiwayat.WrapContents = false;
+            flowRiwayat.Paint += flowRiwayat_Paint;
             // 
             // FormRiwayatPenyewaan
             // 

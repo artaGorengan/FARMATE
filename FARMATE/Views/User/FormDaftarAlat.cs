@@ -30,6 +30,7 @@ namespace FARMATE.Views.User
             int idAlat = Convert.ToInt32(btn.Tag);
             FormDetailAlat form = new FormDetailAlat(idAlat);
             form.ShowDialog();
+            
 
 
         }
@@ -39,6 +40,7 @@ namespace FARMATE.Views.User
             UCAlat card = (UCAlat)sender;
             FormDetailAlat form = new FormDetailAlat(card.IdAlat);
             form.Show();
+           
         }
         private void LoadDataAlat()
         {

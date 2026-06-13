@@ -51,6 +51,8 @@
             label1 = new Label();
             label2 = new Label();
             label3 = new Label();
+            lblStok = new Label();
+            label = new Label();
             panelNavbar.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)pbFoto).BeginInit();
             panelSewa.SuspendLayout();
@@ -277,11 +279,31 @@
             label3.TabIndex = 10;
             label3.Text = "BBM";
             // 
+            // lblStok
+            // 
+            lblStok.AutoSize = true;
+            lblStok.Location = new Point(119, 452);
+            lblStok.Name = "lblStok";
+            lblStok.Size = new Size(47, 25);
+            lblStok.TabIndex = 13;
+            lblStok.Text = "Stok";
+            // 
+            // label
+            // 
+            label.AutoSize = true;
+            label.Location = new Point(66, 452);
+            label.Name = "label";
+            label.Size = new Size(47, 25);
+            label.TabIndex = 14;
+            label.Text = "Stok";
+            // 
             // FormDetailAlat
             // 
             AutoScaleDimensions = new SizeF(10F, 25F);
             AutoScaleMode = AutoScaleMode.Font;
             ClientSize = new Size(1178, 644);
+            Controls.Add(label);
+            Controls.Add(lblStok);
             Controls.Add(label3);
             Controls.Add(label2);
             Controls.Add(label1);
@@ -329,5 +351,7 @@
         private Button btnLogout;
         private Button btnRiwayat;
         private Button btnDaftarAlat;
+        private Label lblStok;
+        private Label label;
     }
 }

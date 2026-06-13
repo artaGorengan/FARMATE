@@ -18,7 +18,7 @@ namespace FARMATE.Views.User
         private decimal hargaPerHari;
         private int jumlahHari = 1;
         private int stokTersedia;
-       
+
 
         public FormDetailAlat(int id)
         {
@@ -85,6 +85,7 @@ namespace FARMATE.Views.User
     Convert.ToInt32(
     rd["stok_tersedia"]);
 
+
                     string foto =
                         rd["foto_alat"].ToString();
 
@@ -142,8 +143,14 @@ namespace FARMATE.Views.User
 
                     return;
                 }
+                if (stokTersedia <= 0)
+                {
+                    MessageBox.Show(
+                        "Stok alat habis!");
 
-              
+                    return;
+                }
+
 
                 string sql = @"
         INSERT INTO Penyewaan
@@ -212,7 +219,7 @@ WHERE id_alat = @id";
 
             this.Close();
 
-           
+
         }
 
         private void btnSewa_Click(object sender, EventArgs e)
@@ -239,6 +246,11 @@ WHERE id_alat = @id";
             FormWelcome form = new FormWelcome();
             form.Show();
             this.Hide();
+        }
+
+        private void label4_Click(object sender, EventArgs e)
+        {
+
         }
     }
 }

@@ -79,10 +79,17 @@ namespace FARMATE.Views.User
                 while (rd.Read())
                 {
                     UCRiwayat uc = new UCRiwayat();
-                    DateTime tglSewa = Convert.ToDateTime(rd["tgl_sewa"]);
-                    DateTime tglKembali = Convert.ToDateTime(rd["tgl_pengembalian"]);
 
-                    int durasi = (tglKembali - tglSewa).Days;
+                    DateOnly tglSewa =
+                        (DateOnly)rd["tgl_sewa"];
+
+                    DateOnly tglKembali =
+                        (DateOnly)rd["tgl_pengembalian"];
+
+                    int durasi =
+                        tglKembali.DayNumber -
+                        tglSewa.DayNumber;
+
                     uc.SetData(
                         rd["merk_alat"].ToString(),
                         rd["nama_kategori"].ToString(),
@@ -199,6 +206,11 @@ namespace FARMATE.Views.User
             FormWelcome form = new FormWelcome();
             form.Show();
             this.Hide();
+        }
+
+        private void flowRiwayat_Paint(object sender, PaintEventArgs e)
+        {
+
         }
     }
 }
