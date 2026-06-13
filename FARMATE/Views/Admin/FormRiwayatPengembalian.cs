@@ -18,25 +18,125 @@ namespace FARMATE.Views.Admin
             InitializeComponent();
         }
 
+       
         private void FormRiwayatPengembalian_Load(object sender, EventArgs e)
         {
-            lblPenyewaan.Text = "15";
-            lblSedangDisewa.Text = "3";
-            lblSelesai.Text = "10";
-            lblTerlambat.Text = "2";
-
-            BuatCardRiwayat(
-           "Andi",
-           "DJI Agras T50",
-           "3 Hari",
-           "01/06/2026",
-           "04/06/2026",
-           "0",
-           "Selesai");
-
-
+            LoadStatistik();
+            LoadRiwayat();
         }
 
+        private void LoadStatistik()
+        {
+            using (var conn = Koneksi.GetConnection())
+            {
+                conn.Open();
+
+                string sql = @"
+                SELECT
+                COUNT(*) AS total,
+                COUNT(*) FILTER
+                (WHERE status_sewa='Sedang Disewa')
+                AS sedang,
+                COUNT(*) FILTER
+                (WHERE status_sewa='Selesai')
+                AS selesai
+                FROM Penyewaan";
+
+                NpgsqlCommand cmd = new NpgsqlCommand(sql, conn);
+
+
+                NpgsqlDataReader rd = cmd.ExecuteReader();
+
+
+                if (rd.Read())
+                {
+                    lblPenyewaan.Text = rd["total"].ToString();
+                    lblSedangDisewa.Text = rd["sedang"].ToString();        
+                    lblSelesai.Text = rd["selesai"].ToString();
+                }
+            }
+
+            HitungTerlambat();
+        }
+
+        private void HitungTerlambat()
+        {
+            using (var conn = Koneksi.GetConnection())
+            {
+                conn.Open();
+
+                string sql = @"
+                SELECT COUNT(*)
+                FROM Penyewaan
+                WHERE
+                status_sewa='Sedang Disewa'
+                AND tgl_pengembalian <
+                CURRENT_DATE";
+
+                NpgsqlCommand cmd = new NpgsqlCommand(sql, conn);
+                lblTerlambat.Text = cmd.ExecuteScalar().ToString();
+
+            }
+        }
+        private void LoadRiwayat()
+        {
+            flowRiwayat.Controls.Clear();
+
+            using (var conn = Koneksi.GetConnection())
+            {
+                conn.Open();
+
+                string sql = @"
+                SELECT
+                p.id_sewa,
+                u.nama_user,
+                a.merk_alat,
+                p.tgl_sewa,
+                p.tgl_pengembalian,
+                p.total_harga,
+                p.status_sewa
+                FROM Penyewaan p
+                JOIN Users u
+                ON p.id_user = u.id_user
+                JOIN Alat a
+                ON p.id_alat = a.id_alat
+                ORDER BY p.id_sewa DESC";
+
+                NpgsqlCommand cmd = new NpgsqlCommand(sql, conn);
+                NpgsqlDataReader rd = cmd.ExecuteReader();
+
+                while (rd.Read())
+                {
+                    DateOnly tglSewa = (DateOnly)rd["tgl_sewa"];
+                    DateOnly tglKembali = (DateOnly)rd["tgl_pengembalian"];
+                    int durasi = tglKembali.DayNumber - tglSewa.DayNumber;
+                    decimal denda = 0;
+
+                    if (rd["status_sewa"].ToString() == "Sedang Disewa")
+                    {
+                        DateTime batas = Convert.ToDateTime(rd["tgl_pengembalian"]);
+                        if (DateTime.Today > batas)
+                        {
+                            int telat = (DateTime.Today - batas).Days;
+                            denda = telat * 50000;
+                        }
+                    }
+
+                    BuatCardRiwayat(
+                        Convert.ToInt32(rd["id_sewa"]),
+                        rd["nama_user"].ToString(),
+                        rd["merk_alat"].ToString(),
+                        durasi + " Hari",
+                        tglSewa.ToString("dd/MM/yyyy"),
+                        tglKembali.ToString("dd/MM/yyyy"),
+                        "Rp " + denda.ToString("N0"),
+                        rd["status_sewa"].ToString()
+                    );
+                }
+            }
+        }
+
+      
         private void panelStatistik_Paint(object sender, PaintEventArgs e)
         {
 
@@ -48,6 +148,7 @@ namespace FARMATE.Views.Admin
         }
 
         private void BuatCardRiwayat(
+        int idSewa,
         string nama,
         string alat,
         string durasi,
@@ -58,7 +159,7 @@ namespace FARMATE.Views.Admin
         {
             Panel card = new Panel();
 
-            card.Width = 1150;
+            card.Width = 1300;
             card.Height = 60;
             card.BorderStyle = BorderStyle.FixedSingle;
 
@@ -97,6 +198,21 @@ namespace FARMATE.Views.Admin
             lblStatus.Location = new Point(1050, 20);
             lblStatus.AutoSize = true;
 
+            Button btnKonfirmasi = new Button();
+
+            btnKonfirmasi.Text = "Konfirmasi";
+            btnKonfirmasi.Width = 100;
+            btnKonfirmasi.Height = 35;
+
+            btnKonfirmasi.Location =
+                new Point(1020, 12);
+
+            btnKonfirmasi.Tag = idSewa;
+
+            btnKonfirmasi.Click +=
+                btnKonfirmasi_Click;
+
+            card.Controls.Add(btnKonfirmasi);
             card.Controls.Add(lblNama);
             card.Controls.Add(lblAlat);
             card.Controls.Add(lblDurasi);
@@ -106,8 +222,140 @@ namespace FARMATE.Views.Admin
             card.Controls.Add(lblStatus);
 
             flowRiwayat.Controls.Add(card);
-        }
 
+            if (status == "Selesai")
+            {
+                btnKonfirmasi.Visible = false;
+            }
+        }
+        private void KonfirmasiPengembalian(int idSewa)
+        {
+            using (var conn = Koneksi.GetConnection())
+            {
+                conn.Open();
+
+                NpgsqlTransaction trans = conn.BeginTransaction();
+
+
+                try
+                {
+                    string sqlAlat = @"
+                    SELECT id_alat
+                    FROM Penyewaan
+                    WHERE id_sewa=@id";
+
+                    NpgsqlCommand cmdAlat = new NpgsqlCommand(sqlAlat, conn);
+
+
+                    cmdAlat.Transaction = trans;
+                    cmdAlat.Parameters.AddWithValue("@id", idSewa);
+                    int idAlat = Convert.ToInt32(cmdAlat.ExecuteScalar());
+
+                    string sqlTanggal = @"
+SELECT tgl_pengembalian
+FROM Penyewaan
+WHERE id_sewa=@id";
+
+                    NpgsqlCommand cmdTanggal =
+                        new NpgsqlCommand(
+                            sqlTanggal,
+                            conn);
+
+                    cmdTanggal.Transaction = trans;
+
+                    cmdTanggal.Parameters.AddWithValue(
+                        "@id",
+                        idSewa);
+
+                    DateTime batasKembali =
+                        Convert.ToDateTime(
+                        cmdTanggal.ExecuteScalar());
+
+                    decimal denda = 0;
+
+                    if (DateTime.Today > batasKembali)
+                    {
+                        int hariTelat =
+                            (DateTime.Today - batasKembali)
+                            .Days;
+
+                        denda =
+                            hariTelat * 50000;
+                    }
+
+                    string sqlInsert = @"
+                    INSERT INTO Pengembalian
+                    (
+                        id_sewa,
+                        tanggal_kembali,
+                        denda
+                    )
+                        VALUES
+                    (
+                        @sewa,
+                        @tgl,
+                        @denda
+                    )";
+
+                    NpgsqlCommand cmdInsert = new NpgsqlCommand(sqlInsert, conn);
+                    cmdInsert.Transaction = trans;
+                    cmdInsert.Parameters.AddWithValue("@sewa", idSewa);
+                    cmdInsert.Parameters.AddWithValue("@tgl", DateTime.Today);
+                    cmdInsert.Parameters.AddWithValue("@denda", denda);
+                    cmdInsert.ExecuteNonQuery();
+
+                    string sqlUpdateSewa = @"
+                    UPDATE Penyewaan
+                    SET status_sewa='Selesai'
+                    WHERE id_sewa=@id";
+
+                    NpgsqlCommand cmdSewa = new NpgsqlCommand(sqlUpdateSewa, conn);
+                    cmdSewa.Transaction = trans;
+
+                    cmdSewa.Parameters.AddWithValue("@id", idSewa);
+                    cmdSewa.ExecuteNonQuery();
+
+                    string sqlUpdateStok = @"
+                    UPDATE Alat
+                    SET stok_tersedia =
+                    stok_tersedia + 1
+                    WHERE id_alat=@alat";
+
+                    NpgsqlCommand cmdStok = new NpgsqlCommand(sqlUpdateStok, conn);
+                    cmdStok.Transaction = trans;
+
+                    cmdStok.Parameters.AddWithValue("@alat", idAlat);
+                    cmdStok.ExecuteNonQuery();
+                    trans.Commit();
+
+                    if (denda > 0)
+                    {
+                        MessageBox.Show(
+                            "Pengembalian berhasil dikonfirmasi\n\n" +
+                            "Terdapat denda sebesar Rp " +
+                            denda.ToString("N0"),
+                            "Denda Keterlambatan");
+                    }
+                    else
+                    {
+                        MessageBox.Show(
+                            "Pengembalian berhasil dikonfirmasi\n\n" +
+                            "Tidak ada denda.",
+                            "Informasi");
+                    }
+
+                    LoadRiwayat();
+                    LoadStatistik();
+                }
+                catch (Exception ex)
+                {
+                    trans.Rollback();
+
+                    MessageBox.Show(ex.Message);
+
+                }
+            }
+        }
         private void lblTerlambat_Click(object sender, EventArgs e)
         {
 
@@ -139,6 +387,15 @@ namespace FARMATE.Views.Admin
             FormDataUser form = new FormDataUser();
             form.Show();
             this.Hide();
+        }
+
+        private void btnKonfirmasi_Click(object sender, EventArgs e)
+        {
+            Button btn = (Button)sender;
+            int idSewa = Convert.ToInt32(btn.Tag);
+            KonfirmasiPengembalian(idSewa);
+
+
         }
     }
 }

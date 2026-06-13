@@ -51,7 +51,9 @@
             label4 = new Label();
             panelContent = new Panel();
             flowRiwayat = new FlowLayoutPanel();
+            btnKonfirmasi = new Button();
             panelHeaderTabel = new Panel();
+            label7 = new Label();
             lblStatus = new Label();
             lblDenda = new Label();
             lblTglKembali = new Label();
@@ -67,6 +69,7 @@
             panelAktif.SuspendLayout();
             panelTotal.SuspendLayout();
             panelContent.SuspendLayout();
+            flowRiwayat.SuspendLayout();
             panelHeaderTabel.SuspendLayout();
             SuspendLayout();
             // 
@@ -79,7 +82,7 @@
             panelNavbar.Controls.Add(btnKelolaAlat);
             panelNavbar.Location = new Point(0, 0);
             panelNavbar.Name = "panelNavbar";
-            panelNavbar.Size = new Size(1233, 61);
+            panelNavbar.Size = new Size(1687, 61);
             panelNavbar.TabIndex = 0;
             // 
             // btnLogout
@@ -130,7 +133,7 @@
             panelHeader.Controls.Add(label5);
             panelHeader.Location = new Point(0, 59);
             panelHeader.Name = "panelHeader";
-            panelHeader.Size = new Size(1233, 77);
+            panelHeader.Size = new Size(1687, 77);
             panelHeader.TabIndex = 1;
             // 
             // label6
@@ -159,7 +162,7 @@
             panelStatistik.Controls.Add(panelTotal);
             panelStatistik.Location = new Point(0, 133);
             panelStatistik.Name = "panelStatistik";
-            panelStatistik.Size = new Size(1233, 142);
+            panelStatistik.Size = new Size(1687, 142);
             panelStatistik.TabIndex = 2;
             panelStatistik.Paint += panelStatistik_Paint;
             // 
@@ -283,23 +286,35 @@
             panelContent.Dock = DockStyle.Fill;
             panelContent.Location = new Point(0, 0);
             panelContent.Name = "panelContent";
-            panelContent.Size = new Size(1233, 683);
+            panelContent.Size = new Size(1687, 683);
             panelContent.TabIndex = 1;
             // 
             // flowRiwayat
             // 
             flowRiwayat.AutoScroll = true;
+            flowRiwayat.Controls.Add(btnKonfirmasi);
             flowRiwayat.FlowDirection = FlowDirection.TopDown;
             flowRiwayat.Location = new Point(0, 314);
             flowRiwayat.Name = "flowRiwayat";
-            flowRiwayat.Size = new Size(1233, 369);
+            flowRiwayat.Size = new Size(1687, 369);
             flowRiwayat.TabIndex = 4;
             flowRiwayat.WrapContents = false;
             flowRiwayat.Paint += flowRiwayat_Paint;
             // 
+            // btnKonfirmasi
+            // 
+            btnKonfirmasi.Location = new Point(3, 3);
+            btnKonfirmasi.Name = "btnKonfirmasi";
+            btnKonfirmasi.Size = new Size(123, 34);
+            btnKonfirmasi.TabIndex = 0;
+            btnKonfirmasi.Text = "btnKonfirmasi";
+            btnKonfirmasi.UseVisualStyleBackColor = true;
+            btnKonfirmasi.Click += btnKonfirmasi_Click;
+            // 
             // panelHeaderTabel
             // 
             panelHeaderTabel.BackColor = SystemColors.InactiveBorder;
+            panelHeaderTabel.Controls.Add(label7);
             panelHeaderTabel.Controls.Add(lblStatus);
             panelHeaderTabel.Controls.Add(lblDenda);
             panelHeaderTabel.Controls.Add(lblTglKembali);
@@ -309,13 +324,22 @@
             panelHeaderTabel.Controls.Add(lblNama);
             panelHeaderTabel.Location = new Point(0, 274);
             panelHeaderTabel.Name = "panelHeaderTabel";
-            panelHeaderTabel.Size = new Size(1233, 44);
+            panelHeaderTabel.Size = new Size(1687, 44);
             panelHeaderTabel.TabIndex = 3;
+            // 
+            // label7
+            // 
+            label7.AutoSize = true;
+            label7.Location = new Point(1205, 4);
+            label7.Name = "label7";
+            label7.Size = new Size(96, 25);
+            label7.TabIndex = 7;
+            label7.Text = "Konfirmasi";
             // 
             // lblStatus
             // 
             lblStatus.AutoSize = true;
-            lblStatus.Location = new Point(1048, 8);
+            lblStatus.Location = new Point(1464, 9);
             lblStatus.Name = "lblStatus";
             lblStatus.Size = new Size(60, 25);
             lblStatus.TabIndex = 6;
@@ -324,7 +348,7 @@
             // lblDenda
             // 
             lblDenda.AutoSize = true;
-            lblDenda.Location = new Point(847, 8);
+            lblDenda.Location = new Point(929, 8);
             lblDenda.Name = "lblDenda";
             lblDenda.Size = new Size(64, 25);
             lblDenda.TabIndex = 5;
@@ -379,7 +403,7 @@
             // 
             AutoScaleDimensions = new SizeF(10F, 25F);
             AutoScaleMode = AutoScaleMode.Font;
-            ClientSize = new Size(1233, 683);
+            ClientSize = new Size(1687, 683);
             Controls.Add(panelContent);
             Name = "FormRiwayatPengembalian";
             Text = "FormRiwayatPengembalian";
@@ -397,6 +421,7 @@
             panelTotal.ResumeLayout(false);
             panelTotal.PerformLayout();
             panelContent.ResumeLayout(false);
+            flowRiwayat.ResumeLayout(false);
             panelHeaderTabel.ResumeLayout(false);
             panelHeaderTabel.PerformLayout();
             ResumeLayout(false);
@@ -435,5 +460,7 @@
         private Button btnLogout;
         private Label label5;
         private Label label6;
+        private Button btnKonfirmasi;
+        private Label label7;
     }
 }
