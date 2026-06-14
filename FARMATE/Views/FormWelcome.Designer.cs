@@ -36,9 +36,9 @@
             // btnLoginUser
             // 
             btnLoginUser.BackgroundImageLayout = ImageLayout.Zoom;
-            btnLoginUser.Location = new Point(360, 308);
+            btnLoginUser.Location = new Point(1077, 685);
             btnLoginUser.Name = "btnLoginUser";
-            btnLoginUser.Size = new Size(171, 95);
+            btnLoginUser.Size = new Size(632, 218);
             btnLoginUser.TabIndex = 0;
             btnLoginUser.Text = "User";
             btnLoginUser.UseVisualStyleBackColor = true;
@@ -46,9 +46,9 @@
             // 
             // btnLoginAdmin
             // 
-            btnLoginAdmin.Location = new Point(104, 308);
+            btnLoginAdmin.Location = new Point(171, 685);
             btnLoginAdmin.Name = "btnLoginAdmin";
-            btnLoginAdmin.Size = new Size(171, 95);
+            btnLoginAdmin.Size = new Size(630, 228);
             btnLoginAdmin.TabIndex = 1;
             btnLoginAdmin.Text = "Admin";
             btnLoginAdmin.UseVisualStyleBackColor = true;
@@ -60,7 +60,7 @@
             AutoScaleMode = AutoScaleMode.Font;
             BackgroundImage = (Image)resources.GetObject("$this.BackgroundImage");
             BackgroundImageLayout = ImageLayout.Stretch;
-            ClientSize = new Size(643, 447);
+            ClientSize = new Size(1898, 1024);
             Controls.Add(btnLoginAdmin);
             Controls.Add(btnLoginUser);
             DoubleBuffered = true;

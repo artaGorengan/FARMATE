@@ -28,6 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(UCAlat));
             pbFoto = new PictureBox();
             lblMerk = new Label();
             lblDeskripsi = new Label();
@@ -40,7 +41,7 @@
             // 
             pbFoto.Location = new Point(0, 0);
             pbFoto.Name = "pbFoto";
-            pbFoto.Size = new Size(280, 165);
+            pbFoto.Size = new Size(275, 199);
             pbFoto.SizeMode = PictureBoxSizeMode.Zoom;
             pbFoto.TabIndex = 0;
             pbFoto.TabStop = false;
@@ -48,51 +49,58 @@
             // lblMerk
             // 
             lblMerk.AutoSize = true;
-            lblMerk.Location = new Point(9, 184);
+            lblMerk.Font = new Font("Segoe UI", 9F, FontStyle.Bold, GraphicsUnit.Point, 0);
+            lblMerk.ForeColor = Color.DarkOliveGreen;
+            lblMerk.Location = new Point(17, 213);
             lblMerk.Name = "lblMerk";
-            lblMerk.Size = new Size(52, 25);
+            lblMerk.Size = new Size(56, 25);
             lblMerk.TabIndex = 1;
             lblMerk.Text = "Merk";
             // 
             // lblDeskripsi
             // 
             lblDeskripsi.AutoSize = true;
-            lblDeskripsi.Location = new Point(17, 221);
+            lblDeskripsi.Font = new Font("Segoe UI", 9F, FontStyle.Bold, GraphicsUnit.Point, 0);
+            lblDeskripsi.ForeColor = Color.DarkOliveGreen;
+            lblDeskripsi.Location = new Point(17, 238);
             lblDeskripsi.Name = "lblDeskripsi";
-            lblDeskripsi.Size = new Size(84, 25);
+            lblDeskripsi.Size = new Size(89, 25);
             lblDeskripsi.TabIndex = 2;
             lblDeskripsi.Text = "Deskripsi";
             // 
             // lblHarga
             // 
             lblHarga.AutoSize = true;
-            lblHarga.Location = new Point(17, 273);
+            lblHarga.Font = new Font("Segoe UI", 9F, FontStyle.Bold, GraphicsUnit.Point, 0);
+            lblHarga.ForeColor = Color.DarkOliveGreen;
+            lblHarga.Location = new Point(17, 307);
             lblHarga.Name = "lblHarga";
-            lblHarga.Size = new Size(60, 25);
+            lblHarga.Size = new Size(64, 25);
             lblHarga.TabIndex = 3;
             lblHarga.Text = "Harga";
             // 
             // btnDetail
             // 
-            btnDetail.Location = new Point(75, 368);
+            btnDetail.BackColor = Color.Transparent;
+            btnDetail.Location = new Point(64, 355);
             btnDetail.Name = "btnDetail";
-            btnDetail.Size = new Size(112, 34);
+            btnDetail.Size = new Size(149, 41);
             btnDetail.TabIndex = 4;
-            btnDetail.Text = "Lihat Detail";
-            btnDetail.UseVisualStyleBackColor = true;
+            btnDetail.UseVisualStyleBackColor = false;
             btnDetail.Click += btnDetail_Click;
             // 
             // UCAlat
             // 
             AutoScaleDimensions = new SizeF(10F, 25F);
             AutoScaleMode = AutoScaleMode.Font;
+            BackgroundImage = (Image)resources.GetObject("$this.BackgroundImage");
             Controls.Add(btnDetail);
             Controls.Add(lblHarga);
             Controls.Add(lblDeskripsi);
             Controls.Add(lblMerk);
             Controls.Add(pbFoto);
             Name = "UCAlat";
-            Size = new Size(280, 420);
+            Size = new Size(275, 415);
             Load += UCAlat_Load_1;
             ((System.ComponentModel.ISupportInitialize)pbFoto).EndInit();
             ResumeLayout(false);

@@ -28,77 +28,65 @@
         /// </summary>
         private void InitializeComponent()
         {
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(FormLoginUser));
             txtEmail = new TextBox();
             txtPassword = new TextBox();
-            lblEmail = new Label();
-            lblPassword = new Label();
             btnLogin = new Button();
             lblRegister = new LinkLabel();
             SuspendLayout();
             // 
             // txtEmail
             // 
-            txtEmail.Location = new Point(267, 116);
+            txtEmail.Location = new Point(624, 511);
             txtEmail.Name = "txtEmail";
-            txtEmail.Size = new Size(150, 31);
+            txtEmail.Size = new Size(640, 31);
             txtEmail.TabIndex = 0;
             txtEmail.TextChanged += txtEmail_TextChanged;
             // 
             // txtPassword
             // 
-            txtPassword.Location = new Point(267, 204);
+            txtPassword.Location = new Point(624, 618);
             txtPassword.Name = "txtPassword";
-            txtPassword.Size = new Size(150, 31);
+            txtPassword.Size = new Size(640, 31);
             txtPassword.TabIndex = 1;
-            // 
-            // lblEmail
-            // 
-            lblEmail.AutoSize = true;
-            lblEmail.Location = new Point(267, 88);
-            lblEmail.Name = "lblEmail";
-            lblEmail.Size = new Size(54, 25);
-            lblEmail.TabIndex = 2;
-            lblEmail.Text = "Email";
-            // 
-            // lblPassword
-            // 
-            lblPassword.AutoSize = true;
-            lblPassword.Location = new Point(267, 176);
-            lblPassword.Name = "lblPassword";
-            lblPassword.Size = new Size(87, 25);
-            lblPassword.TabIndex = 3;
-            lblPassword.Text = "Password";
             // 
             // btnLogin
             // 
-            btnLogin.Location = new Point(280, 287);
+            btnLogin.BackColor = Color.Transparent;
+            btnLogin.ForeColor = Color.Transparent;
+            btnLogin.Location = new Point(805, 701);
             btnLogin.Name = "btnLogin";
-            btnLogin.Size = new Size(112, 34);
+            btnLogin.Size = new Size(325, 102);
             btnLogin.TabIndex = 4;
             btnLogin.Text = "Login";
-            btnLogin.UseVisualStyleBackColor = true;
+            btnLogin.UseVisualStyleBackColor = false;
             btnLogin.Click += btnLogin_Click;
             // 
             // lblRegister
             // 
+            lblRegister.ActiveLinkColor = Color.Transparent;
             lblRegister.AutoSize = true;
-            lblRegister.Location = new Point(213, 333);
+            lblRegister.BackColor = Color.Transparent;
+            lblRegister.DisabledLinkColor = Color.Transparent;
+            lblRegister.ForeColor = Color.Transparent;
+            lblRegister.LinkColor = Color.Transparent;
+            lblRegister.Location = new Point(836, 851);
             lblRegister.Name = "lblRegister";
             lblRegister.Size = new Size(274, 25);
             lblRegister.TabIndex = 5;
             lblRegister.TabStop = true;
             lblRegister.Text = "Belum punya akun? daftar di sini!";
+            lblRegister.VisitedLinkColor = Color.Transparent;
             lblRegister.LinkClicked += lblRegister_LinkClicked;
             // 
             // FormLoginUser
             // 
             AutoScaleDimensions = new SizeF(10F, 25F);
             AutoScaleMode = AutoScaleMode.Font;
-            ClientSize = new Size(800, 450);
+            BackgroundImage = (Image)resources.GetObject("$this.BackgroundImage");
+            ClientSize = new Size(1898, 1024);
             Controls.Add(lblRegister);
             Controls.Add(btnLogin);
-            Controls.Add(lblPassword);
-            Controls.Add(lblEmail);
             Controls.Add(txtPassword);
             Controls.Add(txtEmail);
             Name = "FormLoginUser";
@@ -112,8 +100,6 @@
 
         private TextBox txtEmail;
         private TextBox txtPassword;
-        private Label lblEmail;
-        private Label lblPassword;
         private Button btnLogin;
         private LinkLabel lblRegister;
     }

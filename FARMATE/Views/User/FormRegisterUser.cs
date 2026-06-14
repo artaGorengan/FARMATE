@@ -16,7 +16,45 @@ namespace FARMATE.Views.Auth
 
         }
 
-        private void btnRegister_Click(object sender, EventArgs e)
+       
+
+        private void FormRegisterUser_Load(object sender, EventArgs e)
+        {
+            txtPassword.UseSystemPasswordChar = true;
+            txtConfirmPassword.UseSystemPasswordChar = true;
+        }
+
+        private void lblUsername_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void txtEmail_TextChanged(object sender, EventArgs e)
+        {
+
+        }
+
+        private void lblNama_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void lblAlamat_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void label1_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void txtConfirmPassword_TextChanged(object sender, EventArgs e)
+        {
+
+        }
+
+        private void button1_Click(object sender, EventArgs e)
         {
             if (txtPassword.Text != txtConfirmPassword.Text)
             {
@@ -57,42 +95,6 @@ namespace FARMATE.Views.Auth
             {
                 MessageBox.Show(ex.Message);
             }
-        }
-
-        private void FormRegisterUser_Load(object sender, EventArgs e)
-        {
-            txtPassword.UseSystemPasswordChar = true;
-            txtConfirmPassword.UseSystemPasswordChar = true;
-        }
-
-        private void lblUsername_Click(object sender, EventArgs e)
-        {
-
-        }
-
-        private void txtEmail_TextChanged(object sender, EventArgs e)
-        {
-
-        }
-
-        private void lblNama_Click(object sender, EventArgs e)
-        {
-
-        }
-
-        private void lblAlamat_Click(object sender, EventArgs e)
-        {
-
-        }
-
-        private void label1_Click(object sender, EventArgs e)
-        {
-
-        }
-
-        private void txtConfirmPassword_TextChanged(object sender, EventArgs e)
-        {
-
         }
     }
 }

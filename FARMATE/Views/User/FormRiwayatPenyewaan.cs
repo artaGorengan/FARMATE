@@ -212,5 +212,15 @@ namespace FARMATE.Views.User
         {
 
         }
+
+        private void panel2_Paint(object sender, PaintEventArgs e)
+        {
+
+        }
+
+        private void lblTotalPenyewaan_Click(object sender, EventArgs e)
+        {
+
+        }
     }
 }

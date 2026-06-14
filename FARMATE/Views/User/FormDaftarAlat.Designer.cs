@@ -28,35 +28,34 @@
         /// </summary>
         private void InitializeComponent()
         {
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(FormDaftarAlat));
             panelNavbar = new Panel();
             btnLogout = new Button();
             btnRiwayat = new Button();
             btnDaftarAlat = new Button();
             cmbKategori = new ComboBox();
-            pbLogo = new PictureBox();
             flowAlat = new FlowLayoutPanel();
             panelNavbar.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)pbLogo).BeginInit();
             SuspendLayout();
             // 
             // panelNavbar
             // 
+            panelNavbar.BackgroundImage = (Image)resources.GetObject("panelNavbar.BackgroundImage");
             panelNavbar.Controls.Add(btnLogout);
             panelNavbar.Controls.Add(btnRiwayat);
             panelNavbar.Controls.Add(btnDaftarAlat);
             panelNavbar.Controls.Add(cmbKategori);
-            panelNavbar.Controls.Add(pbLogo);
             panelNavbar.Dock = DockStyle.Top;
             panelNavbar.Location = new Point(0, 0);
             panelNavbar.Name = "panelNavbar";
-            panelNavbar.Size = new Size(1038, 78);
+            panelNavbar.Size = new Size(1898, 110);
             panelNavbar.TabIndex = 0;
             // 
             // btnLogout
             // 
-            btnLogout.Location = new Point(635, 22);
+            btnLogout.Location = new Point(1645, 23);
             btnLogout.Name = "btnLogout";
-            btnLogout.Size = new Size(112, 34);
+            btnLogout.Size = new Size(186, 65);
             btnLogout.TabIndex = 4;
             btnLogout.Text = "Logout";
             btnLogout.UseVisualStyleBackColor = true;
@@ -64,7 +63,7 @@
             // 
             // btnRiwayat
             // 
-            btnRiwayat.Location = new Point(471, 23);
+            btnRiwayat.Location = new Point(1159, 38);
             btnRiwayat.Name = "btnRiwayat";
             btnRiwayat.Size = new Size(112, 34);
             btnRiwayat.TabIndex = 3;
@@ -74,9 +73,9 @@
             // 
             // btnDaftarAlat
             // 
-            btnDaftarAlat.Location = new Point(320, 21);
+            btnDaftarAlat.Location = new Point(932, 38);
             btnDaftarAlat.Name = "btnDaftarAlat";
-            btnDaftarAlat.Size = new Size(112, 34);
+            btnDaftarAlat.Size = new Size(133, 34);
             btnDaftarAlat.TabIndex = 2;
             btnDaftarAlat.Text = "Daftar Alat";
             btnDaftarAlat.UseVisualStyleBackColor = true;
@@ -86,27 +85,20 @@
             // 
             cmbKategori.DropDownStyle = ComboBoxStyle.DropDownList;
             cmbKategori.FormattingEnabled = true;
-            cmbKategori.Location = new Point(139, 23);
+            cmbKategori.Location = new Point(394, 38);
             cmbKategori.Name = "cmbKategori";
-            cmbKategori.Size = new Size(147, 33);
+            cmbKategori.Size = new Size(295, 33);
             cmbKategori.TabIndex = 1;
             cmbKategori.SelectedIndexChanged += cmbKategori_SelectedIndexChanged;
-            // 
-            // pbLogo
-            // 
-            pbLogo.Location = new Point(0, 0);
-            pbLogo.Name = "pbLogo";
-            pbLogo.Size = new Size(109, 78);
-            pbLogo.TabIndex = 0;
-            pbLogo.TabStop = false;
             // 
             // flowAlat
             // 
             flowAlat.AutoScroll = true;
+            flowAlat.BackgroundImage = (Image)resources.GetObject("flowAlat.BackgroundImage");
             flowAlat.Dock = DockStyle.Fill;
-            flowAlat.Location = new Point(0, 78);
+            flowAlat.Location = new Point(0, 110);
             flowAlat.Name = "flowAlat";
-            flowAlat.Size = new Size(1038, 650);
+            flowAlat.Size = new Size(1898, 914);
             flowAlat.TabIndex = 1;
             flowAlat.Paint += flowAlat_Paint;
             // 
@@ -114,14 +106,13 @@
             // 
             AutoScaleDimensions = new SizeF(10F, 25F);
             AutoScaleMode = AutoScaleMode.Font;
-            ClientSize = new Size(1038, 728);
+            ClientSize = new Size(1898, 1024);
             Controls.Add(flowAlat);
             Controls.Add(panelNavbar);
             Name = "FormDaftarAlat";
             Text = "FormDaftarAlat";
             Load += FormDaftarAlat_Load;
             panelNavbar.ResumeLayout(false);
-            ((System.ComponentModel.ISupportInitialize)pbLogo).EndInit();
             ResumeLayout(false);
         }
 
@@ -130,7 +121,6 @@
         private Panel panelNavbar;
         private Button btnDaftarAlat;
         private ComboBox cmbKategori;
-        private PictureBox pbLogo;
         private Button btnLogout;
         private Button btnRiwayat;
         private FlowLayoutPanel flowAlat;
