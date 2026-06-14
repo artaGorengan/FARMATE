@@ -170,7 +170,7 @@
             // 
             panelTerlambat.Controls.Add(lblTerlambat);
             panelTerlambat.Controls.Add(label3);
-            panelTerlambat.Location = new Point(1017, 9);
+            panelTerlambat.Location = new Point(1397, 9);
             panelTerlambat.Name = "panelTerlambat";
             panelTerlambat.Size = new Size(166, 126);
             panelTerlambat.TabIndex = 7;
@@ -296,7 +296,7 @@
             flowRiwayat.FlowDirection = FlowDirection.TopDown;
             flowRiwayat.Location = new Point(0, 314);
             flowRiwayat.Name = "flowRiwayat";
-            flowRiwayat.Size = new Size(1687, 369);
+            flowRiwayat.Size = new Size(1920, 1080);
             flowRiwayat.TabIndex = 4;
             flowRiwayat.WrapContents = false;
             flowRiwayat.Paint += flowRiwayat_Paint;

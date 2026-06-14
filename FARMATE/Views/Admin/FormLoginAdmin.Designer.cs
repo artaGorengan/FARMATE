@@ -28,64 +28,43 @@
         /// </summary>
         private void InitializeComponent()
         {
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(FormLoginAdmin));
             txtUsername = new TextBox();
             txtPassword = new TextBox();
             btnLogin = new Button();
-            lblPassword = new Label();
-            lblUsername = new Label();
             btnKeluar = new Button();
             SuspendLayout();
             // 
             // txtUsername
             // 
-            txtUsername.Location = new Point(257, 101);
+            txtUsername.Location = new Point(595, 503);
             txtUsername.Name = "txtUsername";
-            txtUsername.Size = new Size(100, 31);
+            txtUsername.Size = new Size(668, 31);
             txtUsername.TabIndex = 5;
             txtUsername.TextChanged += txtUsername_TextChanged;
             // 
             // txtPassword
             // 
-            txtPassword.Location = new Point(257, 198);
+            txtPassword.Location = new Point(595, 621);
             txtPassword.Name = "txtPassword";
-            txtPassword.Size = new Size(100, 31);
+            txtPassword.Size = new Size(668, 31);
             txtPassword.TabIndex = 4;
             // 
             // btnLogin
             // 
-            btnLogin.Location = new Point(257, 263);
+            btnLogin.Location = new Point(818, 703);
             btnLogin.Name = "btnLogin";
-            btnLogin.Size = new Size(112, 34);
+            btnLogin.Size = new Size(287, 71);
             btnLogin.TabIndex = 3;
             btnLogin.Text = "Login";
             btnLogin.UseVisualStyleBackColor = true;
             btnLogin.Click += btnLogin_Click;
             // 
-            // lblPassword
-            // 
-            lblPassword.AutoSize = true;
-            lblPassword.Location = new Point(263, 173);
-            lblPassword.Name = "lblPassword";
-            lblPassword.Size = new Size(87, 25);
-            lblPassword.TabIndex = 7;
-            lblPassword.Text = "Password";
-            lblPassword.Click += lblPassword_Click;
-            // 
-            // lblUsername
-            // 
-            lblUsername.AutoSize = true;
-            lblUsername.Location = new Point(273, 65);
-            lblUsername.Name = "lblUsername";
-            lblUsername.Size = new Size(91, 25);
-            lblUsername.TabIndex = 8;
-            lblUsername.Text = "Username";
-            lblUsername.Click += lblUsername_Click;
-            // 
             // btnKeluar
             // 
-            btnKeluar.Location = new Point(257, 327);
+            btnKeluar.Location = new Point(818, 794);
             btnKeluar.Name = "btnKeluar";
-            btnKeluar.Size = new Size(112, 34);
+            btnKeluar.Size = new Size(287, 74);
             btnKeluar.TabIndex = 9;
             btnKeluar.Text = "Keluar";
             btnKeluar.UseVisualStyleBackColor = true;
@@ -95,15 +74,14 @@
             // 
             AutoScaleDimensions = new SizeF(10F, 25F);
             AutoScaleMode = AutoScaleMode.Font;
-            ClientSize = new Size(800, 450);
+            BackgroundImage = (Image)resources.GetObject("$this.BackgroundImage");
+            ClientSize = new Size(1898, 1024);
             Controls.Add(btnKeluar);
-            Controls.Add(lblUsername);
-            Controls.Add(lblPassword);
             Controls.Add(btnLogin);
             Controls.Add(txtPassword);
             Controls.Add(txtUsername);
             Name = "FormLoginAdmin";
-            Text = "Form1";
+            Text = "FormLogin";
             Load += FormLogin_Load;
             ResumeLayout(false);
             PerformLayout();
@@ -114,8 +92,6 @@
         private TextBox txtUsername;
         private TextBox txtPassword;
         private Button btnLogin;
-        private Label lblPassword;
-        private Label lblUsername;
         private Button btnKeluar;
     }
 }

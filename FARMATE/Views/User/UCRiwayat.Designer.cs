@@ -40,7 +40,7 @@
             // lblAlat
             // 
             lblAlat.AutoSize = true;
-            lblAlat.Location = new Point(26, 5);
+            lblAlat.Location = new Point(26, 8);
             lblAlat.Name = "lblAlat";
             lblAlat.Size = new Size(43, 25);
             lblAlat.TabIndex = 0;
@@ -49,7 +49,7 @@
             // lblKategori
             // 
             lblKategori.AutoSize = true;
-            lblKategori.Location = new Point(127, 5);
+            lblKategori.Location = new Point(127, 8);
             lblKategori.Name = "lblKategori";
             lblKategori.Size = new Size(78, 25);
             lblKategori.TabIndex = 1;
@@ -58,7 +58,7 @@
             // lblDurasi
             // 
             lblDurasi.AutoSize = true;
-            lblDurasi.Location = new Point(262, 9);
+            lblDurasi.Location = new Point(256, 7);
             lblDurasi.Name = "lblDurasi";
             lblDurasi.Size = new Size(62, 25);
             lblDurasi.TabIndex = 2;
@@ -67,7 +67,7 @@
             // lblTanggalPinjam
             // 
             lblTanggalPinjam.AutoSize = true;
-            lblTanggalPinjam.Location = new Point(378, 9);
+            lblTanggalPinjam.Location = new Point(376, 8);
             lblTanggalPinjam.Name = "lblTanggalPinjam";
             lblTanggalPinjam.Size = new Size(131, 25);
             lblTanggalPinjam.TabIndex = 3;
@@ -76,7 +76,7 @@
             // lblTanggalKembali
             // 
             lblTanggalKembali.AutoSize = true;
-            lblTanggalKembali.Location = new Point(596, 9);
+            lblTanggalKembali.Location = new Point(596, 8);
             lblTanggalKembali.Name = "lblTanggalKembali";
             lblTanggalKembali.Size = new Size(141, 25);
             lblTanggalKembali.TabIndex = 4;
@@ -85,7 +85,7 @@
             // lblDenda
             // 
             lblDenda.AutoSize = true;
-            lblDenda.Location = new Point(792, 6);
+            lblDenda.Location = new Point(792, 8);
             lblDenda.Name = "lblDenda";
             lblDenda.Size = new Size(64, 25);
             lblDenda.TabIndex = 5;
@@ -94,7 +94,7 @@
             // lblStatus
             // 
             lblStatus.AutoSize = true;
-            lblStatus.Location = new Point(949, 5);
+            lblStatus.Location = new Point(949, 7);
             lblStatus.Name = "lblStatus";
             lblStatus.Size = new Size(60, 25);
             lblStatus.TabIndex = 6;

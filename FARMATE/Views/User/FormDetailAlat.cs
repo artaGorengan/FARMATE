@@ -252,5 +252,10 @@ WHERE id_alat = @id";
         {
 
         }
+
+        private void rtbDeskripsi_TextChanged(object sender, EventArgs e)
+        {
+
+        }
     }
 }

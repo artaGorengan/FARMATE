@@ -28,6 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(FormDetailAlat));
             panelNavbar = new Panel();
             btnLogout = new Button();
             btnRiwayat = new Button();
@@ -38,42 +39,34 @@
             lblKategori = new Label();
             lblBBM = new Label();
             rtbDeskripsi = new RichTextBox();
-            panelSewa = new Panel();
             lblTotalHarga = new Label();
             btnSewa = new Button();
-            lblTotalText = new Label();
             btnPlus = new Button();
             lblHari = new Label();
             btnMinus = new Button();
-            lblDurasi = new Label();
             dtpMulai = new DateTimePicker();
-            lblMulai = new Label();
-            label1 = new Label();
-            label2 = new Label();
-            label3 = new Label();
             lblStok = new Label();
-            label = new Label();
             panelNavbar.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)pbFoto).BeginInit();
-            panelSewa.SuspendLayout();
             SuspendLayout();
             // 
             // panelNavbar
             // 
+            panelNavbar.BackgroundImage = (Image)resources.GetObject("panelNavbar.BackgroundImage");
             panelNavbar.Controls.Add(btnLogout);
             panelNavbar.Controls.Add(btnRiwayat);
             panelNavbar.Controls.Add(btnDaftarAlat);
             panelNavbar.Dock = DockStyle.Top;
             panelNavbar.Location = new Point(0, 0);
             panelNavbar.Name = "panelNavbar";
-            panelNavbar.Size = new Size(1178, 71);
+            panelNavbar.Size = new Size(1898, 117);
             panelNavbar.TabIndex = 0;
             // 
             // btnLogout
             // 
-            btnLogout.Location = new Point(1042, 17);
+            btnLogout.Location = new Point(1653, 43);
             btnLogout.Name = "btnLogout";
-            btnLogout.Size = new Size(112, 34);
+            btnLogout.Size = new Size(191, 34);
             btnLogout.TabIndex = 2;
             btnLogout.Text = "Logout";
             btnLogout.UseVisualStyleBackColor = true;
@@ -81,7 +74,7 @@
             // 
             // btnRiwayat
             // 
-            btnRiwayat.Location = new Point(637, 15);
+            btnRiwayat.Location = new Point(1082, 43);
             btnRiwayat.Name = "btnRiwayat";
             btnRiwayat.Size = new Size(112, 34);
             btnRiwayat.TabIndex = 1;
@@ -91,9 +84,9 @@
             // 
             // btnDaftarAlat
             // 
-            btnDaftarAlat.Location = new Point(507, 15);
+            btnDaftarAlat.Location = new Point(765, 43);
             btnDaftarAlat.Name = "btnDaftarAlat";
-            btnDaftarAlat.Size = new Size(112, 34);
+            btnDaftarAlat.Size = new Size(145, 34);
             btnDaftarAlat.TabIndex = 0;
             btnDaftarAlat.Text = "Daftar Alat";
             btnDaftarAlat.UseVisualStyleBackColor = true;
@@ -101,9 +94,9 @@
             // 
             // pbFoto
             // 
-            pbFoto.Location = new Point(12, 88);
+            pbFoto.Location = new Point(128, 165);
             pbFoto.Name = "pbFoto";
-            pbFoto.Size = new Size(500, 300);
+            pbFoto.Size = new Size(601, 409);
             pbFoto.SizeMode = PictureBoxSizeMode.Zoom;
             pbFoto.TabIndex = 1;
             pbFoto.TabStop = false;
@@ -112,7 +105,7 @@
             // 
             lblMerk.AutoSize = true;
             lblMerk.Font = new Font("Segoe UI", 18F, FontStyle.Bold, GraphicsUnit.Point, 0);
-            lblMerk.Location = new Point(530, 88);
+            lblMerk.Location = new Point(765, 180);
             lblMerk.Name = "lblMerk";
             lblMerk.Size = new Size(107, 48);
             lblMerk.TabIndex = 2;
@@ -121,86 +114,72 @@
             // lblHarga
             // 
             lblHarga.AutoSize = true;
-            lblHarga.Location = new Point(625, 151);
+            lblHarga.BackColor = Color.Transparent;
+            lblHarga.Font = new Font("Segoe UI", 14F, FontStyle.Bold, GraphicsUnit.Point, 0);
+            lblHarga.ForeColor = Color.FromArgb(106, 140, 81);
+            lblHarga.Location = new Point(848, 290);
             lblHarga.Name = "lblHarga";
-            lblHarga.Size = new Size(60, 25);
+            lblHarga.Size = new Size(96, 38);
             lblHarga.TabIndex = 3;
             lblHarga.Text = "Harga";
             // 
             // lblKategori
             // 
             lblKategori.AutoSize = true;
-            lblKategori.Location = new Point(625, 189);
+            lblKategori.BackColor = Color.Transparent;
+            lblKategori.Font = new Font("Segoe UI Semibold", 7F, FontStyle.Bold, GraphicsUnit.Point, 0);
+            lblKategori.Location = new Point(848, 394);
             lblKategori.Name = "lblKategori";
-            lblKategori.Size = new Size(78, 25);
+            lblKategori.Size = new Size(62, 19);
             lblKategori.TabIndex = 4;
             lblKategori.Text = "Kategori";
             // 
             // lblBBM
             // 
             lblBBM.AutoSize = true;
-            lblBBM.Location = new Point(625, 225);
+            lblBBM.BackColor = Color.Transparent;
+            lblBBM.Font = new Font("Segoe UI Semibold", 7F, FontStyle.Bold, GraphicsUnit.Point, 0);
+            lblBBM.Location = new Point(880, 354);
             lblBBM.Name = "lblBBM";
-            lblBBM.Size = new Size(48, 25);
+            lblBBM.Size = new Size(38, 19);
             lblBBM.TabIndex = 5;
             lblBBM.Text = "BBM";
             // 
             // rtbDeskripsi
             // 
-            rtbDeskripsi.Location = new Point(541, 268);
+            rtbDeskripsi.Location = new Point(764, 479);
             rtbDeskripsi.Name = "rtbDeskripsi";
             rtbDeskripsi.ReadOnly = true;
-            rtbDeskripsi.Size = new Size(625, 120);
+            rtbDeskripsi.Size = new Size(743, 80);
             rtbDeskripsi.TabIndex = 6;
             rtbDeskripsi.Text = "";
-            // 
-            // panelSewa
-            // 
-            panelSewa.Controls.Add(lblTotalHarga);
-            panelSewa.Controls.Add(btnSewa);
-            panelSewa.Controls.Add(lblTotalText);
-            panelSewa.Controls.Add(btnPlus);
-            panelSewa.Controls.Add(lblHari);
-            panelSewa.Controls.Add(btnMinus);
-            panelSewa.Controls.Add(lblDurasi);
-            panelSewa.Controls.Add(dtpMulai);
-            panelSewa.Controls.Add(lblMulai);
-            panelSewa.Location = new Point(541, 408);
-            panelSewa.Name = "panelSewa";
-            panelSewa.Size = new Size(625, 224);
-            panelSewa.TabIndex = 7;
+            rtbDeskripsi.TextChanged += rtbDeskripsi_TextChanged;
             // 
             // lblTotalHarga
             // 
             lblTotalHarga.AutoSize = true;
-            lblTotalHarga.Location = new Point(477, 34);
+            lblTotalHarga.BackColor = Color.Transparent;
+            lblTotalHarga.Font = new Font("Segoe UI Black", 18F, FontStyle.Bold, GraphicsUnit.Point, 0);
+            lblTotalHarga.ForeColor = Color.FromArgb(106, 134, 81);
+            lblTotalHarga.Location = new Point(1604, 780);
             lblTotalHarga.Name = "lblTotalHarga";
-            lblTotalHarga.Size = new Size(107, 25);
+            lblTotalHarga.Size = new Size(42, 48);
             lblTotalHarga.TabIndex = 8;
-            lblTotalHarga.Text = "Rp. 900.000";
+            lblTotalHarga.Text = "0";
             // 
             // btnSewa
             // 
-            btnSewa.Location = new Point(398, 103);
+            btnSewa.Location = new Point(119, 907);
             btnSewa.Name = "btnSewa";
-            btnSewa.Size = new Size(175, 34);
+            btnSewa.Size = new Size(1699, 66);
             btnSewa.TabIndex = 7;
             btnSewa.Text = "Sewa Sekarang";
             btnSewa.UseVisualStyleBackColor = true;
             btnSewa.Click += btnSewa_Click;
             // 
-            // lblTotalText
-            // 
-            lblTotalText.AutoSize = true;
-            lblTotalText.Location = new Point(422, 34);
-            lblTotalText.Name = "lblTotalText";
-            lblTotalText.Size = new Size(49, 25);
-            lblTotalText.TabIndex = 6;
-            lblTotalText.Text = "Total";
-            // 
             // btnPlus
             // 
-            btnPlus.Location = new Point(124, 169);
+            btnPlus.Location = new Point(885, 775);
             btnPlus.Name = "btnPlus";
             btnPlus.Size = new Size(33, 34);
             btnPlus.TabIndex = 5;
@@ -211,7 +190,7 @@
             // lblHari
             // 
             lblHari.AutoSize = true;
-            lblHari.Location = new Point(96, 174);
+            lblHari.Location = new Point(740, 780);
             lblHari.Name = "lblHari";
             lblHari.Size = new Size(22, 25);
             lblHari.TabIndex = 4;
@@ -219,96 +198,46 @@
             // 
             // btnMinus
             // 
-            btnMinus.Location = new Point(36, 169);
+            btnMinus.Location = new Point(566, 775);
             btnMinus.Name = "btnMinus";
-            btnMinus.Size = new Size(42, 34);
+            btnMinus.Size = new Size(35, 34);
             btnMinus.TabIndex = 3;
             btnMinus.Text = "-";
             btnMinus.UseVisualStyleBackColor = true;
             btnMinus.Click += btnMinus_Click;
             // 
-            // lblDurasi
-            // 
-            lblDurasi.AutoSize = true;
-            lblDurasi.Location = new Point(36, 131);
-            lblDurasi.Name = "lblDurasi";
-            lblDurasi.Size = new Size(108, 25);
-            lblDurasi.TabIndex = 2;
-            lblDurasi.Text = "Durasi Sewa";
-            // 
             // dtpMulai
             // 
-            dtpMulai.Location = new Point(28, 78);
+            dtpMulai.Location = new Point(128, 778);
             dtpMulai.Name = "dtpMulai";
-            dtpMulai.Size = new Size(300, 31);
+            dtpMulai.Size = new Size(360, 31);
             dtpMulai.TabIndex = 1;
-            // 
-            // lblMulai
-            // 
-            lblMulai.AutoSize = true;
-            lblMulai.Location = new Point(23, 34);
-            lblMulai.Name = "lblMulai";
-            lblMulai.Size = new Size(121, 25);
-            lblMulai.TabIndex = 0;
-            lblMulai.Text = "Tanggal Mulai";
-            // 
-            // label1
-            // 
-            label1.AutoSize = true;
-            label1.Location = new Point(541, 151);
-            label1.Name = "label1";
-            label1.Size = new Size(60, 25);
-            label1.TabIndex = 8;
-            label1.Text = "Harga";
-            // 
-            // label2
-            // 
-            label2.AutoSize = true;
-            label2.Location = new Point(541, 189);
-            label2.Name = "label2";
-            label2.Size = new Size(78, 25);
-            label2.TabIndex = 9;
-            label2.Text = "Kategori";
-            // 
-            // label3
-            // 
-            label3.AutoSize = true;
-            label3.Location = new Point(553, 225);
-            label3.Name = "label3";
-            label3.Size = new Size(48, 25);
-            label3.TabIndex = 10;
-            label3.Text = "BBM";
             // 
             // lblStok
             // 
             lblStok.AutoSize = true;
-            lblStok.Location = new Point(119, 452);
+            lblStok.BackColor = Color.Transparent;
+            lblStok.Font = new Font("Segoe UI Semibold", 7F, FontStyle.Bold, GraphicsUnit.Point, 0);
+            lblStok.Location = new Point(820, 434);
             lblStok.Name = "lblStok";
-            lblStok.Size = new Size(47, 25);
+            lblStok.Size = new Size(37, 19);
             lblStok.TabIndex = 13;
             lblStok.Text = "Stok";
-            // 
-            // label
-            // 
-            label.AutoSize = true;
-            label.Location = new Point(66, 452);
-            label.Name = "label";
-            label.Size = new Size(47, 25);
-            label.TabIndex = 14;
-            label.Text = "Stok";
             // 
             // FormDetailAlat
             // 
             AutoScaleDimensions = new SizeF(10F, 25F);
             AutoScaleMode = AutoScaleMode.Font;
-            ClientSize = new Size(1178, 644);
-            Controls.Add(label);
+            BackgroundImage = (Image)resources.GetObject("$this.BackgroundImage");
+            ClientSize = new Size(1898, 1024);
+            Controls.Add(lblTotalHarga);
+            Controls.Add(btnSewa);
             Controls.Add(lblStok);
-            Controls.Add(label3);
-            Controls.Add(label2);
-            Controls.Add(label1);
-            Controls.Add(panelSewa);
+            Controls.Add(lblHari);
+            Controls.Add(btnPlus);
+            Controls.Add(btnMinus);
             Controls.Add(rtbDeskripsi);
+            Controls.Add(dtpMulai);
             Controls.Add(lblBBM);
             Controls.Add(lblKategori);
             Controls.Add(lblHarga);
@@ -320,8 +249,6 @@
             Load += FormDetailAlat_Load;
             panelNavbar.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)pbFoto).EndInit();
-            panelSewa.ResumeLayout(false);
-            panelSewa.PerformLayout();
             ResumeLayout(false);
             PerformLayout();
         }
@@ -335,23 +262,15 @@
         private Label lblKategori;
         private Label lblBBM;
         private RichTextBox rtbDeskripsi;
-        private Panel panelSewa;
         private DateTimePicker dtpMulai;
-        private Label lblMulai;
         private Button btnSewa;
-        private Label lblTotalText;
         private Button btnPlus;
         private Label lblHari;
         private Button btnMinus;
-        private Label lblDurasi;
-        private Label label1;
-        private Label label2;
-        private Label label3;
         private Label lblTotalHarga;
         private Button btnLogout;
         private Button btnRiwayat;
         private Button btnDaftarAlat;
         private Label lblStok;
-        private Label label;
     }
 }
