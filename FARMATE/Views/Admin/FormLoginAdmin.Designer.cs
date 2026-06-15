@@ -52,22 +52,24 @@
             // 
             // btnLogin
             // 
+            btnLogin.BackColor = Color.Transparent;
+            btnLogin.ForeColor = Color.Transparent;
             btnLogin.Location = new Point(818, 703);
             btnLogin.Name = "btnLogin";
             btnLogin.Size = new Size(287, 71);
             btnLogin.TabIndex = 3;
-            btnLogin.Text = "Login";
-            btnLogin.UseVisualStyleBackColor = true;
+            btnLogin.Text = "\r\n";
+            btnLogin.UseVisualStyleBackColor = false;
             btnLogin.Click += btnLogin_Click;
             // 
             // btnKeluar
             // 
+            btnKeluar.BackColor = Color.Transparent;
             btnKeluar.Location = new Point(818, 794);
             btnKeluar.Name = "btnKeluar";
             btnKeluar.Size = new Size(287, 74);
             btnKeluar.TabIndex = 9;
-            btnKeluar.Text = "Keluar";
-            btnKeluar.UseVisualStyleBackColor = true;
+            btnKeluar.UseVisualStyleBackColor = false;
             btnKeluar.Click += btnKeluar_Click;
             // 
             // FormLoginAdmin

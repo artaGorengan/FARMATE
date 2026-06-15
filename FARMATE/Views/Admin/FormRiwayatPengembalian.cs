@@ -107,44 +107,46 @@ namespace FARMATE.Views.Admin
 
                 while (rd.Read())
                 {
-                    DateOnly tglSewa = (DateOnly)rd["tgl_sewa"];
-                    DateOnly tglKembali = (DateOnly)rd["tgl_pengembalian"];
-                    int durasi = tglKembali.DayNumber - tglSewa.DayNumber;
-                    decimal denda = 0;
+                    DateOnly tglSewa =
+        (DateOnly)rd["tgl_sewa"];
 
-                    if (rd["status_sewa"].ToString() == "Sedang Disewa")
-                    {
-                        DateOnly batas =
+                    DateOnly tglKembali =
                         (DateOnly)rd["tgl_pengembalian"];
-                        DateOnly hariIni =
-                        DateOnly.FromDateTime(
-                        DateTime.Today);
 
-                        if (hariIni > batas)
-                        {
-                            int telat = hariIni.DayNumber - batas.DayNumber;
-                            denda = telat * 50000;
-                        }
+                    int durasi =
+                        tglKembali.DayNumber -
+                        tglSewa.DayNumber;
 
-                    }
+                    UCRiwayatPengembalian card =
+                        new UCRiwayatPengembalian();
 
-                    BuatCardRiwayat(
-                    Convert.ToInt32(rd["id_sewa"]),
-                    rd["nama_user"].ToString(),
-                    rd["merk_alat"].ToString(),
-                    durasi + " Hari",
-                    tglSewa.ToString("dd/MM/yyyy"),
-                    tglKembali.ToString("dd/MM/yyyy"),
-                    "Rp " + denda.ToString("N0"),
-                    rd["status_sewa"].ToString()
+                    card.SetData(
+                        Convert.ToInt32(rd["id_sewa"]),
+                        rd["nama_user"].ToString(),
+                        rd["merk_alat"].ToString(),
+                        durasi + " Hari",
+                        tglSewa.ToString("dd/MM/yyyy"),
+                        tglKembali.ToString("dd/MM/yyyy"),
+                        "-",
+                        rd["status_sewa"].ToString()
                     );
 
+                    card.KonfirmasiClicked +=
+                        Card_KonfirmasiClicked;
+
+                    flowRiwayat.Controls.Add(card);
 
                 }
             }
         }
 
-      
+                private void Card_KonfirmasiClicked(object sender, EventArgs e)
+                {
+                  UCRiwayatPengembalian card = (UCRiwayatPengembalian)sender;
+
+                     KonfirmasiPengembalian(card.IdSewa);
+                }
+
         private void panelStatistik_Paint(object sender, PaintEventArgs e)
         {
 
@@ -155,92 +157,7 @@ namespace FARMATE.Views.Admin
 
         }
 
-        private void BuatCardRiwayat(
-        int idSewa,
-        string nama,
-        string alat,
-        string durasi,
-        string tglPinjam,
-        string tglKembali,
-        string denda,
-        string status)
-        {
-            Panel card = new Panel();
-
-            card.Width = 1300;
-            card.Height = 60;
-            card.BorderStyle = BorderStyle.FixedSingle;
-
-            Label lblNama = new Label();
-            lblNama.Text = nama;
-            lblNama.Location = new Point(20, 20);
-            lblNama.AutoSize = true;
-
-            Label lblAlat = new Label();
-            lblAlat.Text = alat;
-            lblAlat.Location = new Point(220, 20);
-            lblAlat.AutoSize = true;
-
-            Label lblDurasi = new Label();
-            lblDurasi.Text = durasi;
-            lblDurasi.Location = new Point(420, 20);
-            lblDurasi.AutoSize = true;
-
-            Label lblPinjam = new Label();
-            lblPinjam.Text = tglPinjam;
-            lblPinjam.Location = new Point(560, 20);
-            lblPinjam.AutoSize = true;
-
-            Label lblKembali = new Label();
-            lblKembali.Text = tglKembali;
-            lblKembali.Location = new Point(720, 20);
-            lblKembali.AutoSize = true;
-
-            Label lblDenda = new Label();
-            lblDenda.Text = denda;
-            lblDenda.Location = new Point(900, 20);
-            lblDenda.AutoSize = true;
-
-            Label lblStatus = new Label();
-            lblStatus.Text = status;
-            lblStatus.Location = new Point(1050, 20);
-            lblStatus.AutoSize = true;
-
-            Button btnKonfirmasi = new Button();
-
-            btnKonfirmasi.Text = "Konfirmasi";
-            btnKonfirmasi.Width = 100;
-            btnKonfirmasi.Height = 35;
-
-            if (status.ToString() == "Selesai")
-            {
-                btnKonfirmasi.Visible = false;
-            }
-
-            btnKonfirmasi.Location =
-                new Point(1020, 12);
-
-            btnKonfirmasi.Tag = idSewa;
-
-            btnKonfirmasi.Click +=
-                btnKonfirmasi_Click;
-
-            card.Controls.Add(btnKonfirmasi);
-            card.Controls.Add(lblNama);
-            card.Controls.Add(lblAlat);
-            card.Controls.Add(lblDurasi);
-            card.Controls.Add(lblPinjam);
-            card.Controls.Add(lblKembali);
-            card.Controls.Add(lblDenda);
-            card.Controls.Add(lblStatus);
-
-            flowRiwayat.Controls.Add(card);
-
-            if (status == "Selesai")
-            {
-                btnKonfirmasi.Visible = false;
-            }
-        }
+       
         private void KonfirmasiPengembalian(int idSewa)
         {
             using (var conn = Koneksi.GetConnection())

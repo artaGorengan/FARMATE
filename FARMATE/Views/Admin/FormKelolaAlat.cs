@@ -17,7 +17,7 @@ namespace FARMATE.Views.Admin
     {
         private int selectedIdAlat = 0;
 
-        private Panel selectedCard = null;
+        private UCAlatCard selectedCard = null;
 
 
 
@@ -29,7 +29,7 @@ namespace FARMATE.Views.Admin
         private void FormKelolaAlat_Load(object sender, EventArgs e)
         {
 
-            panelContainer.Visible = false;
+           
 
             LoadDataAlat();
             LoadStatistik();
@@ -46,9 +46,7 @@ namespace FARMATE.Views.Admin
                 return;
             }
 
-            panelContainer.Visible = true;
-            panelContainer.BringToFront();
-
+           
             TampilTambahAlat();
 
             ucTambah.LoadDataEdit(
@@ -57,7 +55,7 @@ namespace FARMATE.Views.Admin
         }
         private void TampilTambahAlat()
         {
-            panelContainer.Controls.Clear();
+           
 
             ucTambah = new UCTambahAlat();
 
@@ -65,23 +63,43 @@ namespace FARMATE.Views.Admin
 
             ucTambah.OnSimpanBerhasil += () =>
             {
+                this.Controls.Remove(ucTambah);
+
                 LoadDataAlat();
                 LoadStatistik();
 
-                panelContainer.Visible = false;
-                panelContainer.SendToBack();
+                TampilHalamanUtama();
+
+
             };
 
             ucTambah.OnBatal += () =>
             {
-                panelContainer.Visible = false;
-                panelContainer.SendToBack();
+                this.Controls.Remove(ucTambah);
+
+                TampilHalamanUtama();
             };
 
-            panelContainer.Controls.Add(ucTambah);
+            SembunyikanHalamanUtama();
 
-            panelContainer.Visible = true;
-            panelContainer.BringToFront();
+            this.Controls.Add(ucTambah);
+
+            ucTambah.BringToFront();
+
+        }
+
+        private void SembunyikanHalamanUtama()
+        {
+            panelSidebar.Visible = false;
+            panelNavbar.Visible = false;
+            panelContent.Visible = false;
+        }
+
+        private void TampilHalamanUtama()
+        {
+            panelSidebar.Visible = true;
+            panelNavbar.Visible = true;
+            panelContent.Visible = true;
         }
         private void flowDrone_Paint(object sender, PaintEventArgs e)
         {
@@ -94,47 +112,6 @@ namespace FARMATE.Views.Admin
         }
 
 
-
-
-
-
-
-
-
-
-
-        private void BuatCardAlat(FlowLayoutPanel panel, int idAlat, string merk, string harga, string stok)
-        {
-            Panel card = new Panel();
-            card.Tag = idAlat;
-            card.Click += Card_Click;
-
-            card.Width = 220;
-            card.Height = 120;
-            card.BorderStyle = BorderStyle.FixedSingle;
-
-            Label lblMerk = new Label();
-            lblMerk.Text = merk;
-            lblMerk.Location = new Point(10, 10);
-            lblMerk.AutoSize = true;
-            lblMerk.AutoSize = true;
-
-            Label lblHarga = new Label();
-            lblHarga.Text = "Rp " + harga;
-            lblHarga.Location = new Point(10, 40);
-            lblHarga.AutoSize = true;
-
-            Label lblStok = new Label();
-            lblStok.Text = "Stok : " + stok;
-            lblStok.Location = new Point(10, 70);
-            lblStok.AutoSize = true;
-
-            card.Controls.Add(lblMerk);
-            card.Controls.Add(lblHarga);
-            card.Controls.Add(lblStok);
-
-            panel.Controls.Add(card);
-        }
         private void LoadDataAlat()
         {
             flowDrone.Controls.Clear();
@@ -168,60 +145,70 @@ namespace FARMATE.Views.Admin
 
                     if (kategori == "Drone Pertanian")
                     {
-                        BuatCardAlat(
-                            flowDrone,
+                        UCAlatCard card =
+    new UCAlatCard();
+
+                        card.SetData(
                             Convert.ToInt32(rd["id_alat"]),
                             rd["merk_alat"].ToString(),
                             rd["harga_perhari"].ToString(),
                             rd["stok_tersedia"].ToString()
                         );
+
+                        card.CardClicked += Card_Click;
+
+                        flowDrone.Controls.Add(card);
                     }
 
                     else if (kategori == "Traktor")
                     {
-                        BuatCardAlat(
-                            flowTraktor,
+                        UCAlatCard card =
+     new UCAlatCard();
+
+                        card.SetData(
                             Convert.ToInt32(rd["id_alat"]),
                             rd["merk_alat"].ToString(),
                             rd["harga_perhari"].ToString(),
                             rd["stok_tersedia"].ToString()
                         );
+
+                        card.CardClicked += Card_Click;
+
+                        flowTraktor.Controls.Add(card);
                     }
 
                     else if (kategori == "Mesin Panen")
                     {
-                        BuatCardAlat(
-                            flowPanen,
+                        UCAlatCard card =
+     new UCAlatCard();
+
+                        card.SetData(
                             Convert.ToInt32(rd["id_alat"]),
                             rd["merk_alat"].ToString(),
                             rd["harga_perhari"].ToString(),
                             rd["stok_tersedia"].ToString()
                         );
+
+                        card.CardClicked += Card_Click;
+
+                        flowPanen.Controls.Add(card);
                     }
                 }
             }
         }
 
-
-
-
-
-
-
-
         private void Card_Click(object sender, EventArgs e)
         {
-            Panel card = (Panel)sender;
-
             if (selectedCard != null)
-                selectedCard.BackColor = Color.White;
+                selectedCard.SetSelected(false);
 
-            selectedCard = card;
+            selectedCard =
+                (UCAlatCard)sender;
 
-            selectedCard.BackColor = Color.LightGreen;
+            selectedCard.SetSelected(true);
 
             selectedIdAlat =
-                Convert.ToInt32(card.Tag);
+                selectedCard.IdAlat;
         }
 
         private void btnHapus_Click(object sender, EventArgs e)
@@ -352,7 +339,6 @@ namespace FARMATE.Views.Admin
             }
         }
 
-
         private void flowTraktor_Paint(object sender, PaintEventArgs e)
         {
 
@@ -365,14 +351,18 @@ namespace FARMATE.Views.Admin
 
         private void btnTambah_Click(object sender, EventArgs e)
         {
-            panelContainer.Visible = true;
-            panelContainer.BringToFront();
+           
             TampilTambahAlat();
 
 
         }
 
         private void panelContainer_Paint(object sender, PaintEventArgs e)
+        {
+
+        }
+
+        private void panelSidebar_Paint(object sender, PaintEventArgs e)
         {
 
         }
