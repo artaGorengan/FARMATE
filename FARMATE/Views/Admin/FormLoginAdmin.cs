@@ -15,14 +15,10 @@ namespace FARMATE
         {
             InitializeComponent();
         }
-
         private void FormLogin_Load(object sender, EventArgs e)
         {
             txtPassword.UseSystemPasswordChar = true;
         }
-
-
-
         private void btnLogin_Click(object sender, EventArgs e)
         {
             try
@@ -30,16 +26,10 @@ namespace FARMATE
                 using (var conn = Koneksi.GetConnection())
                 {
                     conn.Open();
-
-
-
                     string query = @"SELECT * FROM Atmin WHERE username=@username AND password=@password";
-
                     NpgsqlCommand cmd = new NpgsqlCommand(query, conn);
-
                     cmd.Parameters.AddWithValue("@username", txtUsername.Text);
                     cmd.Parameters.AddWithValue("@password", txtPassword.Text);
-
                     NpgsqlDataReader rd = cmd.ExecuteReader();
 
                     if (rd.Read())

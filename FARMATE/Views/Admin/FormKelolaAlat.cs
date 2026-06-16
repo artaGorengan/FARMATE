@@ -18,19 +18,12 @@ namespace FARMATE.Views.Admin
         private int selectedIdAlat = 0;
 
         private UCAlatCard selectedCard = null;
-
-
-
-
         public FormKelolaAlat()
         {
             InitializeComponent();
         }
         private void FormKelolaAlat_Load(object sender, EventArgs e)
         {
-
-           
-
             LoadDataAlat();
             LoadStatistik();
         }
@@ -41,51 +34,33 @@ namespace FARMATE.Views.Admin
         {
             if (selectedIdAlat == 0)
             {
-                MessageBox.Show(
-                    "Pilih alat terlebih dahulu");
+                MessageBox.Show("Pilih alat terlebih dahulu");
                 return;
             }
-
-           
             TampilTambahAlat();
-
-            ucTambah.LoadDataEdit(
-                selectedIdAlat);
-
+            ucTambah.LoadDataEdit(selectedIdAlat);
         }
         private void TampilTambahAlat()
         {
-           
-
             ucTambah = new UCTambahAlat();
-
             ucTambah.Dock = DockStyle.Fill;
-
             ucTambah.OnSimpanBerhasil += () =>
             {
                 this.Controls.Remove(ucTambah);
-
                 LoadDataAlat();
                 LoadStatistik();
-
                 TampilHalamanUtama();
-
-
             };
 
             ucTambah.OnBatal += () =>
             {
                 this.Controls.Remove(ucTambah);
-
                 TampilHalamanUtama();
             };
 
             SembunyikanHalamanUtama();
-
             this.Controls.Add(ucTambah);
-
             ucTambah.BringToFront();
-
         }
 
         private void SembunyikanHalamanUtama()
@@ -145,9 +120,7 @@ namespace FARMATE.Views.Admin
 
                     if (kategori == "Drone Pertanian")
                     {
-                        UCAlatCard card =
-    new UCAlatCard();
-
+                        UCAlatCard card = new UCAlatCard();
                         card.SetData(
                             Convert.ToInt32(rd["id_alat"]),
                             rd["merk_alat"].ToString(),
@@ -162,9 +135,7 @@ namespace FARMATE.Views.Admin
 
                     else if (kategori == "Traktor")
                     {
-                        UCAlatCard card =
-     new UCAlatCard();
-
+                        UCAlatCard card = new UCAlatCard();
                         card.SetData(
                             Convert.ToInt32(rd["id_alat"]),
                             rd["merk_alat"].ToString(),
@@ -173,14 +144,13 @@ namespace FARMATE.Views.Admin
                         );
 
                         card.CardClicked += Card_Click;
-
                         flowTraktor.Controls.Add(card);
                     }
 
                     else if (kategori == "Mesin Panen")
                     {
-                        UCAlatCard card =
-     new UCAlatCard();
+                        UCAlatCard card = new UCAlatCard();
+
 
                         card.SetData(
                             Convert.ToInt32(rd["id_alat"]),
@@ -190,7 +160,6 @@ namespace FARMATE.Views.Admin
                         );
 
                         card.CardClicked += Card_Click;
-
                         flowPanen.Controls.Add(card);
                     }
                 }
@@ -201,14 +170,9 @@ namespace FARMATE.Views.Admin
         {
             if (selectedCard != null)
                 selectedCard.SetSelected(false);
-
-            selectedCard =
-                (UCAlatCard)sender;
-
+            selectedCard =  (UCAlatCard)sender;
             selectedCard.SetSelected(true);
-
-            selectedIdAlat =
-                selectedCard.IdAlat;
+            selectedIdAlat = selectedCard.IdAlat;
         }
 
         private void btnHapus_Click(object sender, EventArgs e)
@@ -231,16 +195,9 @@ namespace FARMATE.Views.Admin
             using (var conn = Koneksi.GetConnection())
             {
                 conn.Open();
-
-                string sql =
-                    "DELETE FROM Alat WHERE id_alat=@id";
-
-                NpgsqlCommand cmd =
-                    new NpgsqlCommand(sql, conn);
-
-                cmd.Parameters.AddWithValue("@id",
-                    selectedIdAlat);
-
+                string sql = "DELETE FROM Alat WHERE id_alat=@id";
+                NpgsqlCommand cmd = new NpgsqlCommand(sql, conn);
+                cmd.Parameters.AddWithValue("@id", selectedIdAlat);
                 cmd.ExecuteNonQuery();
             }
 
@@ -286,54 +243,48 @@ namespace FARMATE.Views.Admin
             {
                 conn.Open();
 
-                // Total Alat
-                string sqlTotal =
-                    "SELECT COUNT(*) FROM Alat";
-
-                lblTotalAlat.Text =
-                    new NpgsqlCommand(sqlTotal, conn)
+                // Total Alat 
+                string sqlTotal = "SELECT COUNT(*) FROM Alat";
+                lblTotalAlat.Text = new NpgsqlCommand(sqlTotal, conn)
                     .ExecuteScalar()
                     .ToString();
 
 
                 // Drone
                 string sqlDrone = @"
-        SELECT COUNT(*)
-        FROM Alat a
-        JOIN KategoriAlat k
-        ON a.id_kategori = k.id_kategori
-        WHERE k.nama_kategori='Drone Pertanian'";
+                SELECT COUNT(*)
+                FROM Alat a
+                JOIN KategoriAlat k
+                ON a.id_kategori = k.id_kategori
+                WHERE k.nama_kategori='Drone Pertanian'";
 
-                lblTotalDrone.Text =
-                    new NpgsqlCommand(sqlDrone, conn)
+                lblTotalDrone.Text = new NpgsqlCommand(sqlDrone, conn)
                     .ExecuteScalar()
                     .ToString();
 
 
                 // Traktor
                 string sqlTraktor = @"
-        SELECT COUNT(*)
-        FROM Alat a
-        JOIN KategoriAlat k
-        ON a.id_kategori = k.id_kategori
-        WHERE k.nama_kategori='Traktor'";
+                SELECT COUNT(*)
+                FROM Alat a
+                JOIN KategoriAlat k
+                ON a.id_kategori = k.id_kategori
+                WHERE k.nama_kategori='Traktor'";
 
-                lblTotalTraktor.Text =
-                    new NpgsqlCommand(sqlTraktor, conn)
+                lblTotalTraktor.Text = new NpgsqlCommand(sqlTraktor, conn)
                     .ExecuteScalar()
                     .ToString();
 
 
                 // Mesin Panen
                 string sqlPanen = @"
-        SELECT COUNT(*)
-        FROM Alat a
-        JOIN KategoriAlat k
-        ON a.id_kategori = k.id_kategori
-        WHERE k.nama_kategori='Mesin Panen'";
+                SELECT COUNT(*)
+                FROM Alat a
+                JOIN KategoriAlat k
+                ON a.id_kategori = k.id_kategori
+                WHERE k.nama_kategori='Mesin Panen'";
 
-                lblTotalPanen.Text =
-                    new NpgsqlCommand(sqlPanen, conn)
+                lblTotalPanen.Text = new NpgsqlCommand(sqlPanen, conn)
                     .ExecuteScalar()
                     .ToString();
             }
@@ -351,10 +302,7 @@ namespace FARMATE.Views.Admin
 
         private void btnTambah_Click(object sender, EventArgs e)
         {
-           
             TampilTambahAlat();
-
-
         }
 
         private void panelContainer_Paint(object sender, PaintEventArgs e)
