@@ -28,45 +28,51 @@
         /// </summary>
         private void InitializeComponent()
         {
-            pictureBox1 = new PictureBox();
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(UCAlatCard));
+            pbFotoAlat = new PictureBox();
             lblMerk = new Label();
             lblHarga = new Label();
             lblStok = new Label();
-            ((System.ComponentModel.ISupportInitialize)pictureBox1).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)pbFotoAlat).BeginInit();
             SuspendLayout();
             // 
-            // pictureBox1
+            // pbFotoAlat
             // 
-            pictureBox1.Location = new Point(0, 0);
-            pictureBox1.Name = "pictureBox1";
-            pictureBox1.Size = new Size(367, 113);
-            pictureBox1.TabIndex = 0;
-            pictureBox1.TabStop = false;
+            pbFotoAlat.Location = new Point(0, 0);
+            pbFotoAlat.Name = "pbFotoAlat";
+            pbFotoAlat.Size = new Size(367, 172);
+            pbFotoAlat.TabIndex = 0;
+            pbFotoAlat.TabStop = false;
+            pbFotoAlat.Click += pbFotoAlat_Click;
             // 
             // lblMerk
             // 
             lblMerk.AutoSize = true;
+            lblMerk.Font = new Font("Arial Rounded MT Bold", 9F, FontStyle.Regular, GraphicsUnit.Point, 0);
             lblMerk.Location = new Point(14, 125);
             lblMerk.Name = "lblMerk";
-            lblMerk.Size = new Size(52, 25);
+            lblMerk.Size = new Size(54, 21);
             lblMerk.TabIndex = 1;
             lblMerk.Text = "Merk";
             // 
             // lblHarga
             // 
             lblHarga.AutoSize = true;
-            lblHarga.Location = new Point(15, 152);
+            lblHarga.Font = new Font("Arial Rounded MT Bold", 9F, FontStyle.Regular, GraphicsUnit.Point, 0);
+            lblHarga.ForeColor = Color.DarkGreen;
+            lblHarga.Location = new Point(14, 175);
             lblHarga.Name = "lblHarga";
-            lblHarga.Size = new Size(60, 25);
+            lblHarga.Size = new Size(65, 21);
             lblHarga.TabIndex = 2;
             lblHarga.Text = "Harga";
             // 
             // lblStok
             // 
             lblStok.AutoSize = true;
-            lblStok.Location = new Point(13, 184);
+            lblStok.Font = new Font("Arial Rounded MT Bold", 9F, FontStyle.Regular, GraphicsUnit.Point, 0);
+            lblStok.Location = new Point(14, 150);
             lblStok.Name = "lblStok";
-            lblStok.Size = new Size(47, 25);
+            lblStok.Size = new Size(49, 21);
             lblStok.TabIndex = 3;
             lblStok.Text = "Stok";
             // 
@@ -74,21 +80,23 @@
             // 
             AutoScaleDimensions = new SizeF(10F, 25F);
             AutoScaleMode = AutoScaleMode.Font;
+            BackColor = Color.Transparent;
+            BackgroundImage = (Image)resources.GetObject("$this.BackgroundImage");
             Controls.Add(lblStok);
             Controls.Add(lblHarga);
             Controls.Add(lblMerk);
-            Controls.Add(pictureBox1);
+            Controls.Add(pbFotoAlat);
             Name = "UCAlatCard";
             Size = new Size(367, 227);
             Load += UCAlatCard_Load;
-            ((System.ComponentModel.ISupportInitialize)pictureBox1).EndInit();
+            ((System.ComponentModel.ISupportInitialize)pbFotoAlat).EndInit();
             ResumeLayout(false);
             PerformLayout();
         }
 
         #endregion
 
-        private PictureBox pictureBox1;
+        private PictureBox pbFotoAlat;
         private Label lblMerk;
         private Label lblHarga;
         private Label lblStok;

@@ -19,19 +19,7 @@ namespace FARMATE.Views
         }
         private void RepositionButtons()
         {
-            int formW = this.ClientSize.Width;
-            int formH = this.ClientSize.Height;
-
-            int btnW = (int)(formW * 0.2785);
-            int btnH = (int)(formH * 0.2188);
-
-            btnLoginAdmin.Size = new Size(btnW, btnH);
-            btnLoginAdmin.Size = new Size(btnW, btnH);
-            btnLoginAdmin.Location = new Point((int)(formW * 0.1521), (int)(formH * 0.6826));
-
-            btnLoginUser.Size = new Size(btnW, btnH);
-            btnLoginUser.Location = new Point((int)(formW * 0.5576), (int)(formH * 0.6826));
-
+            
             btnLoginAdmin.BackColor = Color.Transparent;
             btnLoginAdmin.FlatStyle = FlatStyle.Flat;
             btnLoginAdmin.FlatAppearance.BorderSize = 0;

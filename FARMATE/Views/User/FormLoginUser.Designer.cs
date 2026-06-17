@@ -33,32 +33,37 @@
             txtPassword = new TextBox();
             btnLogin = new Button();
             lblRegister = new LinkLabel();
+            btnKeluar = new Button();
             SuspendLayout();
             // 
             // txtEmail
             // 
+            txtEmail.Font = new Font("Arial Rounded MT Bold", 14F, FontStyle.Regular, GraphicsUnit.Point, 0);
+            txtEmail.ForeColor = Color.DarkOliveGreen;
             txtEmail.Location = new Point(624, 511);
             txtEmail.Name = "txtEmail";
-            txtEmail.Size = new Size(640, 31);
+            txtEmail.Size = new Size(640, 40);
             txtEmail.TabIndex = 0;
             txtEmail.TextChanged += txtEmail_TextChanged;
             // 
             // txtPassword
             // 
+            txtPassword.Font = new Font("Segoe UI", 14F, FontStyle.Regular, GraphicsUnit.Point, 0);
+            txtPassword.ForeColor = Color.DarkOliveGreen;
             txtPassword.Location = new Point(624, 618);
             txtPassword.Name = "txtPassword";
-            txtPassword.Size = new Size(640, 31);
+            txtPassword.Size = new Size(640, 45);
             txtPassword.TabIndex = 1;
             // 
             // btnLogin
             // 
             btnLogin.BackColor = Color.Transparent;
             btnLogin.ForeColor = Color.Transparent;
-            btnLogin.Location = new Point(805, 701);
+            btnLogin.Image = (Image)resources.GetObject("btnLogin.Image");
+            btnLogin.Location = new Point(989, 709);
             btnLogin.Name = "btnLogin";
-            btnLogin.Size = new Size(325, 102);
+            btnLogin.Size = new Size(275, 76);
             btnLogin.TabIndex = 4;
-            btnLogin.Text = "Login";
             btnLogin.UseVisualStyleBackColor = false;
             btnLogin.Click += btnLogin_Click;
             // 
@@ -79,12 +84,25 @@
             lblRegister.VisitedLinkColor = Color.Transparent;
             lblRegister.LinkClicked += lblRegister_LinkClicked;
             // 
+            // btnKeluar
+            // 
+            btnKeluar.BackColor = Color.Transparent;
+            btnKeluar.ForeColor = Color.Transparent;
+            btnKeluar.Image = (Image)resources.GetObject("btnKeluar.Image");
+            btnKeluar.Location = new Point(624, 709);
+            btnKeluar.Name = "btnKeluar";
+            btnKeluar.Size = new Size(275, 76);
+            btnKeluar.TabIndex = 6;
+            btnKeluar.UseVisualStyleBackColor = false;
+            btnKeluar.Click += btnKeluar_Click;
+            // 
             // FormLoginUser
             // 
             AutoScaleDimensions = new SizeF(10F, 25F);
             AutoScaleMode = AutoScaleMode.Font;
             BackgroundImage = (Image)resources.GetObject("$this.BackgroundImage");
             ClientSize = new Size(1898, 1024);
+            Controls.Add(btnKeluar);
             Controls.Add(lblRegister);
             Controls.Add(btnLogin);
             Controls.Add(txtPassword);
@@ -102,5 +120,6 @@
         private TextBox txtPassword;
         private Button btnLogin;
         private LinkLabel lblRegister;
+        private Button btnKeluar;
     }
 }

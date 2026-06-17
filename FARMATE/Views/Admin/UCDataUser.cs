@@ -20,13 +20,7 @@ namespace FARMATE.Views.Admin
 
         }
 
-        public void SetData(
-    string nama,
-    string username,
-    string email,
-    string noHp,
-    string alamat,
-    string totalSewa)
+        public void SetData(string nama, string username, string email, string noHp, string alamat, string totalSewa)
         {
             lblNama.Text = nama;
             lblUsername.Text = username;

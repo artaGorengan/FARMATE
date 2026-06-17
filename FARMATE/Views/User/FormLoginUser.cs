@@ -18,19 +18,6 @@ namespace FARMATE.Views.User
         {
             InitializeComponent();
         }
-
-        private void txtEmail_TextChanged(object sender, EventArgs e)
-        {
-
-        }
-
-        private void lblRegister_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
-        {
-            FormRegisterUser form = new FormRegisterUser();
-            form.Show();
-            this.Hide();
-        }
-
         private void btnLogin_Click(object sender, EventArgs e)
         {
             try
@@ -40,10 +27,10 @@ namespace FARMATE.Views.User
                     conn.Open();
 
                     string query = @"SELECT * FROM Users WHERE email=@email AND password=@password";
-                       NpgsqlCommand cmd = new NpgsqlCommand(query, conn);
-                   
-                       cmd.Parameters.AddWithValue("@email", txtEmail.Text);
-                       cmd.Parameters.AddWithValue("@password", txtPassword.Text);
+                    NpgsqlCommand cmd = new NpgsqlCommand(query, conn);
+
+                    cmd.Parameters.AddWithValue("@email", txtEmail.Text);
+                    cmd.Parameters.AddWithValue("@password", txtPassword.Text);
 
                     NpgsqlDataReader rd = cmd.ExecuteReader();
 
@@ -53,7 +40,7 @@ namespace FARMATE.Views.User
                         UserSession.Username = rd["username"].ToString();
                         UserSession.Role = "USER";
 
-                
+
 
                         FormDaftarAlat form = new FormDaftarAlat();
                         form.Show();
@@ -72,9 +59,27 @@ namespace FARMATE.Views.User
             }
         }
 
+        private void lblRegister_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
+        {
+            FormRegisterUser form = new FormRegisterUser();
+            form.Show();
+            this.Hide();
+        }
         private void FormLoginUser_Load(object sender, EventArgs e)
         {
             txtPassword.UseSystemPasswordChar = true;
+        }
+
+        private void txtEmail_TextChanged(object sender, EventArgs e)
+        {
+
+        }
+
+        private void btnKeluar_Click(object sender, EventArgs e)
+        {
+            FormWelcome form = new FormWelcome();
+            form.Show();
+            this.Hide();
         }
     }
 }

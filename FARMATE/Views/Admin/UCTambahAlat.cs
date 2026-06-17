@@ -22,19 +22,123 @@ namespace FARMATE.Views.Admin
             InitializeComponent();
             LoadKategori();
             LoadBBM();
-
         }
 
-        private void LoadBBM()
+        private void UpdateAlat()
         {
-            cmbBBM.Items.Clear();
+            using (var conn = Koneksi.GetConnection())
+            {
+                conn.Open();
 
-            cmbBBM.Items.Add("Solar");
-            cmbBBM.Items.Add("Listrik");
-            cmbBBM.Items.Add("Tidak Ada");
+                string sql = @"
+                UPDATE Alat
+                SET
+                id_kategori=@kategori,
+                merk_alat=@merk,
+                deskripsi=@deskripsi,
+                harga_perhari=@harga,
+                stok_total=@stok,
+                stok_tersedia=@stok,
+                bahan_bakar=@bbm
+                WHERE id_alat=@id";
+
+                NpgsqlCommand cmd = new NpgsqlCommand(sql, conn);
+
+                cmd.Parameters.AddWithValue("@id", selectedIdAlat);
+                cmd.Parameters.AddWithValue("@kategori", Convert.ToInt32(cmbKategori.SelectedValue));
+                cmd.Parameters.AddWithValue("@merk", txtMerk.Text);
+                cmd.Parameters.AddWithValue("@deskripsi", RTBDeskripsi.Text);
+                cmd.Parameters.AddWithValue("@harga", decimal.Parse(txtHarga.Text));
+                cmd.Parameters.AddWithValue("@stok", int.Parse(txtStok.Text));
+                cmd.Parameters.AddWithValue("@bbm", cmbBBM.Text);
+                cmd.ExecuteNonQuery();
+            }
+
+            MessageBox.Show("Data berhasil diupdate");
+            isEditMode = false;
+            btnSimpan.Text = "Simpan";
+            ClearForm();
         }
-        public event Action OnSimpanBerhasil;
+        private void TambahAlat()
+        {
+            try
+            {
+                using (var conn = Koneksi.GetConnection())
+                {
+                    conn.Open();
 
+                    string sql = @"
+                    INSERT INTO Alat
+                    (id_admin,id_kategori,merk_alat, deskripsi,harga_perhari,stok_total,stok_tersedia, bahan_bakar,foto_alat )
+                    VALUES
+                    (@admin, @kategori,@merk,@deskripsi,@harga,@stoktotal, @stoktersedia,@bbm,@foto)";
+
+                    NpgsqlCommand cmd = new NpgsqlCommand(sql, conn);
+                    cmd.Parameters.AddWithValue("@admin", UserSession.AdminID);
+                    cmd.Parameters.AddWithValue("@kategori", Convert.ToInt32(cmbKategori.SelectedValue));
+                    cmd.Parameters.AddWithValue("@merk", txtMerk.Text);
+                    cmd.Parameters.AddWithValue("@deskripsi", RTBDeskripsi.Text);
+                    cmd.Parameters.AddWithValue("@harga", decimal.Parse(txtHarga.Text));
+                    cmd.Parameters.AddWithValue("@stoktotal", int.Parse(txtStok.Text));
+                    cmd.Parameters.AddWithValue("@stoktersedia", int.Parse(txtStok.Text));
+                    cmd.Parameters.AddWithValue("@bbm", cmbBBM.Text);
+                    cmd.Parameters.AddWithValue("@foto", fotoPath);
+                    MessageBox.Show(fotoPath);
+                    cmd.ExecuteNonQuery();
+                }
+
+                MessageBox.Show("Alat berhasil ditambahkan");
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message);
+            }
+            ClearForm();
+        }
+        public void LoadDataEdit(int idAlat)
+        {
+
+            selectedIdAlat = idAlat;
+
+            using (var conn = Koneksi.GetConnection())
+            {
+                conn.Open();
+
+                string sql =
+                @"SELECT *
+                FROM Alat
+                WHERE id_alat=@id";
+
+                NpgsqlCommand cmd = new NpgsqlCommand(sql, conn);
+
+
+                cmd.Parameters.AddWithValue("@id", idAlat);
+
+                NpgsqlDataReader rd = cmd.ExecuteReader();
+
+
+                if (rd.Read())
+                {
+                    txtMerk.Text = rd["merk_alat"].ToString();
+                    RTBDeskripsi.Text = rd["deskripsi"].ToString();
+                    txtHarga.Text = rd["harga_perhari"].ToString();
+                    txtStok.Text = rd["stok_total"].ToString();
+                    cmbBBM.Text = rd["bahan_bakar"].ToString();
+                    cmbKategori.SelectedValue = rd["id_kategori"];
+                    fotoPath = rd["foto_alat"].ToString();
+                    if (System.IO.File.Exists(fotoPath))
+                    {
+                        pbFotoAlat.Image =
+                            Image.FromFile(fotoPath);
+                    }
+
+                    isEditMode = true;
+
+                    btnSimpan.Text =
+                        "Update";
+                }
+            }
+        }
         private void LoadKategori()
         {
             using (var conn = Koneksi.GetConnection())
@@ -46,59 +150,21 @@ namespace FARMATE.Views.Admin
                 id_kategori,
                 nama_kategori
                 FROM KategoriAlat;";
-
-
                 NpgsqlCommand cmd = new NpgsqlCommand(sql, conn);
-
-
                 DataTable dt = new DataTable();
                 dt.Load(cmd.ExecuteReader());
-
                 cmbKategori.DataSource = dt;
                 cmbKategori.DisplayMember = "nama_kategori";
                 cmbKategori.ValueMember = "id_kategori";
 
-
             }
         }
-
-
-        private void TambahAlat()
+        private void LoadBBM()
         {
-            try
-            {
-                using (var conn = Koneksi.GetConnection())
-                {
-                    conn.Open();
-
-                    string sql = @"
-                INSERT INTO Alat
-                (id_admin,id_kategori,merk_alat, deskripsi,harga_perhari,stok_total,stok_tersedia, bahan_bakar,foto_alat )
-                VALUES
-                (@admin, @kategori,@merk,@deskripsi,@harga,@stoktotal, @stoktersedia,@bbm,@foto)";
-
-                    NpgsqlCommand cmd = new NpgsqlCommand(sql, conn);
-
-                    cmd.Parameters.AddWithValue("@admin", UserSession.AdminID);
-
-                    cmd.Parameters.AddWithValue("@kategori", Convert.ToInt32(cmbKategori.SelectedValue));
-                    cmd.Parameters.AddWithValue("@merk", txtMerk.Text);
-                    cmd.Parameters.AddWithValue("@deskripsi", RTBDeskripsi.Text);
-                    cmd.Parameters.AddWithValue("@harga", decimal.Parse(txtHarga.Text));
-                    cmd.Parameters.AddWithValue("@stoktotal", int.Parse(txtStok.Text));
-                    cmd.Parameters.AddWithValue("@stoktersedia", int.Parse(txtStok.Text));
-                    cmd.Parameters.AddWithValue("@bbm", cmbBBM.Text);
-                    cmd.Parameters.AddWithValue("@foto", fotoPath);
-                    cmd.ExecuteNonQuery();
-                }
-
-                MessageBox.Show("Alat berhasil ditambahkan");
-            }
-            catch (Exception ex)
-            {
-                MessageBox.Show(ex.Message);
-            }
-            ClearForm();
+            cmbBBM.Items.Clear();
+            cmbBBM.Items.Add("Solar");
+            cmbBBM.Items.Add("Listrik");
+            cmbBBM.Items.Add("Tidak Ada");
         }
         private void UCTambahAlat_Load(object sender, EventArgs e)
         {
@@ -117,68 +183,7 @@ namespace FARMATE.Views.Admin
                 pbFotoAlat.Image = Image.FromFile(fotoPath);
             }
         }
-        private void UpdateAlat()
-        {
-            using (var conn = Koneksi.GetConnection())
-            {
-                conn.Open();
-
-                string sql = @"
-        UPDATE Alat
-        SET
-            id_kategori=@kategori,
-            merk_alat=@merk,
-            deskripsi=@deskripsi,
-            harga_perhari=@harga,
-            stok_total=@stok,
-            stok_tersedia=@stok,
-            bahan_bakar=@bbm
-        WHERE id_alat=@id";
-
-                NpgsqlCommand cmd =
-                    new NpgsqlCommand(sql, conn);
-
-                cmd.Parameters.AddWithValue(
-                    "@id",
-                    selectedIdAlat);
-
-                cmd.Parameters.AddWithValue(
-                    "@kategori",
-                    Convert.ToInt32(cmbKategori.SelectedValue));
-
-                cmd.Parameters.AddWithValue(
-                    "@merk",
-                    txtMerk.Text);
-
-                cmd.Parameters.AddWithValue(
-                    "@deskripsi",
-                    RTBDeskripsi.Text);
-
-                cmd.Parameters.AddWithValue(
-                    "@harga",
-                    decimal.Parse(txtHarga.Text));
-
-                cmd.Parameters.AddWithValue(
-                    "@stok",
-                    int.Parse(txtStok.Text));
-
-                cmd.Parameters.AddWithValue(
-                    "@bbm",
-                    cmbBBM.Text);
-
-                cmd.ExecuteNonQuery();
-            }
-
-            MessageBox.Show(
-                "Data berhasil diupdate");
-
-            isEditMode = false;
-
-            btnSimpan.Text = "Simpan";
-
-            ClearForm();
-        }
-
+      
         private void ClearForm()
         {
             txtMerk.Clear();
@@ -193,76 +198,15 @@ namespace FARMATE.Views.Admin
 
             fotoPath = "";
         }
-
-
-        public void LoadDataEdit(int idAlat)
-        {
-
-            selectedIdAlat = idAlat;
-
-            using (var conn = Koneksi.GetConnection())
-            {
-                conn.Open();
-
-                string sql =
-                @"SELECT *
-          FROM Alat
-          WHERE id_alat=@id";
-
-                NpgsqlCommand cmd =
-                    new NpgsqlCommand(sql, conn);
-
-                cmd.Parameters.AddWithValue("@id", idAlat);
-
-                NpgsqlDataReader rd =
-                    cmd.ExecuteReader();
-
-                if (rd.Read())
-                {
-                    txtMerk.Text =
-                        rd["merk_alat"].ToString();
-
-                    RTBDeskripsi.Text =
-                        rd["deskripsi"].ToString();
-
-                    txtHarga.Text =
-                        rd["harga_perhari"].ToString();
-
-                    txtStok.Text =
-                        rd["stok_total"].ToString();
-
-                    cmbBBM.Text =
-                        rd["bahan_bakar"].ToString();
-
-                    cmbKategori.SelectedValue =
-                        rd["id_kategori"];
-                    fotoPath =
-    rd["foto_alat"].ToString();
-
-                    if (System.IO.File.Exists(fotoPath))
-                    {
-                        pbFotoAlat.Image =
-                            Image.FromFile(fotoPath);
-                    }
-
-                    isEditMode = true;
-
-                    btnSimpan.Text =
-                        "Update";
-                }
-            }
-        }
-
+        public event Action OnSimpanBerhasil;
         private void btnSimpan_Click(object sender, EventArgs e)
         {
             if (txtMerk.Text == "" ||
-         txtHarga.Text == "" ||
-         txtStok.Text == "" ||
-         cmbKategori.SelectedIndex == -1)
+            txtHarga.Text == ""    ||
+            txtStok.Text == ""     ||
+            cmbKategori.SelectedIndex == -1)
             {
-                MessageBox.Show(
-                    "Lengkapi data terlebih dahulu");
-
+                MessageBox.Show("Lengkapi data terlebih dahulu");
                 return;
             }
 
@@ -276,8 +220,6 @@ namespace FARMATE.Views.Admin
             }
 
             OnSimpanBerhasil?.Invoke();
-
-
         }
 
         private void btnBatal_Click(object sender, EventArgs e)

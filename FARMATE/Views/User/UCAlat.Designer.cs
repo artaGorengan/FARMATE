@@ -49,42 +49,46 @@
             // lblMerk
             // 
             lblMerk.AutoSize = true;
-            lblMerk.Font = new Font("Segoe UI", 9F, FontStyle.Bold, GraphicsUnit.Point, 0);
+            lblMerk.BackColor = Color.Transparent;
+            lblMerk.Font = new Font("Arial Rounded MT Bold", 9F, FontStyle.Regular, GraphicsUnit.Point, 0);
             lblMerk.ForeColor = Color.DarkOliveGreen;
             lblMerk.Location = new Point(17, 213);
             lblMerk.Name = "lblMerk";
-            lblMerk.Size = new Size(56, 25);
+            lblMerk.Size = new Size(54, 21);
             lblMerk.TabIndex = 1;
             lblMerk.Text = "Merk";
             // 
             // lblDeskripsi
             // 
             lblDeskripsi.AutoSize = true;
-            lblDeskripsi.Font = new Font("Segoe UI", 9F, FontStyle.Bold, GraphicsUnit.Point, 0);
+            lblDeskripsi.BackColor = Color.Transparent;
+            lblDeskripsi.Font = new Font("Arial Rounded MT Bold", 9F, FontStyle.Regular, GraphicsUnit.Point, 0);
             lblDeskripsi.ForeColor = Color.DarkOliveGreen;
             lblDeskripsi.Location = new Point(17, 238);
             lblDeskripsi.Name = "lblDeskripsi";
-            lblDeskripsi.Size = new Size(89, 25);
+            lblDeskripsi.Size = new Size(93, 21);
             lblDeskripsi.TabIndex = 2;
             lblDeskripsi.Text = "Deskripsi";
             // 
             // lblHarga
             // 
             lblHarga.AutoSize = true;
-            lblHarga.Font = new Font("Segoe UI", 9F, FontStyle.Bold, GraphicsUnit.Point, 0);
+            lblHarga.BackColor = Color.Transparent;
+            lblHarga.Font = new Font("Arial Rounded MT Bold", 9F, FontStyle.Regular, GraphicsUnit.Point, 0);
             lblHarga.ForeColor = Color.DarkOliveGreen;
             lblHarga.Location = new Point(17, 307);
             lblHarga.Name = "lblHarga";
-            lblHarga.Size = new Size(64, 25);
+            lblHarga.Size = new Size(65, 21);
             lblHarga.TabIndex = 3;
             lblHarga.Text = "Harga";
             // 
             // btnDetail
             // 
             btnDetail.BackColor = Color.Transparent;
-            btnDetail.Location = new Point(64, 355);
+            btnDetail.Image = (Image)resources.GetObject("btnDetail.Image");
+            btnDetail.Location = new Point(52, 354);
             btnDetail.Name = "btnDetail";
-            btnDetail.Size = new Size(149, 41);
+            btnDetail.Size = new Size(171, 58);
             btnDetail.TabIndex = 4;
             btnDetail.UseVisualStyleBackColor = false;
             btnDetail.Click += btnDetail_Click;

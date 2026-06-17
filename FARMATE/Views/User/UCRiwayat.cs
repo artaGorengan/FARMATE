@@ -14,20 +14,12 @@ namespace FARMATE.Views.User
         {
             InitializeComponent();
         }
-
         private void UCRiwayat_Load(object sender, EventArgs e)
         {
 
         }
 
-        public void SetData(
-    string alat,
-    string kategori,
-    string durasi,
-    string pinjam,
-    string kembali,
-    string denda,
-    string status)
+        public void SetData(string alat, string kategori, string durasi, string pinjam, string kembali, string denda, string status)
         {
             lblAlat.Text = alat;
             lblKategori.Text = kategori;
@@ -49,9 +41,11 @@ namespace FARMATE.Views.User
             {
                 lblStatus.ForeColor = Color.Red;
             }
-
-
         }
 
+        private void lblDenda_Click(object sender, EventArgs e)
+        {
+
+        }
     }
 }

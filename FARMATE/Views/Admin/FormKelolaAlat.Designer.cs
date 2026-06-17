@@ -55,27 +55,31 @@
             // 
             // btnHapus
             // 
+            btnHapus.Image = (Image)resources.GetObject("btnHapus.Image");
             btnHapus.Location = new Point(10, 358);
             btnHapus.Name = "btnHapus";
-            btnHapus.Size = new Size(381, 121);
+            btnHapus.Size = new Size(389, 121);
             btnHapus.TabIndex = 2;
             btnHapus.UseVisualStyleBackColor = true;
             btnHapus.Click += btnHapus_Click;
             // 
             // btnEdit
             // 
-            btnEdit.Location = new Point(15, 234);
+            btnEdit.Image = (Image)resources.GetObject("btnEdit.Image");
+            btnEdit.Location = new Point(-35, 234);
             btnEdit.Name = "btnEdit";
-            btnEdit.Size = new Size(381, 117);
+            btnEdit.Size = new Size(434, 125);
             btnEdit.TabIndex = 1;
             btnEdit.UseVisualStyleBackColor = true;
             btnEdit.Click += btnEdit_Click;
             // 
             // btnTambah
             // 
+            btnTambah.ForeColor = Color.Crimson;
+            btnTambah.Image = (Image)resources.GetObject("btnTambah.Image");
             btnTambah.Location = new Point(10, 118);
             btnTambah.Name = "btnTambah";
-            btnTambah.Size = new Size(381, 119);
+            btnTambah.Size = new Size(389, 117);
             btnTambah.TabIndex = 0;
             btnTambah.UseVisualStyleBackColor = true;
             btnTambah.Click += btnTambah_Click;
@@ -84,15 +88,17 @@
             // 
             btnLogout.BackColor = Color.Transparent;
             btnLogout.ForeColor = Color.Transparent;
-            btnLogout.Location = new Point(1630, 47);
+            btnLogout.Image = (Image)resources.GetObject("btnLogout.Image");
+            btnLogout.Location = new Point(1616, 7);
             btnLogout.Name = "btnLogout";
-            btnLogout.Size = new Size(216, 48);
+            btnLogout.Size = new Size(252, 114);
             btnLogout.TabIndex = 3;
             btnLogout.UseVisualStyleBackColor = false;
             btnLogout.Click += btnLogout_Click;
             // 
             // panelNavbar
             // 
+            panelNavbar.BackColor = SystemColors.ControlDark;
             panelNavbar.BackgroundImage = (Image)resources.GetObject("panelNavbar.BackgroundImage");
             panelNavbar.Controls.Add(btnLogout);
             panelNavbar.Controls.Add(btnDataUser);
@@ -108,31 +114,39 @@
             // btnDataUser
             // 
             btnDataUser.BackColor = Color.Transparent;
+            btnDataUser.Font = new Font("Arial Rounded MT Bold", 9F, FontStyle.Regular, GraphicsUnit.Point, 0);
+            btnDataUser.ForeColor = Color.DarkOliveGreen;
             btnDataUser.Location = new Point(1221, 47);
             btnDataUser.Name = "btnDataUser";
-            btnDataUser.Size = new Size(112, 34);
+            btnDataUser.Size = new Size(133, 34);
             btnDataUser.TabIndex = 2;
+            btnDataUser.Text = "DATA USER";
             btnDataUser.UseVisualStyleBackColor = false;
             btnDataUser.Click += btnDataUser_Click;
             // 
             // btnRiwayat
             // 
             btnRiwayat.BackColor = Color.Transparent;
+            btnRiwayat.Font = new Font("Arial Rounded MT Bold", 9F, FontStyle.Regular, GraphicsUnit.Point, 0);
+            btnRiwayat.ForeColor = Color.DarkOliveGreen;
             btnRiwayat.Location = new Point(963, 47);
             btnRiwayat.Name = "btnRiwayat";
-            btnRiwayat.Size = new Size(112, 34);
+            btnRiwayat.Size = new Size(161, 34);
             btnRiwayat.TabIndex = 1;
-            btnRiwayat.Text = "\r\n";
+            btnRiwayat.Text = "RIWAYAT";
             btnRiwayat.UseVisualStyleBackColor = false;
             btnRiwayat.Click += btnRiwayat_Click;
             // 
             // btnKelolaAlat
             // 
             btnKelolaAlat.BackColor = Color.Transparent;
-            btnKelolaAlat.Location = new Point(680, 38);
+            btnKelolaAlat.Font = new Font("Arial Rounded MT Bold", 9F, FontStyle.Regular, GraphicsUnit.Point, 0);
+            btnKelolaAlat.ForeColor = Color.DarkOliveGreen;
+            btnKelolaAlat.Location = new Point(655, 46);
             btnKelolaAlat.Name = "btnKelolaAlat";
-            btnKelolaAlat.Size = new Size(147, 34);
+            btnKelolaAlat.Size = new Size(191, 34);
             btnKelolaAlat.TabIndex = 0;
+            btnKelolaAlat.Text = "KELOLA ALAT";
             btnKelolaAlat.UseVisualStyleBackColor = false;
             btnKelolaAlat.Click += btnKelolaAlat_Click;
             // 
@@ -180,9 +194,10 @@
             // 
             lblTotalAlat.AutoSize = true;
             lblTotalAlat.BackColor = Color.Transparent;
+            lblTotalAlat.Font = new Font("Arial Rounded MT Bold", 14F, FontStyle.Regular, GraphicsUnit.Point, 0);
             lblTotalAlat.Location = new Point(1795, 301);
             lblTotalAlat.Name = "lblTotalAlat";
-            lblTotalAlat.Size = new Size(22, 25);
+            lblTotalAlat.Size = new Size(31, 32);
             lblTotalAlat.TabIndex = 1;
             lblTotalAlat.Text = "0";
             // 
@@ -190,9 +205,10 @@
             // 
             lblTotalDrone.AutoSize = true;
             lblTotalDrone.BackColor = Color.Transparent;
+            lblTotalDrone.Font = new Font("Arial Rounded MT Bold", 12F, FontStyle.Regular, GraphicsUnit.Point, 0);
             lblTotalDrone.Location = new Point(1795, 487);
             lblTotalDrone.Name = "lblTotalDrone";
-            lblTotalDrone.Size = new Size(22, 25);
+            lblTotalDrone.Size = new Size(26, 28);
             lblTotalDrone.TabIndex = 3;
             lblTotalDrone.Text = "0";
             // 
@@ -200,9 +216,10 @@
             // 
             lblTotalTraktor.AutoSize = true;
             lblTotalTraktor.BackColor = Color.Transparent;
+            lblTotalTraktor.Font = new Font("Arial Rounded MT Bold", 14F, FontStyle.Regular, GraphicsUnit.Point, 0);
             lblTotalTraktor.Location = new Point(1795, 695);
             lblTotalTraktor.Name = "lblTotalTraktor";
-            lblTotalTraktor.Size = new Size(22, 25);
+            lblTotalTraktor.Size = new Size(31, 32);
             lblTotalTraktor.TabIndex = 5;
             lblTotalTraktor.Text = "0";
             // 
@@ -210,9 +227,10 @@
             // 
             lblTotalPanen.AutoSize = true;
             lblTotalPanen.BackColor = Color.Transparent;
+            lblTotalPanen.Font = new Font("Arial Rounded MT Bold", 14F, FontStyle.Regular, GraphicsUnit.Point, 0);
             lblTotalPanen.Location = new Point(1795, 871);
             lblTotalPanen.Name = "lblTotalPanen";
-            lblTotalPanen.Size = new Size(22, 25);
+            lblTotalPanen.Size = new Size(31, 32);
             lblTotalPanen.TabIndex = 7;
             lblTotalPanen.Text = "0";
             // 
@@ -229,6 +247,7 @@
             // 
             // panelContent
             // 
+            panelContent.AutoScroll = true;
             panelContent.BackColor = Color.Transparent;
             panelContent.Controls.Add(flowDrone);
             panelContent.Controls.Add(flowTraktor);

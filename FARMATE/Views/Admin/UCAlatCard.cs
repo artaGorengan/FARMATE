@@ -11,8 +11,8 @@ namespace FARMATE.Views.Admin
     public partial class UCAlatCard : UserControl
     {
         [Browsable(false)]
-        [DesignerSerializationVisibility(
-           DesignerSerializationVisibility.Hidden)]
+        [DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden)]
+
         public int IdAlat { get; set; }
         public event EventHandler CardClicked;
         public UCAlatCard()
@@ -24,17 +24,23 @@ namespace FARMATE.Views.Admin
             lblStok.Click += UC_Click;
         }
 
-        public void SetData(
-       int idAlat,
-       string merk,
-       string harga,
-       string stok)
+        public void SetData(int idAlat, string merk, string harga, string stok, string foto)
         {
             IdAlat = idAlat;
-
             lblMerk.Text = merk;
             lblHarga.Text = "Rp " + harga;
             lblStok.Text = "Stok : " + stok;
+            try
+            {
+                pbFotoAlat.Image =
+                    Image.FromFile(foto);
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message);
+            }
+
+
         }
 
         private void UC_Click(object sender, EventArgs e)
@@ -45,7 +51,7 @@ namespace FARMATE.Views.Admin
         public void SetSelected(bool selected)
         {
             if (selected)
-                BackColor = Color.LightGreen;
+                BackColor = Color.DarkOliveGreen;
             else
                 BackColor = Color.White;
         }
@@ -64,5 +70,9 @@ namespace FARMATE.Views.Admin
             OnBatal?.Invoke();
         }
 
+        private void pbFotoAlat_Click(object sender, EventArgs e)
+        {
+
+        }
     }
 }

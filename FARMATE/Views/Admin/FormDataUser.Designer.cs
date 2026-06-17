@@ -54,37 +54,47 @@
             // 
             // btnLogout
             // 
-            btnLogout.Location = new Point(1638, 49);
+            btnLogout.Image = (Image)resources.GetObject("btnLogout.Image");
+            btnLogout.Location = new Point(1626, 17);
             btnLogout.Name = "btnLogout";
-            btnLogout.Size = new Size(219, 51);
+            btnLogout.Size = new Size(260, 115);
             btnLogout.TabIndex = 3;
             btnLogout.UseVisualStyleBackColor = true;
             btnLogout.Click += btnLogout_Click;
             // 
             // btnDataUser
             // 
-            btnDataUser.Location = new Point(1201, 57);
+            btnDataUser.Font = new Font("Arial Rounded MT Bold", 9F, FontStyle.Regular, GraphicsUnit.Point, 0);
+            btnDataUser.ForeColor = Color.DarkOliveGreen;
+            btnDataUser.Location = new Point(1191, 56);
             btnDataUser.Name = "btnDataUser";
-            btnDataUser.Size = new Size(112, 34);
+            btnDataUser.Size = new Size(150, 34);
             btnDataUser.TabIndex = 2;
+            btnDataUser.Text = "DATA USER";
             btnDataUser.UseVisualStyleBackColor = true;
             btnDataUser.Click += btnDataUser_Click;
             // 
             // btnRiwayat
             // 
-            btnRiwayat.Location = new Point(945, 66);
+            btnRiwayat.Font = new Font("Arial Rounded MT Bold", 9F, FontStyle.Regular, GraphicsUnit.Point, 0);
+            btnRiwayat.ForeColor = Color.DarkOliveGreen;
+            btnRiwayat.Location = new Point(945, 56);
             btnRiwayat.Name = "btnRiwayat";
             btnRiwayat.Size = new Size(112, 34);
             btnRiwayat.TabIndex = 1;
+            btnRiwayat.Text = "RIWAYAT";
             btnRiwayat.UseVisualStyleBackColor = true;
             btnRiwayat.Click += btnRiwayat_Click;
             // 
             // btnKelolaAlat
             // 
+            btnKelolaAlat.Font = new Font("Arial Rounded MT Bold", 9F, FontStyle.Regular, GraphicsUnit.Point, 0);
+            btnKelolaAlat.ForeColor = Color.DarkOliveGreen;
             btnKelolaAlat.Location = new Point(659, 57);
             btnKelolaAlat.Name = "btnKelolaAlat";
-            btnKelolaAlat.Size = new Size(145, 34);
+            btnKelolaAlat.Size = new Size(167, 34);
             btnKelolaAlat.TabIndex = 0;
+            btnKelolaAlat.Text = "KELOLA ALAT";
             btnKelolaAlat.UseVisualStyleBackColor = true;
             btnKelolaAlat.Click += btnKelolaAlat_Click;
             // 

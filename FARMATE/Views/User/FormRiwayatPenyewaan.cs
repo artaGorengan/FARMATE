@@ -38,9 +38,6 @@ namespace FARMATE.Views.User
                 idKategori = Convert.ToInt32(cmbKategori.SelectedValue);
 
             }
-
-
-
             using (var conn = Koneksi.GetConnection())
             {
                 conn.Open();
@@ -137,14 +134,6 @@ namespace FARMATE.Views.User
                 }
             }
         }
-
-
-
-        private void panelDaftar_Paint(object sender, PaintEventArgs e)
-        {
-
-        }
-
         private void cmbKategori_SelectedIndexChanged(object sender, EventArgs e)
         {
             if (cmbKategori.SelectedValue == null)
@@ -206,6 +195,10 @@ namespace FARMATE.Views.User
             FormWelcome form = new FormWelcome();
             form.Show();
             this.Hide();
+        }
+        private void panelDaftar_Paint(object sender, PaintEventArgs e)
+        {
+
         }
 
         private void flowRiwayat_Paint(object sender, PaintEventArgs e)

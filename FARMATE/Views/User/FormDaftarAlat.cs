@@ -15,32 +15,15 @@ namespace FARMATE.Views.User
 {
     public partial class FormDaftarAlat : Form
     {
-      
-
         public FormDaftarAlat()
         {
-            InitializeComponent();
-            
+            InitializeComponent();           
         }
-
-
-        private void BtnDetail_Click(object sender, EventArgs e)
+        private void FormDaftarAlat_Load(object sender, EventArgs e)
         {
-            Button btn = (Button)sender;
-            int idAlat = Convert.ToInt32(btn.Tag);
-            FormDetailAlat form = new FormDetailAlat(idAlat);
-            form.ShowDialog();
-            
-
-
-        }
-
-        private void Card_DetailClicked(object sender, EventArgs e)
-        {
-            UCAlat card = (UCAlat)sender;
-            FormDetailAlat form = new FormDetailAlat(card.IdAlat);
-            form.Show();
-           
+            LoadKategori();
+            cmbKategori.SelectedIndex = 0;
+            LoadDataAlat();
         }
         private void LoadDataAlat()
         {
@@ -86,27 +69,10 @@ namespace FARMATE.Views.User
                     );
 
                     card.DetailClicked += Card_DetailClicked;
-
                     flowAlat.Controls.Add(card);
                 }
             }
         }
-        private void FormDaftarAlat_Load(object sender, EventArgs e)
-        {
-
-            LoadKategori();
-            cmbKategori.SelectedIndex = 0;
-            LoadDataAlat();
-          
-        }
-
-        
-
-        private void flowAlat_Paint(object sender, PaintEventArgs e)
-        {
-
-        }
-
         private void LoadKategori()
         {
             using (var conn = Koneksi.GetConnection())
@@ -138,7 +104,20 @@ namespace FARMATE.Views.User
 
             }
         }
-     
+
+        private void Card_DetailClicked(object sender, EventArgs e)
+        {
+            UCAlat card = (UCAlat)sender;
+            FormDetailAlat form = new FormDetailAlat(card.IdAlat);
+            form.Show();
+        }
+        private void BtnDetail_Click(object sender, EventArgs e)
+        {
+            Button btn = (Button)sender;
+            int idAlat = Convert.ToInt32(btn.Tag);
+            FormDetailAlat form = new FormDetailAlat(idAlat);
+            form.ShowDialog();
+        }
         private void cmbKategori_SelectedIndexChanged(object sender, EventArgs e)
         {
 
@@ -149,7 +128,6 @@ namespace FARMATE.Views.User
                 return;
             LoadDataAlat();
         }
-
         private void btnDaftarAlat_Click(object sender, EventArgs e)
         {
             FormDaftarAlat form = new FormDaftarAlat();
@@ -169,6 +147,11 @@ namespace FARMATE.Views.User
             FormWelcome form = new FormWelcome();
             form.Show();
             this.Hide();
+        }
+
+        private void flowAlat_Paint(object sender, PaintEventArgs e)
+        {
+
         }
     }
 

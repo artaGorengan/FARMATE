@@ -16,39 +16,23 @@ namespace FARMATE.Views.User
         {
             InitializeComponent();
         }
-
-
         public int IdAlat;
         public event EventHandler DetailClicked;
-
         private void btnDetail_Click(object sender, EventArgs e)
         {
             DetailClicked?.Invoke(this, EventArgs.Empty);
-
         }
 
-        public void SetData(
-    int idAlat,
-    string merk,
-    string deskripsi,
-    decimal harga,
-    string foto)
+        public void SetData(int idAlat, string merk, string deskripsi, decimal harga, string foto)
         {
             IdAlat = idAlat;
-
             lblMerk.Text = merk;
-
             lblDeskripsi.Text = deskripsi;
-
-            lblHarga.Text =
-                "Rp " +
-                harga.ToString("N0") +
-                " /hari";
-
+            lblHarga.Text = "Rp " + harga.ToString("N0") + " /hari";
             if (File.Exists(foto))
             {
-                pbFoto.Image =
-                    Image.FromFile(foto);
+                pbFoto.Image = Image.FromFile(foto);
+
             }
         }
 

@@ -30,15 +30,17 @@ namespace FARMATE.Views.Admin
 
         private UCTambahAlat ucTambah;
 
-        private void btnEdit_Click(object sender, EventArgs e)
+        private void SembunyikanHalamanUtama()
         {
-            if (selectedIdAlat == 0)
-            {
-                MessageBox.Show("Pilih alat terlebih dahulu");
-                return;
-            }
-            TampilTambahAlat();
-            ucTambah.LoadDataEdit(selectedIdAlat);
+            panelSidebar.Visible = false;
+            panelNavbar.Visible = false;
+            panelContent.Visible = false;
+        }
+        private void TampilHalamanUtama()
+        {
+            panelSidebar.Visible = true;
+            panelNavbar.Visible = true;
+            panelContent.Visible = true;
         }
         private void TampilTambahAlat()
         {
@@ -62,30 +64,6 @@ namespace FARMATE.Views.Admin
             this.Controls.Add(ucTambah);
             ucTambah.BringToFront();
         }
-
-        private void SembunyikanHalamanUtama()
-        {
-            panelSidebar.Visible = false;
-            panelNavbar.Visible = false;
-            panelContent.Visible = false;
-        }
-
-        private void TampilHalamanUtama()
-        {
-            panelSidebar.Visible = true;
-            panelNavbar.Visible = true;
-            panelContent.Visible = true;
-        }
-        private void flowDrone_Paint(object sender, PaintEventArgs e)
-        {
-
-        }
-
-        private void panelNavbar_Paint(object sender, PaintEventArgs e)
-        {
-
-        }
-
 
         private void LoadDataAlat()
         {
@@ -125,7 +103,8 @@ namespace FARMATE.Views.Admin
                             Convert.ToInt32(rd["id_alat"]),
                             rd["merk_alat"].ToString(),
                             rd["harga_perhari"].ToString(),
-                            rd["stok_tersedia"].ToString()
+                            rd["stok_tersedia"].ToString(),
+                            rd["foto_alat"].ToString()
                         );
 
                         card.CardClicked += Card_Click;
@@ -140,7 +119,8 @@ namespace FARMATE.Views.Admin
                             Convert.ToInt32(rd["id_alat"]),
                             rd["merk_alat"].ToString(),
                             rd["harga_perhari"].ToString(),
-                            rd["stok_tersedia"].ToString()
+                            rd["stok_tersedia"].ToString(),
+                            rd["foto_alat"].ToString()
                         );
 
                         card.CardClicked += Card_Click;
@@ -156,87 +136,19 @@ namespace FARMATE.Views.Admin
                             Convert.ToInt32(rd["id_alat"]),
                             rd["merk_alat"].ToString(),
                             rd["harga_perhari"].ToString(),
-                            rd["stok_tersedia"].ToString()
+                            rd["stok_tersedia"].ToString(),
+                            rd["foto_alat"].ToString()
                         );
 
                         card.CardClicked += Card_Click;
                         flowPanen.Controls.Add(card);
                     }
+                    MessageBox.Show(
+    rd["foto_alat"].ToString()
+);
                 }
             }
         }
-
-        private void Card_Click(object sender, EventArgs e)
-        {
-            if (selectedCard != null)
-                selectedCard.SetSelected(false);
-            selectedCard =  (UCAlatCard)sender;
-            selectedCard.SetSelected(true);
-            selectedIdAlat = selectedCard.IdAlat;
-        }
-
-        private void btnHapus_Click(object sender, EventArgs e)
-        {
-            if (selectedIdAlat == 0)
-            {
-                MessageBox.Show("Pilih alat terlebih dahulu");
-                return;
-            }
-
-            DialogResult hasil = MessageBox.Show(
-                "Yakin ingin menghapus alat ini?",
-                "Konfirmasi Hapus",
-                MessageBoxButtons.YesNo,
-                MessageBoxIcon.Warning);
-
-            if (hasil == DialogResult.No)
-                return;
-
-            using (var conn = Koneksi.GetConnection())
-            {
-                conn.Open();
-                string sql = "DELETE FROM Alat WHERE id_alat=@id";
-                NpgsqlCommand cmd = new NpgsqlCommand(sql, conn);
-                cmd.Parameters.AddWithValue("@id", selectedIdAlat);
-                cmd.ExecuteNonQuery();
-            }
-
-            MessageBox.Show("Alat berhasil dihapus");
-
-            selectedIdAlat = 0;
-
-            LoadDataAlat();
-            LoadStatistik();
-        }
-
-        private void btnLogout_Click(object sender, EventArgs e)
-        {
-            FormWelcome form = new FormWelcome();
-            form.Show();
-            this.Hide();
-        }
-
-        private void btnRiwayat_Click(object sender, EventArgs e)
-        {
-            FormRiwayatPengembalian form = new FormRiwayatPengembalian();
-            form.Show();
-            this.Hide();
-        }
-
-        private void btnKelolaAlat_Click(object sender, EventArgs e)
-        {
-            FormKelolaAlat form = new FormKelolaAlat();
-            form.Show();
-            this.Hide();
-        }
-
-        private void btnDataUser_Click(object sender, EventArgs e)
-        {
-            FormDataUser form = new FormDataUser();
-            form.Show();
-            this.Hide();
-        }
-
         private void LoadStatistik()
         {
             using (var conn = Koneksi.GetConnection())
@@ -289,6 +201,90 @@ namespace FARMATE.Views.Admin
                     .ToString();
             }
         }
+        private void Card_Click(object sender, EventArgs e)
+        {
+            if (selectedCard != null)
+            selectedCard.SetSelected(false);
+            selectedCard = (UCAlatCard)sender;
+            selectedCard.SetSelected(true);
+            selectedIdAlat = selectedCard.IdAlat;
+        }
+        private void btnEdit_Click(object sender, EventArgs e)
+        {
+            if (selectedIdAlat == 0)
+            {
+                MessageBox.Show("Pilih alat terlebih dahulu");
+                return;
+            }
+            TampilTambahAlat();
+            ucTambah.LoadDataEdit(selectedIdAlat);
+        }
+
+        private void btnHapus_Click(object sender, EventArgs e)
+        {
+            if (selectedIdAlat == 0)
+            {
+                MessageBox.Show("Pilih alat terlebih dahulu");
+                return;
+            }
+
+            DialogResult hasil = MessageBox.Show(
+                "Yakin ingin menghapus alat ini?",
+                "Konfirmasi Hapus",
+                MessageBoxButtons.YesNo,
+                MessageBoxIcon.Warning);
+
+            if (hasil == DialogResult.No)
+                return;
+
+            using (var conn = Koneksi.GetConnection())
+            {
+                conn.Open();
+                string sql = "DELETE FROM Alat WHERE id_alat=@id";
+                NpgsqlCommand cmd = new NpgsqlCommand(sql, conn);
+                cmd.Parameters.AddWithValue("@id", selectedIdAlat);
+                cmd.ExecuteNonQuery();
+            }
+
+            MessageBox.Show("Alat berhasil dihapus");
+
+            selectedIdAlat = 0;
+
+            LoadDataAlat();
+            LoadStatistik();
+        }
+        private void btnTambah_Click(object sender, EventArgs e)
+        {
+            TampilTambahAlat();
+        }
+
+        private void btnLogout_Click(object sender, EventArgs e)
+        {
+            FormWelcome form = new FormWelcome();
+            form.Show();
+            this.Hide();
+        }
+
+        private void btnRiwayat_Click(object sender, EventArgs e)
+        {
+            FormRiwayatPengembalian form = new FormRiwayatPengembalian();
+            form.Show();
+            this.Hide();
+        }
+
+        private void btnKelolaAlat_Click(object sender, EventArgs e)
+        {
+            FormKelolaAlat form = new FormKelolaAlat();
+            form.Show();
+            this.Hide();
+        }
+
+        private void btnDataUser_Click(object sender, EventArgs e)
+        {
+            FormDataUser form = new FormDataUser();
+            form.Show();
+            this.Hide();
+        }
 
         private void flowTraktor_Paint(object sender, PaintEventArgs e)
         {
@@ -300,17 +296,21 @@ namespace FARMATE.Views.Admin
 
         }
 
-        private void btnTambah_Click(object sender, EventArgs e)
-        {
-            TampilTambahAlat();
-        }
-
         private void panelContainer_Paint(object sender, PaintEventArgs e)
         {
 
         }
 
         private void panelSidebar_Paint(object sender, PaintEventArgs e)
+        {
+
+        }
+        private void flowDrone_Paint(object sender, PaintEventArgs e)
+        {
+
+        }
+
+        private void panelNavbar_Paint(object sender, PaintEventArgs e)
         {
 
         }

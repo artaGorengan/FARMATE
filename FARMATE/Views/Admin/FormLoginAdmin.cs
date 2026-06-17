@@ -54,7 +54,30 @@ namespace FARMATE
             {
                 MessageBox.Show(ex.Message);
             }
+        }
 
+        private void RepositionButtons()
+        {
+            btnLogin.BackColor = Color.Transparent;
+            btnLogin.FlatStyle = FlatStyle.Flat;
+            btnLogin.FlatAppearance.BorderSize = 0;
+            btnLogin.FlatAppearance.MouseOverBackColor = Color.Transparent;
+            btnLogin.FlatAppearance.MouseDownBackColor = Color.FromArgb(30, 0, 0, 0);
+            btnLogin.Text = "";
+
+            btnKeluar.BackColor = Color.Transparent;
+            btnKeluar.FlatStyle = FlatStyle.Flat;
+            btnKeluar.FlatAppearance.BorderSize = 0;
+            btnKeluar.FlatAppearance.MouseOverBackColor = Color.Transparent;
+            btnKeluar.FlatAppearance.MouseDownBackColor = Color.FromArgb(30, 0, 0, 0);
+            btnKeluar.Text = "";
+
+        }
+        private void btnKeluar_Click(object sender, EventArgs e)
+        {
+            FormWelcome form = new FormWelcome();
+            form.Show();
+            this.Close();
         }
 
         private void lblPassword_Click(object sender, EventArgs e)
@@ -72,11 +95,6 @@ namespace FARMATE
 
         }
 
-        private void btnKeluar_Click(object sender, EventArgs e)
-        {
-            FormWelcome form = new FormWelcome();
-            form.Show();
-            this.Close();
-        }
+       
     }
 }

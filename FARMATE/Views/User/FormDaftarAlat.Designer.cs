@@ -53,41 +53,49 @@
             // 
             // btnLogout
             // 
-            btnLogout.Location = new Point(1645, 23);
+            btnLogout.BackgroundImage = (Image)resources.GetObject("btnLogout.BackgroundImage");
+            btnLogout.BackgroundImageLayout = ImageLayout.Zoom;
+            btnLogout.Location = new Point(1627, 12);
             btnLogout.Name = "btnLogout";
-            btnLogout.Size = new Size(186, 65);
+            btnLogout.Size = new Size(217, 92);
             btnLogout.TabIndex = 4;
-            btnLogout.Text = "Logout";
             btnLogout.UseVisualStyleBackColor = true;
             btnLogout.Click += btnLogout_Click;
             // 
             // btnRiwayat
             // 
+            btnRiwayat.Font = new Font("Arial Rounded MT Bold", 9F, FontStyle.Regular, GraphicsUnit.Point, 0);
+            btnRiwayat.ForeColor = Color.DarkOliveGreen;
             btnRiwayat.Location = new Point(1159, 38);
             btnRiwayat.Name = "btnRiwayat";
             btnRiwayat.Size = new Size(112, 34);
             btnRiwayat.TabIndex = 3;
-            btnRiwayat.Text = "Riwayat";
+            btnRiwayat.Text = "RIWAYAT";
             btnRiwayat.UseVisualStyleBackColor = true;
             btnRiwayat.Click += btnRiwayat_Click;
             // 
             // btnDaftarAlat
             // 
-            btnDaftarAlat.Location = new Point(932, 38);
+            btnDaftarAlat.Font = new Font("Arial Rounded MT Bold", 9F, FontStyle.Regular, GraphicsUnit.Point, 0);
+            btnDaftarAlat.ForeColor = Color.DarkOliveGreen;
+            btnDaftarAlat.Location = new Point(918, 39);
             btnDaftarAlat.Name = "btnDaftarAlat";
-            btnDaftarAlat.Size = new Size(133, 34);
+            btnDaftarAlat.Size = new Size(158, 34);
             btnDaftarAlat.TabIndex = 2;
-            btnDaftarAlat.Text = "Daftar Alat";
+            btnDaftarAlat.Text = "DAFTAR ALAT";
             btnDaftarAlat.UseVisualStyleBackColor = true;
             btnDaftarAlat.Click += btnDaftarAlat_Click;
             // 
             // cmbKategori
             // 
+            cmbKategori.BackColor = SystemColors.ScrollBar;
             cmbKategori.DropDownStyle = ComboBoxStyle.DropDownList;
+            cmbKategori.Font = new Font("Arial Rounded MT Bold", 10F, FontStyle.Regular, GraphicsUnit.Point, 0);
+            cmbKategori.ForeColor = Color.DarkOliveGreen;
             cmbKategori.FormattingEnabled = true;
             cmbKategori.Location = new Point(394, 38);
             cmbKategori.Name = "cmbKategori";
-            cmbKategori.Size = new Size(295, 33);
+            cmbKategori.Size = new Size(295, 31);
             cmbKategori.TabIndex = 1;
             cmbKategori.SelectedIndexChanged += cmbKategori_SelectedIndexChanged;
             // 

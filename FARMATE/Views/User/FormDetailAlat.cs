@@ -18,12 +18,9 @@ namespace FARMATE.Views.User
         private decimal hargaPerHari;
         private int jumlahHari = 1;
         private int stokTersedia;
-
-
         public FormDetailAlat(int id)
         {
             InitializeComponent();
-
             idAlat = id;
         }
 
@@ -41,94 +38,37 @@ namespace FARMATE.Views.User
                 conn.Open();
 
                 string sql = @"
-        SELECT
-            a.*,
-            k.nama_kategori
-        FROM Alat a
-        JOIN KategoriAlat k
-            ON a.id_kategori = k.id_kategori
-        WHERE a.id_alat = @id";
+                SELECT
+                a.*,
+                k.nama_kategori
+                FROM Alat a
+                JOIN KategoriAlat k
+                ON a.id_kategori = k.id_kategori
+                WHERE a.id_alat = @id";
 
-                NpgsqlCommand cmd =
-                    new NpgsqlCommand(sql, conn);
-
+                NpgsqlCommand cmd = new NpgsqlCommand(sql, conn);
                 cmd.Parameters.AddWithValue("@id", idAlat);
-
-                NpgsqlDataReader rd =
-                    cmd.ExecuteReader();
-
+                NpgsqlDataReader rd = cmd.ExecuteReader();
                 if (rd.Read())
                 {
-                    lblMerk.Text =
-                        rd["merk_alat"].ToString();
+                    lblMerk.Text = rd["merk_alat"].ToString();
+                    lblHarga.Text = "Rp " + Convert.ToDecimal(rd["harga_perhari"]).ToString("N0") + " /hari";
+                    lblKategori.Text = rd["nama_kategori"].ToString();
+                    lblBBM.Text = rd["bahan_bakar"].ToString();
+                    rtbDeskripsi.Text = rd["deskripsi"].ToString();
+                    hargaPerHari = Convert.ToDecimal(rd["harga_perhari"]);
+                    stokTersedia = Convert.ToInt32(rd["stok_tersedia"]);
 
-                    lblHarga.Text =
-                        "Rp " +
-                        Convert.ToDecimal(
-                            rd["harga_perhari"])
-                        .ToString("N0")
-                        + " /hari";
-
-                    lblKategori.Text =
-                        rd["nama_kategori"].ToString();
-
-                    lblBBM.Text =
-                        rd["bahan_bakar"].ToString();
-
-                    rtbDeskripsi.Text =
-                        rd["deskripsi"].ToString();
-
-                    hargaPerHari =
-                        Convert.ToDecimal(
-                            rd["harga_perhari"]);
-                    stokTersedia =
-    Convert.ToInt32(
-    rd["stok_tersedia"]);
-
-
-                    string foto =
-                        rd["foto_alat"].ToString();
-
+                    string foto = rd["foto_alat"].ToString();
                     if (File.Exists(foto))
                     {
-                        pbFoto.Image =
-                            Image.FromFile(foto);
+                        pbFoto.Image = Image.FromFile(foto);
+
                     }
                 }
             }
 
             HitungTotal();
-        }
-        private void HitungTotal()
-        {
-            decimal total =
-                hargaPerHari * jumlahHari;
-
-            lblTotalHarga.Text =
-                "Rp " +
-                total.ToString("N0");
-        }
-        private void btnPlus_Click(object sender, EventArgs e)
-        {
-            jumlahHari++;
-
-            lblHari.Text =
-                jumlahHari.ToString();
-
-            HitungTotal();
-        }
-
-        private void btnMinus_Click(object sender, EventArgs e)
-        {
-            if (jumlahHari > 1)
-            {
-                jumlahHari--;
-
-                lblHari.Text =
-                    jumlahHari.ToString();
-
-                HitungTotal();
-            }
         }
 
         private void SimpanPenyewaan()
@@ -138,54 +78,38 @@ namespace FARMATE.Views.User
                 conn.Open();
                 if (dtpMulai.Value.Date < DateTime.Today)
                 {
-                    MessageBox.Show(
-                        "Tanggal sewa tidak valid");
-
+                    MessageBox.Show("Tanggal sewa tidak valid");
                     return;
                 }
                 if (stokTersedia <= 0)
                 {
-                    MessageBox.Show(
-                        "Stok alat habis!");
-
+                    MessageBox.Show("Stok alat habis!");
                     return;
                 }
-
-
                 string sql = @"
-        INSERT INTO Penyewaan
-        (
-            id_user,
-            id_alat,
-            jumlah_unit,
-            tgl_sewa,
-            tgl_pengembalian,
-            total_harga,
-            status_sewa
-        )
-        VALUES
-        (
-            @user,
-            @alat,
-            @jumlah,
-            @tglsewa,
-            @tglkembali,
-            @total,
-            @status
-        )";
+                INSERT INTO Penyewaan(
+                id_user,
+                id_alat,
+                jumlah_unit,
+                tgl_sewa,
+                tgl_pengembalian,
+                total_harga,
+                status_sewa
+                )
+                VALUES
+                (
+                @user,
+                @alat,
+                @jumlah,
+                @tglsewa,
+                @tglkembali,
+                @total,
+                @status )";
 
                 NpgsqlCommand cmd = new NpgsqlCommand(sql, conn);
-
-
                 DateTime tglSewa = dtpMulai.Value.Date;
-
-
                 DateTime tglKembali = tglSewa.AddDays(jumlahHari);
-
-
                 decimal total = hargaPerHari * jumlahHari;
-
-
                 cmd.Parameters.AddWithValue("@user", UserSession.UserID);
                 cmd.Parameters.AddWithValue("@alat", idAlat);
                 cmd.Parameters.AddWithValue("@jumlah", 1);
@@ -196,32 +120,41 @@ namespace FARMATE.Views.User
                 cmd.ExecuteNonQuery();
 
                 string sqlUpdate = @"
-UPDATE Alat
-SET stok_tersedia =
-    stok_tersedia - 1
-WHERE id_alat = @id";
+                UPDATE Alat
+                SET stok_tersedia =
+                stok_tersedia - 1
+                WHERE id_alat = @id";
 
-                NpgsqlCommand cmdUpdate =
-                    new NpgsqlCommand(
-                        sqlUpdate,
-                        conn);
-
-                cmdUpdate.Parameters.AddWithValue(
-                    "@id",
-                    idAlat);
-
+                NpgsqlCommand cmdUpdate = new NpgsqlCommand(sqlUpdate, conn);
+                cmdUpdate.Parameters.AddWithValue("@id", idAlat);
                 cmdUpdate.ExecuteNonQuery();
                 stokTersedia--;
             }
 
-            MessageBox.Show(
-                "Penyewaan berhasil dibuat");
-
+            MessageBox.Show("Penyewaan berhasil dibuat");
             this.Close();
-
-
+        }
+        private void HitungTotal()
+        {
+            decimal total = hargaPerHari * jumlahHari;
+            lblTotalHarga.Text = "Rp " + total.ToString("N0");
+        }
+        private void btnPlus_Click(object sender, EventArgs e)
+        {
+            jumlahHari++;
+            lblHari.Text = jumlahHari.ToString();
+            HitungTotal();
         }
 
+        private void btnMinus_Click(object sender, EventArgs e)
+        {
+            if (jumlahHari > 1)
+            {
+                jumlahHari--;
+                lblHari.Text = jumlahHari.ToString();
+                HitungTotal();
+            }
+        }
         private void btnSewa_Click(object sender, EventArgs e)
         {
             SimpanPenyewaan();
@@ -256,6 +189,13 @@ WHERE id_alat = @id";
         private void rtbDeskripsi_TextChanged(object sender, EventArgs e)
         {
 
+        }
+
+        private void button1_Click(object sender, EventArgs e)
+        {
+            FormDaftarAlat form = new FormDaftarAlat();
+            form.Show();
+            this.Hide();
         }
     }
 }

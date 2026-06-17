@@ -10,6 +10,8 @@ namespace FARMATE.Views.Admin
 {
     public partial class UCRiwayatPengembalian : UserControl
     {
+        [Browsable(false)]
+        [DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden)]
         public int IdSewa { get; set; }
 
         public event EventHandler KonfirmasiClicked;
@@ -18,15 +20,7 @@ namespace FARMATE.Views.Admin
             InitializeComponent();
         }
 
-        public void SetData(
-    int idSewa,
-    string nama,
-    string alat,
-    string durasi,
-    string tglPinjam,
-    string tglKembali,
-    string denda,
-    string status)
+        public void SetData(int idSewa, string nama, string alat, string durasi, string tglPinjam, string tglKembali, string denda, string status)
         {
             IdSewa = idSewa;
 
@@ -38,8 +32,12 @@ namespace FARMATE.Views.Admin
             lblDenda.Text = denda;
             lblStatus.Text = status;
 
-            btnKonfirmasi.Visible =
-                status != "Selesai";
+            btnKonfirmasi.Visible = status != "Selesai";
+        }
+
+        private void btnKonfirmasi_Click(object sender, EventArgs e)
+        {
+            KonfirmasiClicked?.Invoke(this, EventArgs.Empty);
         }
 
         private void UCRiwayatPengembalian_Load(object sender, EventArgs e)
@@ -47,11 +45,9 @@ namespace FARMATE.Views.Admin
 
         }
 
-        private void btnKonfirmasi_Click(object sender, EventArgs e)
+        private void lblTanggalPinjam_Click(object sender, EventArgs e)
         {
-            KonfirmasiClicked?.Invoke(
-       this,
-       EventArgs.Empty);
+
         }
     }
 }

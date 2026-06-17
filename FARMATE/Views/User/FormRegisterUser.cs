@@ -10,48 +10,10 @@ namespace FARMATE.Views.Auth
         {
             InitializeComponent();
         }
-
-        private void txtUsername_TextChanged(object sender, EventArgs e)
-        {
-
-        }
-
-       
-
         private void FormRegisterUser_Load(object sender, EventArgs e)
         {
             txtPassword.UseSystemPasswordChar = true;
             txtConfirmPassword.UseSystemPasswordChar = true;
-        }
-
-        private void lblUsername_Click(object sender, EventArgs e)
-        {
-
-        }
-
-        private void txtEmail_TextChanged(object sender, EventArgs e)
-        {
-
-        }
-
-        private void lblNama_Click(object sender, EventArgs e)
-        {
-
-        }
-
-        private void lblAlamat_Click(object sender, EventArgs e)
-        {
-
-        }
-
-        private void label1_Click(object sender, EventArgs e)
-        {
-
-        }
-
-        private void txtConfirmPassword_TextChanged(object sender, EventArgs e)
-        {
-
         }
 
         private void button1_Click(object sender, EventArgs e)
@@ -95,6 +57,47 @@ namespace FARMATE.Views.Auth
             {
                 MessageBox.Show(ex.Message);
             }
+        }
+
+        private void lblUsername_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void txtEmail_TextChanged(object sender, EventArgs e)
+        {
+
+        }
+
+        private void lblNama_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void lblAlamat_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void label1_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void txtConfirmPassword_TextChanged(object sender, EventArgs e)
+        {
+
+        }
+        private void txtUsername_TextChanged(object sender, EventArgs e)
+        {
+
+        }
+
+        private void btnKeluar_Click(object sender, EventArgs e)
+        {
+            FormWelcome form = new FormWelcome();
+            form.Show();
+            this.Hide();
         }
     }
 }

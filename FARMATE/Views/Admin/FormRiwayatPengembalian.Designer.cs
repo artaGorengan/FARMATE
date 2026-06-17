@@ -58,47 +58,59 @@
             // 
             // btnLogout
             // 
-            btnLogout.Location = new Point(1632, 41);
+            btnLogout.Image = (Image)resources.GetObject("btnLogout.Image");
+            btnLogout.Location = new Point(1621, 5);
             btnLogout.Name = "btnLogout";
-            btnLogout.Size = new Size(221, 45);
+            btnLogout.Size = new Size(265, 108);
             btnLogout.TabIndex = 10;
             btnLogout.UseVisualStyleBackColor = true;
             btnLogout.Click += btnLogout_Click;
             // 
             // btnDataUser
             // 
+            btnDataUser.Font = new Font("Arial Rounded MT Bold", 9F, FontStyle.Regular, GraphicsUnit.Point, 0);
+            btnDataUser.ForeColor = Color.DarkOliveGreen;
             btnDataUser.Location = new Point(1220, 52);
             btnDataUser.Name = "btnDataUser";
-            btnDataUser.Size = new Size(112, 34);
+            btnDataUser.Size = new Size(165, 34);
             btnDataUser.TabIndex = 9;
+            btnDataUser.Text = "DATA USER";
             btnDataUser.UseVisualStyleBackColor = true;
             btnDataUser.Click += btnDataUser_Click;
             // 
             // btnRiwayat
             // 
+            btnRiwayat.Font = new Font("Arial Rounded MT Bold", 9F, FontStyle.Regular, GraphicsUnit.Point, 0);
+            btnRiwayat.ForeColor = Color.DarkOliveGreen;
             btnRiwayat.Location = new Point(967, 52);
             btnRiwayat.Name = "btnRiwayat";
             btnRiwayat.Size = new Size(112, 34);
             btnRiwayat.TabIndex = 8;
+            btnRiwayat.Text = "RIWAYAT";
             btnRiwayat.UseVisualStyleBackColor = true;
             btnRiwayat.Click += btnRiwayat_Click;
             // 
             // btnKelolaAlat
             // 
             btnKelolaAlat.BackColor = Color.White;
+            btnKelolaAlat.Font = new Font("Arial Rounded MT Bold", 9F, FontStyle.Regular, GraphicsUnit.Point, 0);
+            btnKelolaAlat.ForeColor = Color.DarkOliveGreen;
             btnKelolaAlat.Location = new Point(676, 52);
             btnKelolaAlat.Name = "btnKelolaAlat";
-            btnKelolaAlat.Size = new Size(137, 34);
+            btnKelolaAlat.Size = new Size(164, 34);
             btnKelolaAlat.TabIndex = 7;
+            btnKelolaAlat.Text = "KELOLA ALAT";
             btnKelolaAlat.UseVisualStyleBackColor = false;
             btnKelolaAlat.Click += btnKelolaAlat_Click;
             // 
             // lblTerlambat
             // 
             lblTerlambat.AutoSize = true;
+            lblTerlambat.Font = new Font("Arial Rounded MT Bold", 14F, FontStyle.Regular, GraphicsUnit.Point, 0);
+            lblTerlambat.ForeColor = SystemColors.ButtonFace;
             lblTerlambat.Location = new Point(1583, 365);
             lblTerlambat.Name = "lblTerlambat";
-            lblTerlambat.Size = new Size(22, 25);
+            lblTerlambat.Size = new Size(31, 32);
             lblTerlambat.TabIndex = 1;
             lblTerlambat.Text = "0";
             lblTerlambat.Click += lblTerlambat_Click;
@@ -106,27 +118,33 @@
             // lblSelesai
             // 
             lblSelesai.AutoSize = true;
+            lblSelesai.Font = new Font("Arial Rounded MT Bold", 14F, FontStyle.Regular, GraphicsUnit.Point, 0);
+            lblSelesai.ForeColor = SystemColors.ButtonFace;
             lblSelesai.Location = new Point(1161, 365);
             lblSelesai.Name = "lblSelesai";
-            lblSelesai.Size = new Size(22, 25);
+            lblSelesai.Size = new Size(31, 32);
             lblSelesai.TabIndex = 1;
             lblSelesai.Text = "0";
             // 
             // lblSedangDisewa
             // 
             lblSedangDisewa.AutoSize = true;
+            lblSedangDisewa.Font = new Font("Arial Rounded MT Bold", 14F, FontStyle.Regular, GraphicsUnit.Point, 0);
+            lblSedangDisewa.ForeColor = SystemColors.ButtonFace;
             lblSedangDisewa.Location = new Point(705, 365);
             lblSedangDisewa.Name = "lblSedangDisewa";
-            lblSedangDisewa.Size = new Size(22, 25);
+            lblSedangDisewa.Size = new Size(31, 32);
             lblSedangDisewa.TabIndex = 1;
             lblSedangDisewa.Text = "0";
             // 
             // lblPenyewaan
             // 
             lblPenyewaan.AutoSize = true;
+            lblPenyewaan.Font = new Font("Arial Rounded MT Bold", 14F, FontStyle.Regular, GraphicsUnit.Point, 0);
+            lblPenyewaan.ForeColor = SystemColors.ButtonFace;
             lblPenyewaan.Location = new Point(236, 365);
             lblPenyewaan.Name = "lblPenyewaan";
-            lblPenyewaan.Size = new Size(22, 25);
+            lblPenyewaan.Size = new Size(31, 32);
             lblPenyewaan.TabIndex = 1;
             lblPenyewaan.Text = "0";
             // 
@@ -150,9 +168,9 @@
             flowRiwayat.AutoScroll = true;
             flowRiwayat.BackColor = Color.Transparent;
             flowRiwayat.FlowDirection = FlowDirection.TopDown;
-            flowRiwayat.Location = new Point(114, 522);
+            flowRiwayat.Location = new Point(114, 524);
             flowRiwayat.Name = "flowRiwayat";
-            flowRiwayat.Size = new Size(1683, 450);
+            flowRiwayat.Size = new Size(1683, 448);
             flowRiwayat.TabIndex = 4;
             flowRiwayat.WrapContents = false;
             flowRiwayat.Paint += flowRiwayat_Paint;

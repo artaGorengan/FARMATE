@@ -67,7 +67,46 @@ namespace FARMATE.Views.Admin
                 }
             }
         }
+        private void BuatBarisUser(string nama, string username, string email, string hp, string alamat, string totalSewa)
+        {
+            Panel row = new Panel();
 
+            row.Width = 1200;
+            row.Height = 45;
+
+            Label lblNama = new Label();
+            lblNama.Text = nama;
+            lblNama.Location = new Point(30, 15);
+
+            Label lblUsername = new Label();
+            lblUsername.Text = username;
+            lblUsername.Location = new Point(230, 15);
+
+            Label lblEmail = new Label();
+            lblEmail.Text = email;
+            lblEmail.Location = new Point(430, 15);
+
+            Label lblHp = new Label();
+            lblHp.Text = hp;
+            lblHp.Location = new Point(630, 15);
+
+            Label lblAlamat = new Label();
+            lblAlamat.Text = alamat;
+            lblAlamat.Location = new Point(850, 15);
+
+            Label lblTotal = new Label();
+            lblTotal.Text = totalSewa;
+            lblTotal.Location = new Point(1080, 15);
+
+            row.Controls.Add(lblNama);
+            row.Controls.Add(lblUsername);
+            row.Controls.Add(lblEmail);
+            row.Controls.Add(lblHp);
+            row.Controls.Add(lblAlamat);
+            row.Controls.Add(lblTotal);
+
+            flowUser.Controls.Add(row);
+        }
         private void btnRiwayat_Click(object sender, EventArgs e)
         {
             FormRiwayatPengembalian form = new FormRiwayatPengembalian();

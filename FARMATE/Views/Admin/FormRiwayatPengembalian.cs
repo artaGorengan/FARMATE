@@ -17,66 +17,10 @@ namespace FARMATE.Views.Admin
         {
             InitializeComponent();
         }
-
-       
         private void FormRiwayatPengembalian_Load(object sender, EventArgs e)
         {
             LoadStatistik();
             LoadRiwayat();
-        }
-
-        private void LoadStatistik()
-        {
-            using (var conn = Koneksi.GetConnection())
-            {
-                conn.Open();
-
-                string sql = @"
-                SELECT
-                COUNT(*) AS total,
-                COUNT(*) FILTER
-                (WHERE status_sewa='Sedang Disewa')
-                AS sedang,
-                COUNT(*) FILTER
-                (WHERE status_sewa='Selesai')
-                AS selesai
-                FROM Penyewaan";
-
-                NpgsqlCommand cmd = new NpgsqlCommand(sql, conn);
-
-
-                NpgsqlDataReader rd = cmd.ExecuteReader();
-
-
-                if (rd.Read())
-                {
-                    lblPenyewaan.Text = rd["total"].ToString();
-                    lblSedangDisewa.Text = rd["sedang"].ToString();        
-                    lblSelesai.Text = rd["selesai"].ToString();
-                }
-            }
-
-            HitungTerlambat();
-        }
-
-        private void HitungTerlambat()
-        {
-            using (var conn = Koneksi.GetConnection())
-            {
-                conn.Open();
-
-                string sql = @"
-                SELECT COUNT(*)
-                FROM Penyewaan
-                WHERE
-                status_sewa='Sedang Disewa'
-                AND tgl_pengembalian <
-                CURRENT_DATE";
-
-                NpgsqlCommand cmd = new NpgsqlCommand(sql, conn);
-                lblTerlambat.Text = cmd.ExecuteScalar().ToString();
-
-            }
         }
         private void LoadRiwayat()
         {
@@ -107,18 +51,10 @@ namespace FARMATE.Views.Admin
 
                 while (rd.Read())
                 {
-                    DateOnly tglSewa =
-        (DateOnly)rd["tgl_sewa"];
-
-                    DateOnly tglKembali =
-                        (DateOnly)rd["tgl_pengembalian"];
-
-                    int durasi =
-                        tglKembali.DayNumber -
-                        tglSewa.DayNumber;
-
-                    UCRiwayatPengembalian card =
-                        new UCRiwayatPengembalian();
+                    DateOnly tglSewa = (DateOnly)rd["tgl_sewa"];
+                    DateOnly tglKembali = (DateOnly)rd["tgl_pengembalian"];
+                    int durasi = tglKembali.DayNumber - tglSewa.DayNumber;
+                    UCRiwayatPengembalian card = new UCRiwayatPengembalian();
 
                     card.SetData(
                         Convert.ToInt32(rd["id_sewa"]),
@@ -131,33 +67,64 @@ namespace FARMATE.Views.Admin
                         rd["status_sewa"].ToString()
                     );
 
-                    card.KonfirmasiClicked +=
-                        Card_KonfirmasiClicked;
-
+                    card.KonfirmasiClicked += Card_KonfirmasiClicked;
                     flowRiwayat.Controls.Add(card);
 
                 }
             }
         }
+        private void LoadStatistik()
+        {
+            using (var conn = Koneksi.GetConnection())
+            {
+                conn.Open();
 
-                private void Card_KonfirmasiClicked(object sender, EventArgs e)
+                string sql = @"
+                SELECT
+                COUNT(*) AS total,
+                COUNT(*) FILTER
+                (WHERE status_sewa='Sedang Disewa')
+                AS sedang,
+                COUNT(*) FILTER
+                (WHERE status_sewa='Selesai')
+                AS selesai
+                FROM Penyewaan";
+
+                NpgsqlCommand cmd = new NpgsqlCommand(sql, conn);
+                NpgsqlDataReader rd = cmd.ExecuteReader();
+
+
+                if (rd.Read())
                 {
-                  UCRiwayatPengembalian card = (UCRiwayatPengembalian)sender;
-
-                     KonfirmasiPengembalian(card.IdSewa);
+                    lblPenyewaan.Text = rd["total"].ToString();
+                    lblSedangDisewa.Text = rd["sedang"].ToString();
+                    lblSelesai.Text = rd["selesai"].ToString();
                 }
+            }
 
-        private void panelStatistik_Paint(object sender, PaintEventArgs e)
-        {
-
+            HitungTerlambat();
         }
 
-        private void flowRiwayat_Paint(object sender, PaintEventArgs e)
+        private void HitungTerlambat()
         {
+            using (var conn = Koneksi.GetConnection())
+            {
+                conn.Open();
 
+                string sql = @"
+                SELECT COUNT(*)
+                FROM Penyewaan
+                WHERE
+                status_sewa='Sedang Disewa'
+                AND tgl_pengembalian <
+                CURRENT_DATE";
+
+                NpgsqlCommand cmd = new NpgsqlCommand(sql, conn);
+                lblTerlambat.Text = cmd.ExecuteScalar().ToString();
+
+            }
         }
 
-       
         private void KonfirmasiPengembalian(int idSewa)
         {
             using (var conn = Koneksi.GetConnection())
@@ -165,8 +132,6 @@ namespace FARMATE.Views.Admin
                 conn.Open();
 
                 NpgsqlTransaction trans = conn.BeginTransaction();
-
-
                 try
                 {
                     string sqlAlat = @"
@@ -275,10 +240,12 @@ namespace FARMATE.Views.Admin
                 }
             }
         }
-        private void lblTerlambat_Click(object sender, EventArgs e)
+        private void Card_KonfirmasiClicked(object sender, EventArgs e)
         {
-
+            UCRiwayatPengembalian card = (UCRiwayatPengembalian)sender;
+            KonfirmasiPengembalian(card.IdSewa);
         }
+
 
         private void btnKelolaAlat_Click(object sender, EventArgs e)
         {
@@ -307,13 +274,30 @@ namespace FARMATE.Views.Admin
             form.Show();
             this.Hide();
         }
-
         private void btnKonfirmasi_Click(object sender, EventArgs e)
         {
             Button btn = (Button)sender;
             int idSewa = Convert.ToInt32(btn.Tag);
             KonfirmasiPengembalian(idSewa);
 
+
+        }
+        private void panelStatistik_Paint(object sender, PaintEventArgs e)
+        {
+
+        }
+
+        private void flowRiwayat_Paint(object sender, PaintEventArgs e)
+        {
+
+        }
+        private void lblTerlambat_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void label2_Click(object sender, EventArgs e)
+        {
 
         }
     }
