@@ -1,4 +1,5 @@
-﻿using FARMATE.Session;
+﻿using FARMATE.Controller;
+using FARMATE.Session;
 using FARMATE.Utils;
 using Npgsql;
 using System;
@@ -6,9 +7,9 @@ using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
 using System.Drawing;
+using System.IO;
 using System.Text;
 using System.Windows.Forms;
-using System.IO;
 
 namespace FARMATE.Views.User
 {
@@ -32,39 +33,48 @@ namespace FARMATE.Views.User
 
         private void LoadDetailAlat()
         {
+            AlatController controller =
+                new AlatController();
 
-            using (var conn = Koneksi.GetConnection())
+            DataRow row =
+                controller.GetDetailAlat(idAlat);
+
+            if (row != null)
             {
-                conn.Open();
+                lblMerk.Text =
+                    row["merk_alat"].ToString();
 
-                string sql = @"
-                SELECT
-                a.*,
-                k.nama_kategori
-                FROM Alat a
-                JOIN KategoriAlat k
-                ON a.id_kategori = k.id_kategori
-                WHERE a.id_alat = @id";
+                lblHarga.Text =
+                    "Rp " +
+                    Convert.ToDecimal(
+                        row["harga_perhari"])
+                    .ToString("N0") +
+                    " /hari";
 
-                NpgsqlCommand cmd = new NpgsqlCommand(sql, conn);
-                cmd.Parameters.AddWithValue("@id", idAlat);
-                NpgsqlDataReader rd = cmd.ExecuteReader();
-                if (rd.Read())
+                lblKategori.Text =
+                    row["nama_kategori"].ToString();
+
+                lblBBM.Text =
+                    row["bahan_bakar"].ToString();
+
+                rtbDeskripsi.Text =
+                    row["deskripsi"].ToString();
+
+                hargaPerHari =
+                    Convert.ToDecimal(
+                        row["harga_perhari"]);
+
+                stokTersedia =
+                    Convert.ToInt32(
+                        row["stok_tersedia"]);
+
+                string foto =
+                    row["foto_alat"].ToString();
+
+                if (File.Exists(foto))
                 {
-                    lblMerk.Text = rd["merk_alat"].ToString();
-                    lblHarga.Text = "Rp " + Convert.ToDecimal(rd["harga_perhari"]).ToString("N0") + " /hari";
-                    lblKategori.Text = rd["nama_kategori"].ToString();
-                    lblBBM.Text = rd["bahan_bakar"].ToString();
-                    rtbDeskripsi.Text = rd["deskripsi"].ToString();
-                    hargaPerHari = Convert.ToDecimal(rd["harga_perhari"]);
-                    stokTersedia = Convert.ToInt32(rd["stok_tersedia"]);
-
-                    string foto = rd["foto_alat"].ToString();
-                    if (File.Exists(foto))
-                    {
-                        pbFoto.Image = Image.FromFile(foto);
-
-                    }
+                    pbFoto.Image =
+                        Image.FromFile(foto);
                 }
             }
 
@@ -73,65 +83,32 @@ namespace FARMATE.Views.User
 
         private void SimpanPenyewaan()
         {
-            using (var conn = Koneksi.GetConnection())
+            if (dtpMulai.Value.Date < DateTime.Today)
             {
-                conn.Open();
-                if (dtpMulai.Value.Date < DateTime.Today)
-                {
-                    MessageBox.Show("Tanggal sewa tidak valid");
-                    return;
-                }
-                if (stokTersedia <= 0)
-                {
-                    MessageBox.Show("Stok alat habis!");
-                    return;
-                }
-                string sql = @"
-                INSERT INTO Penyewaan(
-                id_user,
-                id_alat,
-                jumlah_unit,
-                tgl_sewa,
-                tgl_pengembalian,
-                total_harga,
-                status_sewa
-                )
-                VALUES
-                (
-                @user,
-                @alat,
-                @jumlah,
-                @tglsewa,
-                @tglkembali,
-                @total,
-                @status )";
-
-                NpgsqlCommand cmd = new NpgsqlCommand(sql, conn);
-                DateTime tglSewa = dtpMulai.Value.Date;
-                DateTime tglKembali = tglSewa.AddDays(jumlahHari);
-                decimal total = hargaPerHari * jumlahHari;
-                cmd.Parameters.AddWithValue("@user", UserSession.UserID);
-                cmd.Parameters.AddWithValue("@alat", idAlat);
-                cmd.Parameters.AddWithValue("@jumlah", 1);
-                cmd.Parameters.AddWithValue("@tglsewa", tglSewa);
-                cmd.Parameters.AddWithValue("@tglkembali", tglKembali);
-                cmd.Parameters.AddWithValue("@total", total);
-                cmd.Parameters.AddWithValue("@status", "Sedang Disewa");
-                cmd.ExecuteNonQuery();
-
-                string sqlUpdate = @"
-                UPDATE Alat
-                SET stok_tersedia =
-                stok_tersedia - 1
-                WHERE id_alat = @id";
-
-                NpgsqlCommand cmdUpdate = new NpgsqlCommand(sqlUpdate, conn);
-                cmdUpdate.Parameters.AddWithValue("@id", idAlat);
-                cmdUpdate.ExecuteNonQuery();
-                stokTersedia--;
+                MessageBox.Show(
+                    "Tanggal sewa tidak valid");
+                return;
             }
 
-            MessageBox.Show("Penyewaan berhasil dibuat");
+            if (stokTersedia <= 0)
+            {
+                MessageBox.Show(
+                    "Stok alat habis!");
+                return;
+            }
+
+            AlatController controller =
+                new AlatController();
+
+            controller.SimpanPenyewaan(
+                UserSession.UserID,
+                idAlat,
+                jumlahHari,
+                hargaPerHari);
+
+            MessageBox.Show(
+                "Penyewaan berhasil dibuat");
+
             this.Close();
         }
         private void HitungTotal()

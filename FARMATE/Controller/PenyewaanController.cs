@@ -2,7 +2,9 @@
 using FARMATE.Services;
 using System;
 using System.Collections.Generic;
+using System.Data;
 using System.Text;
+using FARMATE.Repositories;
 
 namespace FARMATE.Controller
 {
@@ -18,4 +20,31 @@ namespace FARMATE.Controller
             int jumlahUnit, DateTime? tglKembali)
             => _svc.Sewa(idUser, idAlat, tglSewa, jumlahUnit, tglKembali);
     }
+    internal class RiwayatController
+    {
+        private readonly PenyewaanRepo _repo =
+            new PenyewaanRepo();
+
+        public DataTable GetRiwayatUser(
+            int userId,
+            int kategoriId)
+        {
+            return _repo.GetRiwayatUser(
+                userId,
+                kategoriId);
+        }
+
+        public DataTable GetStatistikUser(
+            int userId)
+        {
+            return _repo.GetStatistikUser(
+                userId);
+        }
+
+        public DataTable GetKategori()
+        {
+            return _repo.GetKategori();
+        }
+    }
+
 }

@@ -1,4 +1,5 @@
-﻿using FARMATE.Session;
+﻿using FARMATE.Controller;
+using FARMATE.Session;
 using FARMATE.Utils;
 using Npgsql;
 using System;
@@ -31,107 +32,74 @@ namespace FARMATE.Views.User
 
             int idKategori = 0;
 
-            if (cmbKategori.SelectedValue != null
-                && !(cmbKategori.SelectedValue
-                is DataRowView))
+            if (cmbKategori.SelectedValue != null &&
+                !(cmbKategori.SelectedValue is DataRowView))
             {
-                idKategori = Convert.ToInt32(cmbKategori.SelectedValue);
-
+                idKategori =
+                    Convert.ToInt32(
+                        cmbKategori.SelectedValue);
             }
-            using (var conn = Koneksi.GetConnection())
+
+            RiwayatController controller =
+                new RiwayatController();
+
+            DataTable dt =
+                controller.GetRiwayatUser(
+                    UserSession.UserID,
+                    idKategori);
+
+            foreach (DataRow row in dt.Rows)
             {
-                conn.Open();
+                UCRiwayat uc =
+                    new UCRiwayat();
 
-                string sql = @"
-                SELECT
-                a.merk_alat,
-                k.nama_kategori,
-                p.tgl_sewa,
-                p.tgl_pengembalian,
-                p.status_sewa
-                FROM Penyewaan p
-                JOIN Alat a
-                ON p.id_alat = a.id_alat
-                JOIN KategoriAlat k
-                ON a.id_kategori = k.id_kategori
-                WHERE p.id_user=@user";
+                DateOnly tglSewa =
+                    (DateOnly)row["tgl_sewa"];
 
-                if (idKategori != 0)
-                {
-                    sql += " AND k.id_kategori=@kategori";
-                }
+                DateOnly tglKembali =
+                    (DateOnly)row["tgl_pengembalian"];
 
-                sql += " ORDER BY p.id_sewa DESC";
+                int durasi =
+                    tglKembali.DayNumber -
+                    tglSewa.DayNumber;
 
-                NpgsqlCommand cmd = new NpgsqlCommand(sql, conn);
-                cmd.Parameters.AddWithValue("@user", UserSession.UserID);
-                if (idKategori != 0)
-                {
-                    cmd.Parameters.AddWithValue("@kategori", idKategori);
-                }
+                uc.SetData(
+                    row["merk_alat"].ToString(),
+                    row["nama_kategori"].ToString(),
+                    durasi + " Hari",
+                    tglSewa.ToString("dd/MM/yyyy"),
+                    tglKembali.ToString("dd/MM/yyyy"),
+                    "Rp0",
+                    row["status_sewa"].ToString()
+                );
 
-                NpgsqlDataReader rd = cmd.ExecuteReader();
-
-
-                while (rd.Read())
-                {
-                    UCRiwayat uc = new UCRiwayat();
-
-                    DateOnly tglSewa =
-                        (DateOnly)rd["tgl_sewa"];
-
-                    DateOnly tglKembali =
-                        (DateOnly)rd["tgl_pengembalian"];
-
-                    int durasi =
-                        tglKembali.DayNumber -
-                        tglSewa.DayNumber;
-
-                    uc.SetData(
-                        rd["merk_alat"].ToString(),
-                        rd["nama_kategori"].ToString(),
-                        durasi + " Hari",
-                        tglSewa.ToString("dd/MM/yyyy"),
-                        tglKembali.ToString("dd/MM/yyyy"),
-                        "Rp0",
-                        rd["status_sewa"].ToString()
-                    );
-
-                    flowRiwayat.Controls.Add(uc);
-                }
+                flowRiwayat.Controls.Add(uc);
             }
         }
 
         private void LoadStatistik()
         {
-            using (var conn = Koneksi.GetConnection())
+            RiwayatController controller =
+                new RiwayatController();
+
+            DataTable dt =
+                controller.GetStatistikUser(
+                    UserSession.UserID);
+
+            if (dt.Rows.Count > 0)
             {
-                conn.Open();
+                DataRow row = dt.Rows[0];
 
-                string sql = @"
-                SELECT
-                COUNT(*) AS total,
-                COUNT(*) FILTER
-                (WHERE status_sewa='Sedang Disewa')
-                AS sedang,
-                COUNT(*) FILTER
-                (WHERE status_sewa='Selesai')
-                AS selesai
-                FROM Penyewaan
-                WHERE id_user=@user";
+                lblTotalPenyewaan.Text =
+                    row["total"].ToString();
 
-                NpgsqlCommand cmd = new NpgsqlCommand(sql, conn);
-                cmd.Parameters.AddWithValue("@user", UserSession.UserID);
-                NpgsqlDataReader rd =
-                    cmd.ExecuteReader();
+                lblSedangDisewa.Text =
+                    row["sedang"].ToString();
 
-                if (rd.Read())
-                {
-                    lblTotalPenyewaan.Text = rd["total"].ToString();
-                    lblSedangDisewa.Text = rd["sedang"].ToString();
-                    lblSelesai.Text = rd["selesai"].ToString();
-                    lblTerlambat.Text = "0";
-                }
+                lblSelesai.Text =
+                    row["selesai"].ToString();
+
+                lblTerlambat.Text = "0";
             }
         }
         private void cmbKategori_SelectedIndexChanged(object sender, EventArgs e)

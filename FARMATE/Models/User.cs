@@ -13,5 +13,6 @@ namespace FARMATE.Models
         public string Alamat { get; set; } = string.Empty;
         public string Email { get; set; } = string.Empty;
         public string Password { get; set; } = string.Empty;
+        public int TotalSewa { get; set; }
     }
 }

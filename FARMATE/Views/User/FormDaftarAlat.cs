@@ -1,7 +1,6 @@
-﻿using FARMATE.Models;
-using FARMATE.Utils;
+﻿using FARMATE.Controller;
+using FARMATE.Models;
 using FARMATE.Views.Admin;
-using Npgsql;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -9,6 +8,7 @@ using System.Data;
 using System.Drawing;
 using System.Text;
 using System.Windows.Forms;
+using FARMATE.Repositories;
 
 
 namespace FARMATE.Views.User
@@ -28,81 +28,64 @@ namespace FARMATE.Views.User
         private void LoadDataAlat()
         {
             flowAlat.Controls.Clear();
-            using (var conn = Koneksi.GetConnection())
+
+            int kategori = 0;
+
+            if (cmbKategori.SelectedValue != null &&
+                !(cmbKategori.SelectedValue is DataRowView))
             {
-                conn.Open();
+                kategori =
+                    Convert.ToInt32(
+                        cmbKategori.SelectedValue);
+            }
 
-                string sql = @"
-                SELECT *
-                FROM Alat";
+            AlatController controller =
+                new AlatController();
 
-                NpgsqlCommand cmd = new NpgsqlCommand();
-                cmd.Connection = conn;
+            DataTable dt =
+                controller.GetDaftarAlat(
+                    kategori);
 
-                int kategori = 0;
+            foreach (DataRow row in dt.Rows)
+            {
+                UCAlat card =
+                    new UCAlat();
 
-                if (cmbKategori.SelectedValue != null &&
-                    !(cmbKategori.SelectedValue is DataRowView))
-                {
-                    kategori = Convert.ToInt32(cmbKategori.SelectedValue);
-                }
+                card.SetData(
+                    Convert.ToInt32(
+                        row["id_alat"]),
+                    row["merk_alat"].ToString(),
+                    row["deskripsi"].ToString(),
+                    Convert.ToDecimal(
+                        row["harga_perhari"]),
+                    row["foto_alat"].ToString()
+                );
 
-                if (kategori != 0)
-                {
-                    sql += " WHERE id_kategori = @kategori";
-                    cmd.Parameters.AddWithValue("@kategori", kategori);
-                }
+                card.DetailClicked +=
+                    Card_DetailClicked;
 
-                cmd.CommandText = sql;
-                NpgsqlDataReader rd = cmd.ExecuteReader();
-
-
-                while (rd.Read())
-                {
-                    UCAlat card = new UCAlat();
-                    card.SetData(
-                        Convert.ToInt32(rd["id_alat"]),
-                        rd["merk_alat"].ToString(),
-                        rd["deskripsi"].ToString(),
-                        Convert.ToDecimal(rd["harga_perhari"]),
-                        rd["foto_alat"].ToString()
-                    );
-
-                    card.DetailClicked += Card_DetailClicked;
-                    flowAlat.Controls.Add(card);
-                }
+                flowAlat.Controls.Add(card);
             }
         }
         private void LoadKategori()
         {
-            using (var conn = Koneksi.GetConnection())
-            {
-                conn.Open();
+            AlatController controller =
+                new AlatController();
 
-                string sql =
-                @"SELECT id_kategori,
-                nama_kategori
-                FROM KategoriAlat
-                ORDER BY id_kategori";
+            DataTable dt =
+                controller.GetKategoriUser();
 
-                NpgsqlDataAdapter da = new NpgsqlDataAdapter(sql, conn);
+            DataRow row =
+                dt.NewRow();
 
+            row["id_kategori"] = 0;
+            row["nama_kategori"] = "Semua Kategori";
 
-                DataTable dt = new DataTable();
+            dt.Rows.InsertAt(row, 0);
 
-                da.Fill(dt);
-
-                DataRow row = dt.NewRow();
-                row["id_kategori"] = 0;
-                row["nama_kategori"] = "Semua Kategori";
-
-                dt.Rows.InsertAt(row, 0);
-
-                cmbKategori.DataSource = dt;
-                cmbKategori.DisplayMember = "nama_kategori";
-                cmbKategori.ValueMember = "id_kategori";
-
-            }
+            cmbKategori.DataSource = dt;
+            cmbKategori.DisplayMember = "nama_kategori";
+            cmbKategori.ValueMember = "id_kategori";
         }
 
         private void Card_DetailClicked(object sender, EventArgs e)

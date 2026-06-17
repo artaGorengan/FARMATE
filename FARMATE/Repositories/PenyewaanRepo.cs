@@ -3,6 +3,7 @@ using FARMATE.Utils;
 using Npgsql;
 using System;
 using System.Collections.Generic;
+using System.Data;
 using System.Text;
 
 namespace FARMATE.Repositories
@@ -116,5 +117,119 @@ namespace FARMATE.Repositories
             NamaAlat = rd["nama_alat"]?.ToString() ?? string.Empty,
             HargaPerHari = Convert.ToDecimal(rd["harga_perhari"])
         };
+
+        public DataTable GetRiwayatUser(int userId, int kategoriId)
+        {
+            DataTable dt = new DataTable();
+
+            using (var conn = Koneksi.GetConnection())
+            {
+                conn.Open();
+
+                string sql = @"
+                SELECT
+                a.merk_alat,
+                k.nama_kategori,
+                p.tgl_sewa,
+                p.tgl_pengembalian,
+                p.status_sewa
+                FROM Penyewaan p
+                JOIN Alat a
+                ON p.id_alat = a.id_alat
+                JOIN KategoriAlat k
+                ON a.id_kategori = k.id_kategori
+                WHERE p.id_user=@user";
+
+                if (kategoriId != 0)
+                {
+                    sql += " AND k.id_kategori=@kategori";
+                }
+
+                sql += " ORDER BY p.id_sewa DESC";
+
+                NpgsqlCommand cmd =
+                    new NpgsqlCommand(sql, conn);
+
+                cmd.Parameters.AddWithValue("@user", userId);
+
+                if (kategoriId != 0)
+                {
+                    cmd.Parameters.AddWithValue(
+                        "@kategori",
+                        kategoriId);
+                }
+
+                NpgsqlDataAdapter da =
+                    new NpgsqlDataAdapter(cmd);
+
+                da.Fill(dt);
+            }
+
+            return dt;
+        }
+
+        public DataTable GetStatistikUser(int userId)
+        {
+            DataTable dt = new DataTable();
+
+            using (var conn = Koneksi.GetConnection())
+            {
+                conn.Open();
+
+                string sql = @"
+                SELECT
+                COUNT(*) AS total,
+
+                COUNT(*) FILTER
+                (WHERE status_sewa='Sedang Disewa')
+                AS sedang,
+
+                COUNT(*) FILTER
+                (WHERE status_sewa='Selesai')
+                AS selesai
+
+                FROM Penyewaan
+                WHERE id_user=@user";
+
+                NpgsqlCommand cmd =
+                    new NpgsqlCommand(sql, conn);
+
+                cmd.Parameters.AddWithValue(
+                    "@user",
+                    userId);
+
+                NpgsqlDataAdapter da =
+                    new NpgsqlDataAdapter(cmd);
+
+                da.Fill(dt);
+            }
+
+            return dt;
+        }
+
+        public DataTable GetKategori()
+        {
+            DataTable dt = new DataTable();
+
+            using (var conn = Koneksi.GetConnection())
+            {
+                conn.Open();
+
+                string sql = @"
+                SELECT
+                id_kategori,
+                nama_kategori
+                FROM KategoriAlat
+                ORDER BY nama_kategori";
+
+                NpgsqlDataAdapter da =
+                    new NpgsqlDataAdapter(sql, conn);
+
+                da.Fill(dt);
+            }
+
+            return dt;
+        }
     }
+
 }

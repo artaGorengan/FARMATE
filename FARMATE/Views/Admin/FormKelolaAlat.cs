@@ -10,6 +10,7 @@ using System.Data;
 using System.Drawing;
 using System.Text;
 using System.Windows.Forms;
+using FARMATE.Controller;
 
 namespace FARMATE.Views.Admin
 {
@@ -71,134 +72,63 @@ namespace FARMATE.Views.Admin
             flowTraktor.Controls.Clear();
             flowPanen.Controls.Clear();
 
-            using (var conn = Koneksi.GetConnection())
+            AlatController controller =
+                new AlatController();
+
+            DataTable dt =
+                controller.GetAllAlat();
+
+            foreach (DataRow row in dt.Rows)
             {
-                conn.Open();
+                string kategori =
+                    row["nama_kategori"].ToString();
 
-                string sql = @"
-                SELECT
-                a.id_alat,
-                a.merk_alat,
-                a.harga_perhari,
-                a.stok_tersedia,
-                a.foto_alat,
-                k.nama_kategori
-                FROM Alat a
-                JOIN KategoriAlat k
-                ON a.id_kategori = k.id_kategori";
+                UCAlatCard card =
+                    new UCAlatCard();
 
-                NpgsqlCommand cmd = new NpgsqlCommand(sql, conn);
-                NpgsqlDataReader rd = cmd.ExecuteReader();
+                card.SetData(
+                    Convert.ToInt32(row["id_alat"]),
+                    row["merk_alat"].ToString(),
+                    row["harga_perhari"].ToString(),
+                    row["stok_tersedia"].ToString(),
+                    row["foto_alat"].ToString()
+                );
 
+                card.CardClicked += Card_Click;
 
-                while (rd.Read())
-                {
-                    string kategori =
-                        rd["nama_kategori"].ToString();
+                if (kategori == "Drone Pertanian")
+                    flowDrone.Controls.Add(card);
 
-                    if (kategori == "Drone Pertanian")
-                    {
-                        UCAlatCard card = new UCAlatCard();
-                        card.SetData(
-                            Convert.ToInt32(rd["id_alat"]),
-                            rd["merk_alat"].ToString(),
-                            rd["harga_perhari"].ToString(),
-                            rd["stok_tersedia"].ToString(),
-                            rd["foto_alat"].ToString()
-                        );
+                else if (kategori == "Traktor")
+                    flowTraktor.Controls.Add(card);
 
-                        card.CardClicked += Card_Click;
-
-                        flowDrone.Controls.Add(card);
-                    }
-
-                    else if (kategori == "Traktor")
-                    {
-                        UCAlatCard card = new UCAlatCard();
-                        card.SetData(
-                            Convert.ToInt32(rd["id_alat"]),
-                            rd["merk_alat"].ToString(),
-                            rd["harga_perhari"].ToString(),
-                            rd["stok_tersedia"].ToString(),
-                            rd["foto_alat"].ToString()
-                        );
-
-                        card.CardClicked += Card_Click;
-                        flowTraktor.Controls.Add(card);
-                    }
-
-                    else if (kategori == "Mesin Panen")
-                    {
-                        UCAlatCard card = new UCAlatCard();
-
-
-                        card.SetData(
-                            Convert.ToInt32(rd["id_alat"]),
-                            rd["merk_alat"].ToString(),
-                            rd["harga_perhari"].ToString(),
-                            rd["stok_tersedia"].ToString(),
-                            rd["foto_alat"].ToString()
-                        );
-
-                        card.CardClicked += Card_Click;
-                        flowPanen.Controls.Add(card);
-                    }
-                    MessageBox.Show(
-    rd["foto_alat"].ToString()
-);
-                }
+                else if (kategori == "Mesin Panen")
+                    flowPanen.Controls.Add(card);
             }
         }
         private void LoadStatistik()
         {
-            using (var conn = Koneksi.GetConnection())
+            AlatController controller =
+                new AlatController();
+
+            DataTable dt =
+                controller.GetStatistik();
+
+            if (dt.Rows.Count > 0)
             {
-                conn.Open();
+                DataRow row = dt.Rows[0];
 
-                // Total Alat 
-                string sqlTotal = "SELECT COUNT(*) FROM Alat";
-                lblTotalAlat.Text = new NpgsqlCommand(sqlTotal, conn)
-                    .ExecuteScalar()
-                    .ToString();
+                lblTotalAlat.Text =
+                    row["total_alat"].ToString();
 
+                lblTotalDrone.Text =
+                    row["drone"].ToString();
 
-                // Drone
-                string sqlDrone = @"
-                SELECT COUNT(*)
-                FROM Alat a
-                JOIN KategoriAlat k
-                ON a.id_kategori = k.id_kategori
-                WHERE k.nama_kategori='Drone Pertanian'";
+                lblTotalTraktor.Text =
+                    row["traktor"].ToString();
 
-                lblTotalDrone.Text = new NpgsqlCommand(sqlDrone, conn)
-                    .ExecuteScalar()
-                    .ToString();
-
-
-                // Traktor
-                string sqlTraktor = @"
-                SELECT COUNT(*)
-                FROM Alat a
-                JOIN KategoriAlat k
-                ON a.id_kategori = k.id_kategori
-                WHERE k.nama_kategori='Traktor'";
-
-                lblTotalTraktor.Text = new NpgsqlCommand(sqlTraktor, conn)
-                    .ExecuteScalar()
-                    .ToString();
-
-
-                // Mesin Panen
-                string sqlPanen = @"
-                SELECT COUNT(*)
-                FROM Alat a
-                JOIN KategoriAlat k
-                ON a.id_kategori = k.id_kategori
-                WHERE k.nama_kategori='Mesin Panen'";
-
-                lblTotalPanen.Text = new NpgsqlCommand(sqlPanen, conn)
-                    .ExecuteScalar()
-                    .ToString();
+                lblTotalPanen.Text =
+                    row["panen"].ToString();
             }
         }
         private void Card_Click(object sender, EventArgs e)
@@ -237,21 +167,11 @@ namespace FARMATE.Views.Admin
             if (hasil == DialogResult.No)
                 return;
 
-            using (var conn = Koneksi.GetConnection())
-            {
-                conn.Open();
-                string sql = "DELETE FROM Alat WHERE id_alat=@id";
-                NpgsqlCommand cmd = new NpgsqlCommand(sql, conn);
-                cmd.Parameters.AddWithValue("@id", selectedIdAlat);
-                cmd.ExecuteNonQuery();
-            }
+            AlatController controller =
+     new AlatController();
 
-            MessageBox.Show("Alat berhasil dihapus");
-
-            selectedIdAlat = 0;
-
-            LoadDataAlat();
-            LoadStatistik();
+            controller.HapusAlat(
+                selectedIdAlat);
         }
         private void btnTambah_Click(object sender, EventArgs e)
         {

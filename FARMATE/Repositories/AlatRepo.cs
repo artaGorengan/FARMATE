@@ -4,6 +4,7 @@ using Npgsql;
 using System;
 using System.Collections.Generic;
 using System.Text;
+using System.Data;
 
 namespace FARMATE.Repositories
 {
@@ -122,5 +123,405 @@ namespace FARMATE.Repositories
             BahanBakar = rd["bahan_bakar"]?.ToString() ?? string.Empty,
             NamaKategori = rd["nama_kategori"]?.ToString() ?? string.Empty
         };
+
+        public DataTable GetAllAlat()
+        {
+            DataTable dt = new DataTable();
+
+            using var conn = Koneksi.GetConnection();
+            conn.Open();
+
+            string sql = @"
+    SELECT
+        a.id_alat,
+        a.merk_alat,
+        a.harga_perhari,
+        a.stok_tersedia,
+        a.foto_alat,
+        k.nama_kategori
+    FROM Alat a
+    JOIN KategoriAlat k
+        ON a.id_kategori = k.id_kategori";
+
+            NpgsqlDataAdapter da =
+                new NpgsqlDataAdapter(sql, conn);
+
+            da.Fill(dt);
+
+            return dt;
+        }
+
+        public void HapusAlat(int idAlat)
+        {
+            using var conn = Koneksi.GetConnection();
+            conn.Open();
+
+            string sql =
+                "DELETE FROM Alat WHERE id_alat=@id";
+
+            using var cmd =
+                new NpgsqlCommand(sql, conn);
+
+            cmd.Parameters.AddWithValue("@id", idAlat);
+
+            cmd.ExecuteNonQuery();
+        }
+
+        public DataTable GetStatistik()
+        {
+            DataTable dt = new DataTable();
+
+            using var conn = Koneksi.GetConnection();
+            conn.Open();
+
+            string sql = @"
+    SELECT
+    (SELECT COUNT(*) FROM Alat) total_alat,
+
+    (SELECT COUNT(*)
+    FROM Alat a
+    JOIN KategoriAlat k
+    ON a.id_kategori=k.id_kategori
+    WHERE k.nama_kategori='Drone Pertanian')
+    drone,
+
+    (SELECT COUNT(*)
+    FROM Alat a
+    JOIN KategoriAlat k
+    ON a.id_kategori=k.id_kategori
+    WHERE k.nama_kategori='Traktor')
+    traktor,
+
+    (SELECT COUNT(*)
+    FROM Alat a
+    JOIN KategoriAlat k
+    ON a.id_kategori=k.id_kategori
+    WHERE k.nama_kategori='Mesin Panen')
+    panen";
+
+            NpgsqlDataAdapter da =
+                new NpgsqlDataAdapter(sql, conn);
+
+            da.Fill(dt);
+
+            return dt;
+        }
+
+        public DataTable GetKategori()
+        {
+            DataTable dt = new DataTable();
+
+            using var conn = Koneksi.GetConnection();
+            conn.Open();
+
+            string sql = @"
+    SELECT
+    id_kategori,
+    nama_kategori
+    FROM KategoriAlat";
+
+            NpgsqlDataAdapter da =
+                new NpgsqlDataAdapter(sql, conn);
+
+            da.Fill(dt);
+
+            return dt;
+        }
+
+        public void TambahAlat(
+    int adminId,
+    int kategori,
+    string merk,
+    string deskripsi,
+    decimal harga,
+    int stok,
+    string bbm,
+    string foto)
+        {
+            using var conn = Koneksi.GetConnection();
+            conn.Open();
+
+            string sql = @"
+    INSERT INTO Alat
+    (
+        id_admin,
+        id_kategori,
+        merk_alat,
+        deskripsi,
+        harga_perhari,
+        stok_total,
+        stok_tersedia,
+        bahan_bakar,
+        foto_alat
+    )
+    VALUES
+    (
+        @admin,
+        @kategori,
+        @merk,
+        @deskripsi,
+        @harga,
+        @stoktotal,
+        @stoktersedia,
+        @bbm,
+        @foto
+    )";
+
+            using var cmd =
+                new NpgsqlCommand(sql, conn);
+
+            cmd.Parameters.AddWithValue("@admin", adminId);
+            cmd.Parameters.AddWithValue("@kategori", kategori);
+            cmd.Parameters.AddWithValue("@merk", merk);
+            cmd.Parameters.AddWithValue("@deskripsi", deskripsi);
+            cmd.Parameters.AddWithValue("@harga", harga);
+            cmd.Parameters.AddWithValue("@stoktotal", stok);
+            cmd.Parameters.AddWithValue("@stoktersedia", stok);
+            cmd.Parameters.AddWithValue("@bbm", bbm);
+            cmd.Parameters.AddWithValue("@foto", foto);
+
+            cmd.ExecuteNonQuery();
+        }
+
+        public void UpdateAlat(
+    int idAlat,
+    int kategori,
+    string merk,
+    string deskripsi,
+    decimal harga,
+    int stok,
+    string bbm)
+        {
+            using var conn = Koneksi.GetConnection();
+            conn.Open();
+
+            string sql = @"
+    UPDATE Alat
+    SET
+        id_kategori=@kategori,
+        merk_alat=@merk,
+        deskripsi=@deskripsi,
+        harga_perhari=@harga,
+        stok_total=@stok,
+        stok_tersedia=@stok,
+        bahan_bakar=@bbm
+    WHERE id_alat=@id";
+
+            using var cmd =
+                new NpgsqlCommand(sql, conn);
+
+            cmd.Parameters.AddWithValue("@id", idAlat);
+            cmd.Parameters.AddWithValue("@kategori", kategori);
+            cmd.Parameters.AddWithValue("@merk", merk);
+            cmd.Parameters.AddWithValue("@deskripsi", deskripsi);
+            cmd.Parameters.AddWithValue("@harga", harga);
+            cmd.Parameters.AddWithValue("@stok", stok);
+            cmd.Parameters.AddWithValue("@bbm", bbm);
+
+            cmd.ExecuteNonQuery();
+        }
+
+        public DataRow GetAlatById(int idAlat)
+        {
+            DataTable dt = new DataTable();
+
+            using var conn = Koneksi.GetConnection();
+            conn.Open();
+
+            string sql = @"
+    SELECT *
+    FROM Alat
+    WHERE id_alat=@id";
+
+            using var cmd =
+                new NpgsqlCommand(sql, conn);
+
+            cmd.Parameters.AddWithValue("@id", idAlat);
+
+            NpgsqlDataAdapter da =
+                new NpgsqlDataAdapter(cmd);
+
+            da.Fill(dt);
+
+            if (dt.Rows.Count > 0)
+                return dt.Rows[0];
+
+            return null;
+        }
+
+        public DataTable GetKategoriUser()
+        {
+            DataTable dt = new DataTable();
+
+            using var conn = Koneksi.GetConnection();
+            conn.Open();
+
+            string sql = @"
+    SELECT
+    id_kategori,
+    nama_kategori
+    FROM KategoriAlat
+    ORDER BY id_kategori";
+
+            NpgsqlDataAdapter da =
+                new NpgsqlDataAdapter(sql, conn);
+
+            da.Fill(dt);
+
+            return dt;
+        }
+
+        public DataTable GetDaftarAlat(int kategori)
+        {
+            DataTable dt = new DataTable();
+
+            using var conn = Koneksi.GetConnection();
+            conn.Open();
+
+            string sql = "SELECT * FROM Alat";
+
+            NpgsqlCommand cmd =
+                new NpgsqlCommand();
+
+            cmd.Connection = conn;
+
+            if (kategori != 0)
+            {
+                sql += " WHERE id_kategori=@kategori";
+
+                cmd.Parameters.AddWithValue(
+                    "@kategori",
+                    kategori);
+            }
+
+            cmd.CommandText = sql;
+
+            NpgsqlDataAdapter da =
+                new NpgsqlDataAdapter(cmd);
+
+            da.Fill(dt);
+
+            return dt;
+        }
+        public DataRow GetDetailAlat(int idAlat)
+        {
+            DataTable dt = new DataTable();
+
+            using (var conn = Koneksi.GetConnection())
+            {
+                conn.Open();
+
+                string sql = @"
+        SELECT
+            a.*,
+            k.nama_kategori
+        FROM Alat a
+        JOIN KategoriAlat k
+            ON a.id_kategori = k.id_kategori
+        WHERE a.id_alat = @id";
+
+                NpgsqlCommand cmd =
+                    new NpgsqlCommand(sql, conn);
+
+                cmd.Parameters.AddWithValue("@id", idAlat);
+
+                NpgsqlDataAdapter da =
+                    new NpgsqlDataAdapter(cmd);
+
+                da.Fill(dt);
+            }
+
+            if (dt.Rows.Count > 0)
+                return dt.Rows[0];
+
+            return null;
+        }
+
+        public void SimpanPenyewaan(
+            int userId,
+            int alatId,
+            int jumlahHari,
+            decimal hargaPerHari)
+        {
+            using (var conn = Koneksi.GetConnection())
+            {
+                conn.Open();
+
+                NpgsqlTransaction trans =
+                    conn.BeginTransaction();
+
+                try
+                {
+                    DateTime tglSewa =
+                        DateTime.Today;
+
+                    DateTime tglKembali =
+                        tglSewa.AddDays(jumlahHari);
+
+                    decimal total =
+                        hargaPerHari * jumlahHari;
+
+                    string sql = @"
+            INSERT INTO Penyewaan
+            (
+                id_user,
+                id_alat,
+                jumlah_unit,
+                tgl_sewa,
+                tgl_pengembalian,
+                total_harga,
+                status_sewa
+            )
+            VALUES
+            (
+                @user,
+                @alat,
+                @jumlah,
+                @tglsewa,
+                @tglkembali,
+                @total,
+                @status
+            )";
+
+                    NpgsqlCommand cmd =
+                        new NpgsqlCommand(sql, conn);
+
+                    cmd.Transaction = trans;
+
+                    cmd.Parameters.AddWithValue("@user", userId);
+                    cmd.Parameters.AddWithValue("@alat", alatId);
+                    cmd.Parameters.AddWithValue("@jumlah", 1);
+                    cmd.Parameters.AddWithValue("@tglsewa", tglSewa);
+                    cmd.Parameters.AddWithValue("@tglkembali", tglKembali);
+                    cmd.Parameters.AddWithValue("@total", total);
+                    cmd.Parameters.AddWithValue("@status", "Sedang Disewa");
+
+                    cmd.ExecuteNonQuery();
+
+                    string sqlUpdate = @"
+            UPDATE Alat
+            SET stok_tersedia = stok_tersedia - 1
+            WHERE id_alat = @id";
+
+                    NpgsqlCommand cmdUpdate =
+                        new NpgsqlCommand(sqlUpdate, conn);
+
+                    cmdUpdate.Transaction = trans;
+
+                    cmdUpdate.Parameters.AddWithValue("@id", alatId);
+
+                    cmdUpdate.ExecuteNonQuery();
+
+                    trans.Commit();
+                }
+                catch
+                {
+                    trans.Rollback();
+                    throw;
+                }
+            }
+        }
     }
+
+
 }

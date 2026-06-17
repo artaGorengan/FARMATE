@@ -40,7 +40,7 @@
             // 
             pbFotoAlat.Location = new Point(0, 0);
             pbFotoAlat.Name = "pbFotoAlat";
-            pbFotoAlat.Size = new Size(367, 172);
+            pbFotoAlat.Size = new Size(367, 122);
             pbFotoAlat.TabIndex = 0;
             pbFotoAlat.TabStop = false;
             pbFotoAlat.Click += pbFotoAlat_Click;

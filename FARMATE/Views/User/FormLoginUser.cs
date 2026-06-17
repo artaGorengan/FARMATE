@@ -9,6 +9,8 @@ using System.Drawing;
 using System.Text;
 using System.Windows.Forms;
 using FARMATE.Session;
+using FARMATE.Repositories;
+using FARMATE.Models;
 
 namespace FARMATE.Views.User
 {
@@ -22,35 +24,35 @@ namespace FARMATE.Views.User
         {
             try
             {
-                using (var conn = Koneksi.GetConnection())
+                Login repo = new Login();
+
+                Models.User user =
+                    repo.GetByEmailAndPassword(
+                        txtEmail.Text,
+                        txtPassword.Text);
+
+                if (user != null)
                 {
-                    conn.Open();
+                    UserSession.UserID =
+                        user.IdUser;
 
-                    string query = @"SELECT * FROM Users WHERE email=@email AND password=@password";
-                    NpgsqlCommand cmd = new NpgsqlCommand(query, conn);
+                    UserSession.Username =
+                        user.Username;
 
-                    cmd.Parameters.AddWithValue("@email", txtEmail.Text);
-                    cmd.Parameters.AddWithValue("@password", txtPassword.Text);
+                    UserSession.Role =
+                        "USER";
 
-                    NpgsqlDataReader rd = cmd.ExecuteReader();
+                    FormDaftarAlat form =
+                        new FormDaftarAlat();
 
-                    if (rd.Read())
-                    {
-                        UserSession.UserID = Convert.ToInt32(rd["id_user"]);
-                        UserSession.Username = rd["username"].ToString();
-                        UserSession.Role = "USER";
+                    form.Show();
 
-
-
-                        FormDaftarAlat form = new FormDaftarAlat();
-                        form.Show();
-                        this.Hide();
-                    }
-                    else
-                    {
-                        MessageBox.Show(
-                            "Email atau Password salah");
-                    }
+                    this.Hide();
+                }
+                else
+                {
+                    MessageBox.Show(
+                        "Email atau Password salah");
                 }
             }
             catch (Exception ex)

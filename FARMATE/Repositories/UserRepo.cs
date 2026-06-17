@@ -4,7 +4,7 @@ using System;
 using System.Collections.Generic;
 using System.Text;
 using FARMATE.Models;
-
+using System.Data;
 namespace FARMATE.Repositories
 {
     internal class Login
@@ -66,5 +66,46 @@ namespace FARMATE.Repositories
             NoHp = rd["no_telepon"]?.ToString() ?? string.Empty,
             Alamat = rd["alamat"]?.ToString() ?? string.Empty
         };
+
+    }
+
+    internal class UserRepository
+    {
+        public DataTable GetDataUser()
+        {
+            DataTable dt = new DataTable();
+
+            using (var conn = Koneksi.GetConnection())
+            {
+                conn.Open();
+
+                string sql = @"
+                SELECT
+                    u.nama_user,
+                    u.username,
+                    u.email,
+                    u.no_telepon,
+                    u.alamat,
+                    COUNT(p.id_sewa) AS total_sewa
+                FROM Users u
+                LEFT JOIN Penyewaan p
+                    ON u.id_user = p.id_user
+                GROUP BY
+                    u.id_user,
+                    u.nama_user,
+                    u.username,
+                    u.email,
+                    u.no_telepon,
+                    u.alamat";
+
+                NpgsqlDataAdapter da =
+                    new NpgsqlDataAdapter(sql, conn);
+
+                da.Fill(dt);
+            }
+
+            return dt;
+        }
+    
     }
 }

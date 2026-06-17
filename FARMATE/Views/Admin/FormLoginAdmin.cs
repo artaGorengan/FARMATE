@@ -1,9 +1,11 @@
+using FARMATE.Controller;
 using FARMATE.Session;
 using FARMATE.Utils;
 using FARMATE.Views;
 using FARMATE.Views.Admin;
 using FARMATE.Views.User;
 using Npgsql;
+using System.Data;
 using System.Diagnostics.Eventing.Reader;
 using System.Drawing.Text;
 
@@ -23,31 +25,35 @@ namespace FARMATE
         {
             try
             {
-                using (var conn = Koneksi.GetConnection())
+                AdminController controller =
+                    new AdminController();
+
+                DataRow admin =
+                    controller.Login(
+                        txtUsername.Text,
+                        txtPassword.Text);
+
+                if (admin != null)
                 {
-                    conn.Open();
-                    string query = @"SELECT * FROM Atmin WHERE username=@username AND password=@password";
-                    NpgsqlCommand cmd = new NpgsqlCommand(query, conn);
-                    cmd.Parameters.AddWithValue("@username", txtUsername.Text);
-                    cmd.Parameters.AddWithValue("@password", txtPassword.Text);
-                    NpgsqlDataReader rd = cmd.ExecuteReader();
+                    UserSession.AdminID =
+                        Convert.ToInt32(admin["id_admin"]);
 
-                    if (rd.Read())
-                    {
-                        UserSession.AdminID = Convert.ToInt32(rd["id_admin"]);
+                    UserSession.Username =
+                        admin["username"].ToString();
 
-                        UserSession.Username = rd["username"].ToString();
+                    UserSession.Role =
+                        "ADMIN";
 
-                        UserSession.Role = "ADMIN";
+                    FormKelolaAlat form =
+                        new FormKelolaAlat();
 
-                        FormKelolaAlat form = new FormKelolaAlat();
-                        form.Show();
-                        this.Hide();
-                    }
-                    else
-                    {
-                        MessageBox.Show("Username atau Password salah");
-                    }
+                    form.Show();
+                    this.Hide();
+                }
+                else
+                {
+                    MessageBox.Show(
+                        "Username atau Password salah");
                 }
             }
             catch (Exception ex)

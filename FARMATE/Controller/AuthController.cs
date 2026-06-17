@@ -1,6 +1,8 @@
-﻿using FARMATE.Services;
+﻿using FARMATE.Repositories;
+using FARMATE.Services;
 using System;
 using System.Collections.Generic;
+using System.Data;
 using System.Text;
 
 namespace FARMATE.Controller
@@ -21,5 +23,20 @@ namespace FARMATE.Controller
             => _svc.RegisterUser(nama, username, noHp, alamat, email, password, konfirmasi);
 
         public void Logout() => _svc.Logout();
+    }
+
+    public class AdminController
+    {
+        private readonly AuthRepo _repo =
+            new AuthRepo();
+
+        public DataRow Login(
+            string username,
+            string password)
+        {
+            return _repo.LoginAdmin(
+                username,
+                password);
+        }
     }
 }

@@ -1,6 +1,7 @@
-﻿using FARMATE.Utils;
+﻿
 using FARMATE.Views.User;
-using Npgsql;
+using FARMATE.Models;
+using FARMATE.Repositories;
 
 namespace FARMATE.Views.Auth
 {
@@ -26,32 +27,24 @@ namespace FARMATE.Views.Auth
 
             try
             {
-                using (var conn = Koneksi.GetConnection())
+                Login repo = new Login();
+
+                Models.User user = new Models.User
                 {
-                    conn.Open();
+                    Nama = txtNama.Text,
+                    Username = txtUsername.Text,
+                    Email = txtEmail.Text,
+                    NoHp = txtNoHp.Text,
+                    Alamat = txtAlamat.Text
+                };
 
+                repo.Register(user, txtPassword.Text);
 
-                    string query = @"INSERT INTO Users( nama_user,  username, password,email, no_telepon,  alamat)
-                    VALUES  ( @nama, @username, @password,  @email,    @telepon,  @alamat )";
+                MessageBox.Show("Registrasi berhasil");
 
-                    NpgsqlCommand cmd = new NpgsqlCommand(query, conn);
-
-
-                    cmd.Parameters.AddWithValue("@nama", txtNama.Text);
-                    cmd.Parameters.AddWithValue("@username", txtUsername.Text);
-                    cmd.Parameters.AddWithValue("@password", txtPassword.Text);
-                    cmd.Parameters.AddWithValue("@email", txtEmail.Text);
-                    cmd.Parameters.AddWithValue("@telepon", txtNoHp.Text);
-                    cmd.Parameters.AddWithValue("@alamat", txtAlamat.Text);
-                    cmd.ExecuteNonQuery();
-
-                    MessageBox.Show("Registrasi berhasil");
-
-                    FormLoginUser form = new FormLoginUser();
-
-                    form.Show();
-                    this.Hide();
-                }
+                FormLoginUser form = new FormLoginUser();
+                form.Show();
+                this.Hide();
             }
             catch (Exception ex)
             {
