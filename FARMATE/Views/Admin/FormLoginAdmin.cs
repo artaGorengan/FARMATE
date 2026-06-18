@@ -25,59 +25,28 @@ namespace FARMATE
         {
             try
             {
-                AdminController controller =
-                    new AdminController();
+                AdminController controller = new AdminController();
 
-                DataRow admin =
-                    controller.Login(
-                        txtUsername.Text,
-                        txtPassword.Text);
 
+                DataRow admin = controller.Login(txtUsername.Text, txtPassword.Text);
                 if (admin != null)
                 {
-                    UserSession.AdminID =
-                        Convert.ToInt32(admin["id_admin"]);
-
-                    UserSession.Username =
-                        admin["username"].ToString();
-
-                    UserSession.Role =
-                        "ADMIN";
-
-                    FormKelolaAlat form =
-                        new FormKelolaAlat();
-
+                    UserSession.AdminID = Convert.ToInt32(admin["id_admin"]);
+                    UserSession.Username = admin["username"].ToString();
+                    UserSession.Role = "ADMIN";
+                    FormKelolaAlat form = new FormKelolaAlat();
                     form.Show();
                     this.Hide();
                 }
                 else
                 {
-                    MessageBox.Show(
-                        "Username atau Password salah");
+                    MessageBox.Show("Username atau Password salah");
                 }
             }
             catch (Exception ex)
             {
                 MessageBox.Show(ex.Message);
             }
-        }
-
-        private void RepositionButtons()
-        {
-            btnLogin.BackColor = Color.Transparent;
-            btnLogin.FlatStyle = FlatStyle.Flat;
-            btnLogin.FlatAppearance.BorderSize = 0;
-            btnLogin.FlatAppearance.MouseOverBackColor = Color.Transparent;
-            btnLogin.FlatAppearance.MouseDownBackColor = Color.FromArgb(30, 0, 0, 0);
-            btnLogin.Text = "";
-
-            btnKeluar.BackColor = Color.Transparent;
-            btnKeluar.FlatStyle = FlatStyle.Flat;
-            btnKeluar.FlatAppearance.BorderSize = 0;
-            btnKeluar.FlatAppearance.MouseOverBackColor = Color.Transparent;
-            btnKeluar.FlatAppearance.MouseDownBackColor = Color.FromArgb(30, 0, 0, 0);
-            btnKeluar.Text = "";
-
         }
         private void btnKeluar_Click(object sender, EventArgs e)
         {

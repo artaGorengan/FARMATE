@@ -37,33 +37,17 @@ namespace FARMATE.Views.User
             if (cmbKategori.SelectedValue != null &&
                 !(cmbKategori.SelectedValue is DataRowView))
             {
-                idKategori =
-                    Convert.ToInt32(
-                        cmbKategori.SelectedValue);
+                idKategori = Convert.ToInt32(cmbKategori.SelectedValue);
             }
 
-            RiwayatController controller =
-                new RiwayatController();
-
-            DataTable dt =
-                controller.GetRiwayatUser(
-                    UserSession.UserID,
-                    idKategori);
-
+            RiwayatController controller = new RiwayatController();
+            DataTable dt = controller.GetRiwayatUser(UserSession.UserID, idKategori);
             foreach (DataRow row in dt.Rows)
             {
-                UCRiwayat uc =
-                    new UCRiwayat();
-
-                DateOnly tglSewa =
-                    (DateOnly)row["tgl_sewa"];
-
-                DateOnly tglKembali =
-                    (DateOnly)row["tgl_pengembalian"];
-
-                int durasi =
-                    tglKembali.DayNumber -
-                    tglSewa.DayNumber;
+                UCRiwayat uc = new UCRiwayat();
+                DateOnly tglSewa = (DateOnly)row["tgl_sewa"];
+                DateOnly tglKembali = (DateOnly)row["tgl_pengembalian"];
+                int durasi = tglKembali.DayNumber - tglSewa.DayNumber;
 
                 uc.SetData(
                     row["merk_alat"].ToString(),
@@ -81,26 +65,15 @@ namespace FARMATE.Views.User
 
         private void LoadStatistik()
         {
-            RiwayatController controller =
-                new RiwayatController();
-
-            DataTable dt =
-                controller.GetStatistikUser(
-                    UserSession.UserID);
+            RiwayatController controller = new RiwayatController();
+            DataTable dt = controller.GetStatistikUser(UserSession.UserID);
 
             if (dt.Rows.Count > 0)
             {
                 DataRow row = dt.Rows[0];
-
-                lblTotalPenyewaan.Text =
-                    row["total"].ToString();
-
-                lblSedangDisewa.Text =
-                    row["sedang"].ToString();
-
-                lblSelesai.Text =
-                    row["selesai"].ToString();
-
+                lblTotalPenyewaan.Text = row["total"].ToString();
+                lblSedangDisewa.Text = row["sedang"].ToString();
+                lblSelesai.Text = row["selesai"].ToString();
                 lblTerlambat.Text = "0";
             }
         }

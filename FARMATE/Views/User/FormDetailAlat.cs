@@ -33,50 +33,23 @@ namespace FARMATE.Views.User
 
         private void LoadDetailAlat()
         {
-            AlatController controller =
-                new AlatController();
-
-            DataRow row =
-                controller.GetDetailAlat(idAlat);
+            AlatController controller = new AlatController();
+            DataRow row = controller.GetDetailAlat(idAlat);
 
             if (row != null)
             {
-                lblMerk.Text =
-                    row["merk_alat"].ToString();
-
-                lblHarga.Text =
-                    "Rp " +
-                    Convert.ToDecimal(
-                        row["harga_perhari"])
-                    .ToString("N0");
-                    
-
-                lblKategori.Text =
-                    row["nama_kategori"].ToString();
-
-                lblBBM.Text =
-                    row["bahan_bakar"].ToString();
-
-                rtbDeskripsi.Text =
-                    row["deskripsi"].ToString();
-
-                hargaPerHari =
-                    Convert.ToDecimal(
-                        row["harga_perhari"]);
-
-                stokTersedia =
-                    Convert.ToInt32(
-                        row["stok_tersedia"]);
-                lblStok.Text =
-      stokTersedia.ToString();
-
-                string foto =
-                    row["foto_alat"].ToString();
-
+                lblMerk.Text = row["merk_alat"].ToString();
+                lblHarga.Text = "Rp " + Convert.ToDecimal(row["harga_perhari"]).ToString("N0");
+                lblKategori.Text = row["nama_kategori"].ToString();
+                lblBBM.Text = row["bahan_bakar"].ToString();
+                rtbDeskripsi.Text = row["deskripsi"].ToString();
+                hargaPerHari = Convert.ToDecimal(row["harga_perhari"]);
+                stokTersedia = Convert.ToInt32(row["stok_tersedia"]);
+                lblStok.Text = stokTersedia.ToString();
+                string foto = row["foto_alat"].ToString();
                 if (File.Exists(foto))
                 {
-                    pbFoto.Image =
-                        Image.FromFile(foto);
+                    pbFoto.Image = Image.FromFile(foto);
                 }
             }
 
@@ -87,30 +60,20 @@ namespace FARMATE.Views.User
         {
             if (dtpMulai.Value.Date < DateTime.Today)
             {
-                MessageBox.Show(
-                    "Tanggal sewa tidak valid");
+                MessageBox.Show("Tanggal sewa tidak valid");
                 return;
             }
 
             if (stokTersedia <= 0)
             {
-                MessageBox.Show(
-                    "Stok alat habis!");
+                MessageBox.Show("Stok alat habis!");
                 return;
             }
 
-            AlatController controller =
-                new AlatController();
+            AlatController controller = new AlatController();
 
-            controller.SimpanPenyewaan(
-                UserSession.UserID,
-                idAlat,
-                jumlahHari,
-                hargaPerHari);
-
-            MessageBox.Show(
-                "Penyewaan berhasil dibuat");
-
+            controller.SimpanPenyewaan(UserSession.UserID, idAlat, jumlahHari, hargaPerHari);
+            MessageBox.Show("Penyewaan berhasil dibuat");
             this.Close();
         }
         private void HitungTotal()

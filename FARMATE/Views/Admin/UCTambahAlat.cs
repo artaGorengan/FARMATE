@@ -27,9 +27,7 @@ namespace FARMATE.Views.Admin
 
         private void UpdateAlat()
         {
-            AlatController controller =
-                new AlatController();
-
+            AlatController controller = new AlatController();
             controller.UpdateAlat(
                 selectedIdAlat,
                 Convert.ToInt32(cmbKategori.SelectedValue),
@@ -40,22 +38,16 @@ namespace FARMATE.Views.Admin
                 cmbBBM.Text
             );
 
-            MessageBox.Show(
-                "Data berhasil diupdate");
-
+            MessageBox.Show("Data berhasil diupdate");
             isEditMode = false;
-
             btnSimpan.Text = "Simpan";
-
             ClearForm();
         }
         private void TambahAlat()
         {
             try
             {
-                AlatController controller =
-                    new AlatController();
-
+                AlatController controller = new AlatController();
                 controller.TambahAlat(
                     UserSession.AdminID,
                     Convert.ToInt32(cmbKategori.SelectedValue),
@@ -67,9 +59,7 @@ namespace FARMATE.Views.Admin
                     fotoPath
                 );
 
-                MessageBox.Show(
-                    "Alat berhasil ditambahkan");
-
+                MessageBox.Show("Alat berhasil ditambahkan");
                 ClearForm();
             }
             catch (Exception ex)
@@ -81,39 +71,22 @@ namespace FARMATE.Views.Admin
         {
             selectedIdAlat = idAlat;
 
-            AlatController controller =
-                new AlatController();
+            AlatController controller = new AlatController();
+            DataRow row = controller.GetAlatById(idAlat);
 
-            DataRow row =
-                controller.GetAlatById(idAlat);
 
             if (row != null)
             {
-                txtMerk.Text =
-                    row["merk_alat"].ToString();
-
-                RTBDeskripsi.Text =
-                    row["deskripsi"].ToString();
-
-                txtHarga.Text =
-                    row["harga_perhari"].ToString();
-
-                txtStok.Text =
-                    row["stok_total"].ToString();
-
-                cmbBBM.Text =
-                    row["bahan_bakar"].ToString();
-
-                cmbKategori.SelectedValue =
-                    row["id_kategori"];
-
-                fotoPath =
-                    row["foto_alat"].ToString();
-
+                txtMerk.Text = row["merk_alat"].ToString();
+                RTBDeskripsi.Text = row["deskripsi"].ToString();
+                txtHarga.Text = row["harga_perhari"].ToString();
+                txtStok.Text = row["stok_total"].ToString();
+                cmbBBM.Text = row["bahan_bakar"].ToString();
+                cmbKategori.SelectedValue = row["id_kategori"];
+                fotoPath = row["foto_alat"].ToString();
                 if (System.IO.File.Exists(fotoPath))
                 {
-                    pbFotoAlat.Image =
-                        Image.FromFile(fotoPath);
+                    pbFotoAlat.Image = Image.FromFile(fotoPath);
                 }
 
                 isEditMode = true;
@@ -122,11 +95,9 @@ namespace FARMATE.Views.Admin
         }
         private void LoadKategori()
         {
-            AlatController controller =
-                new AlatController();
+            AlatController controller = new AlatController();
+            DataTable dt = controller.GetKategori();
 
-            DataTable dt =
-                controller.GetKategori();
 
             cmbKategori.DataSource = dt;
             cmbKategori.DisplayMember = "nama_kategori";

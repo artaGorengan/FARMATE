@@ -26,33 +26,19 @@ namespace FARMATE.Views.User
             {
                 Login repo = new Login();
 
-                Models.User user =
-                    repo.GetByEmailAndPassword(
-                        txtEmail.Text,
-                        txtPassword.Text);
-
+                Models.User user = repo.GetByEmailAndPassword(txtEmail.Text, txtPassword.Text);
                 if (user != null)
                 {
-                    UserSession.UserID =
-                        user.IdUser;
-
-                    UserSession.Username =
-                        user.Username;
-
-                    UserSession.Role =
-                        "USER";
-
-                    FormDaftarAlat form =
-                        new FormDaftarAlat();
-
+                    UserSession.UserID = user.IdUser;
+                    UserSession.Username = user.Username;
+                    UserSession.Role = "USER";
+                    FormDaftarAlat form = new FormDaftarAlat();
                     form.Show();
-
                     this.Hide();
                 }
                 else
                 {
-                    MessageBox.Show(
-                        "Email atau Password salah");
+                    MessageBox.Show("Email atau Password salah");
                 }
             }
             catch (Exception ex)

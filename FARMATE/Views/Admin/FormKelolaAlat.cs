@@ -73,19 +73,15 @@ namespace FARMATE.Views.Admin
             flowTraktor.Controls.Clear();
             flowPanen.Controls.Clear();
 
-            AlatController controller =
-                new AlatController();
+            AlatController controller = new AlatController();
+            DataTable dt = controller.GetAllAlat();
 
-            DataTable dt =
-                controller.GetAllAlat();
 
             foreach (DataRow row in dt.Rows)
             {
-                string kategori =
-                    row["nama_kategori"].ToString();
+                string kategori = row["nama_kategori"].ToString();
+                UCAlatCard card = new UCAlatCard();
 
-                UCAlatCard card =
-                    new UCAlatCard();
 
                 card.SetData(
                     Convert.ToInt32(row["id_alat"]),
@@ -118,18 +114,10 @@ namespace FARMATE.Views.Admin
             if (dt.Rows.Count > 0)
             {
                 DataRow row = dt.Rows[0];
-
-                lblTotalAlat.Text =
-                    row["total_alat"].ToString();
-
-                lblTotalDrone.Text =
-                    row["drone"].ToString();
-
-                lblTotalTraktor.Text =
-                    row["traktor"].ToString();
-
-                lblTotalPanen.Text =
-                    row["panen"].ToString();
+                lblTotalAlat.Text = row["total_alat"].ToString();
+                lblTotalDrone.Text = row["drone"].ToString();
+                lblTotalTraktor.Text = row["traktor"].ToString();
+                lblTotalPanen.Text = row["panen"].ToString();
             }
         }
         private void Card_Click(object sender, EventArgs e)

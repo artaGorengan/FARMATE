@@ -29,23 +29,13 @@ namespace FARMATE.Views.Admin
         {
             flowRiwayat.Controls.Clear();
 
-            DataTable dt =
-                controller.GetRiwayat();
-
+            DataTable dt = controller.GetRiwayat();
             foreach (DataRow row in dt.Rows)
             {
-                DateOnly tglSewa =
-                    (DateOnly)row["tgl_sewa"];
-
-                DateOnly tglKembali =
-                    (DateOnly)row["tgl_pengembalian"];
-
-                int durasi =
-                    tglKembali.DayNumber -
-                    tglSewa.DayNumber;
-
-                UCRiwayatPengembalian card =
-                    new UCRiwayatPengembalian();
+                DateOnly tglSewa = (DateOnly)row["tgl_sewa"];
+                DateOnly tglKembali = (DateOnly)row["tgl_pengembalian"];
+                int durasi = tglKembali.DayNumber - tglSewa.DayNumber;
+                UCRiwayatPengembalian card = new UCRiwayatPengembalian();
 
                 card.SetData(
                     Convert.ToInt32(row["id_sewa"]),
@@ -58,42 +48,32 @@ namespace FARMATE.Views.Admin
                     row["status_sewa"].ToString()
                 );
 
-                card.KonfirmasiClicked +=
-                    Card_KonfirmasiClicked;
-
+                card.KonfirmasiClicked += Card_KonfirmasiClicked;
                 flowRiwayat.Controls.Add(card);
             }
         }
         private void LoadStatistik()
         {
-            DataRow row =
-                controller.GetStatistik();
+            DataRow row = controller.GetStatistik();
 
-            lblPenyewaan.Text =
-                row["total"].ToString();
 
-            lblSedangDisewa.Text =
-                row["sedang"].ToString();
+            lblPenyewaan.Text = row["total"].ToString();
 
-            lblSelesai.Text =
-                row["selesai"].ToString();
 
-            lblTerlambat.Text =
-                controller.GetJumlahTerlambat()
+            lblSedangDisewa.Text = row["sedang"].ToString();
+
+
+            lblSelesai.Text = row["selesai"].ToString();
+
+
+            lblTerlambat.Text = controller.GetJumlahTerlambat()
                 .ToString();
         }
 
-        private void Card_KonfirmasiClicked(
-    object sender,
-    EventArgs e)
+        private void Card_KonfirmasiClicked(object sender, EventArgs e)
         {
-            UCRiwayatPengembalian card =
-                (UCRiwayatPengembalian)sender;
-
-            decimal denda =
-                controller.KonfirmasiPengembalian(
-                    card.IdSewa);
-
+            UCRiwayatPengembalian card = (UCRiwayatPengembalian)sender;
+            decimal denda = controller.KonfirmasiPengembalian(card.IdSewa);
             if (denda > 0)
             {
                 MessageBox.Show(

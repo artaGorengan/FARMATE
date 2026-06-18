@@ -39,45 +39,29 @@ namespace FARMATE.Views.User
                         cmbKategori.SelectedValue);
             }
 
-            AlatController controller =
-                new AlatController();
-
-            DataTable dt =
-                controller.GetDaftarAlat(
-                    kategori);
+            AlatController controller = new AlatController();
+            DataTable dt = controller.GetDaftarAlat(kategori);
 
             foreach (DataRow row in dt.Rows)
             {
-                UCAlat card =
-                    new UCAlat();
-
+                UCAlat card = new UCAlat();
                 card.SetData(
-                    Convert.ToInt32(
-                        row["id_alat"]),
+                    Convert.ToInt32(row["id_alat"]),
                     row["merk_alat"].ToString(),
                     row["deskripsi"].ToString(),
-                    Convert.ToDecimal(
-                        row["harga_perhari"]),
+                    Convert.ToDecimal(row["harga_perhari"]),
                     row["foto_alat"].ToString()
                 );
 
-                card.DetailClicked +=
-                    Card_DetailClicked;
-
+                card.DetailClicked += Card_DetailClicked;
                 flowAlat.Controls.Add(card);
             }
         }
         private void LoadKategori()
         {
-            AlatController controller =
-                new AlatController();
-
-            DataTable dt =
-                controller.GetKategoriUser();
-
-            DataRow row =
-                dt.NewRow();
-
+            AlatController controller = new AlatController();
+            DataTable dt = controller.GetKategoriUser();
+            DataRow row = dt.NewRow();
             row["id_kategori"] = 0;
             row["nama_kategori"] = "Semua Kategori";
 
