@@ -22,23 +22,16 @@ namespace FARMATE.Controller
     }
     internal class RiwayatController
     {
-        private readonly PenyewaanRepo _repo =
-            new PenyewaanRepo();
-
-        public DataTable GetRiwayatUser(
-            int userId,
-            int kategoriId)
+        private readonly PenyewaanRepo _repo = new PenyewaanRepo();
+        public DataTable GetRiwayatUser(int userId, int kategoriId)
         {
-            return _repo.GetRiwayatUser(
-                userId,
-                kategoriId);
+            return _repo.GetRiwayatUser(userId, kategoriId);
         }
 
-        public DataTable GetStatistikUser(
-            int userId)
+        public DataTable GetStatistikUser(int userId)
         {
-            return _repo.GetStatistikUser(
-                userId);
+            return _repo.GetStatistikUser(userId);
+
         }
 
         public DataTable GetKategori()

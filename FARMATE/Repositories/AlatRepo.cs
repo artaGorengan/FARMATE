@@ -132,20 +132,18 @@ namespace FARMATE.Repositories
             conn.Open();
 
             string sql = @"
-    SELECT
-        a.id_alat,
-        a.merk_alat,
-        a.harga_perhari,
-        a.stok_tersedia,
-        a.foto_alat,
-        k.nama_kategori
-    FROM Alat a
-    JOIN KategoriAlat k
-        ON a.id_kategori = k.id_kategori";
+            SELECT
+            a.id_alat,
+            a.merk_alat,
+            a.harga_perhari,
+            a.stok_tersedia,
+            a.foto_alat,
+            k.nama_kategori
+            FROM Alat a
+            JOIN KategoriAlat k
+            ON a.id_kategori = k.id_kategori";
 
-            NpgsqlDataAdapter da =
-                new NpgsqlDataAdapter(sql, conn);
-
+            NpgsqlDataAdapter da = new NpgsqlDataAdapter(sql, conn);
             da.Fill(dt);
 
             return dt;
@@ -155,13 +153,8 @@ namespace FARMATE.Repositories
         {
             using var conn = Koneksi.GetConnection();
             conn.Open();
-
-            string sql =
-                "DELETE FROM Alat WHERE id_alat=@id";
-
-            using var cmd =
-                new NpgsqlCommand(sql, conn);
-
+            string sql = "DELETE FROM Alat WHERE id_alat=@id";
+            using var cmd = new NpgsqlCommand(sql, conn);
             cmd.Parameters.AddWithValue("@id", idAlat);
 
             cmd.ExecuteNonQuery();
@@ -175,33 +168,30 @@ namespace FARMATE.Repositories
             conn.Open();
 
             string sql = @"
-    SELECT
-    (SELECT COUNT(*) FROM Alat) total_alat,
+            SELECT
+            (SELECT COUNT(*) FROM Alat) total_alat,
+            (SELECT COUNT(*)
+            FROM Alat a
+            JOIN KategoriAlat k
+            ON a.id_kategori=k.id_kategori
+            WHERE k.nama_kategori='Drone Pertanian')
+            drone,
 
-    (SELECT COUNT(*)
-    FROM Alat a
-    JOIN KategoriAlat k
-    ON a.id_kategori=k.id_kategori
-    WHERE k.nama_kategori='Drone Pertanian')
-    drone,
+            (SELECT COUNT(*)
+            FROM Alat a
+            JOIN KategoriAlat k
+            ON a.id_kategori=k.id_kategori
+            WHERE k.nama_kategori='Traktor')
+            traktor,
 
-    (SELECT COUNT(*)
-    FROM Alat a
-    JOIN KategoriAlat k
-    ON a.id_kategori=k.id_kategori
-    WHERE k.nama_kategori='Traktor')
-    traktor,
+            (SELECT COUNT(*)
+            FROM Alat a
+            JOIN KategoriAlat k
+            ON a.id_kategori=k.id_kategori
+            WHERE k.nama_kategori='Mesin Panen')
+            panen";
 
-    (SELECT COUNT(*)
-    FROM Alat a
-    JOIN KategoriAlat k
-    ON a.id_kategori=k.id_kategori
-    WHERE k.nama_kategori='Mesin Panen')
-    panen";
-
-            NpgsqlDataAdapter da =
-                new NpgsqlDataAdapter(sql, conn);
-
+            NpgsqlDataAdapter da = new NpgsqlDataAdapter(sql, conn);
             da.Fill(dt);
 
             return dt;
@@ -215,61 +205,57 @@ namespace FARMATE.Repositories
             conn.Open();
 
             string sql = @"
-    SELECT
-    id_kategori,
-    nama_kategori
-    FROM KategoriAlat";
+            SELECT
+            id_kategori,
+            nama_kategori
+            FROM KategoriAlat";
 
-            NpgsqlDataAdapter da =
-                new NpgsqlDataAdapter(sql, conn);
-
+            NpgsqlDataAdapter da = new NpgsqlDataAdapter(sql, conn);
             da.Fill(dt);
 
             return dt;
         }
 
         public void TambahAlat(
-    int adminId,
-    int kategori,
-    string merk,
-    string deskripsi,
-    decimal harga,
-    int stok,
-    string bbm,
-    string foto)
+        int adminId,
+        int kategori,
+        string merk,
+        string deskripsi,
+        decimal harga,
+        int stok,
+        string bbm,
+        string foto)
         {
             using var conn = Koneksi.GetConnection();
             conn.Open();
 
             string sql = @"
-    INSERT INTO Alat
-    (
-        id_admin,
-        id_kategori,
-        merk_alat,
-        deskripsi,
-        harga_perhari,
-        stok_total,
-        stok_tersedia,
-        bahan_bakar,
-        foto_alat
-    )
-    VALUES
-    (
-        @admin,
-        @kategori,
-        @merk,
-        @deskripsi,
-        @harga,
-        @stoktotal,
-        @stoktersedia,
-        @bbm,
-        @foto
-    )";
+            INSERT INTO Alat
+            (
+            id_admin,
+            id_kategori,
+            merk_alat,
+            deskripsi,
+            harga_perhari,
+            stok_total,
+            stok_tersedia,
+            bahan_bakar,
+            foto_alat
+            )
+            VALUES
+            (
+            @admin,
+            @kategori,
+            @merk,
+            @deskripsi,
+            @harga,
+            @stoktotal,
+            @stoktersedia,
+            @bbm,
+            @foto
+            )";
 
-            using var cmd =
-                new NpgsqlCommand(sql, conn);
-
+            using var cmd = new NpgsqlCommand(sql, conn);
             cmd.Parameters.AddWithValue("@admin", adminId);
             cmd.Parameters.AddWithValue("@kategori", kategori);
             cmd.Parameters.AddWithValue("@merk", merk);
@@ -279,37 +265,27 @@ namespace FARMATE.Repositories
             cmd.Parameters.AddWithValue("@stoktersedia", stok);
             cmd.Parameters.AddWithValue("@bbm", bbm);
             cmd.Parameters.AddWithValue("@foto", foto);
-
             cmd.ExecuteNonQuery();
         }
 
-        public void UpdateAlat(
-    int idAlat,
-    int kategori,
-    string merk,
-    string deskripsi,
-    decimal harga,
-    int stok,
-    string bbm)
+        public void UpdateAlat(int idAlat, int kategori, string merk, string deskripsi, decimal harga, int stok, string bbm)
         {
             using var conn = Koneksi.GetConnection();
             conn.Open();
 
             string sql = @"
-    UPDATE Alat
-    SET
-        id_kategori=@kategori,
-        merk_alat=@merk,
-        deskripsi=@deskripsi,
-        harga_perhari=@harga,
-        stok_total=@stok,
-        stok_tersedia=@stok,
-        bahan_bakar=@bbm
-    WHERE id_alat=@id";
+            UPDATE Alat
+            SET
+            id_kategori=@kategori,
+            merk_alat=@merk,
+            deskripsi=@deskripsi,
+            harga_perhari=@harga,
+            stok_total=@stok,
+            stok_tersedia=@stok,
+            bahan_bakar=@bbm
+            WHERE id_alat=@id";
 
-            using var cmd =
-                new NpgsqlCommand(sql, conn);
-
+            using var cmd = new NpgsqlCommand(sql, conn);
             cmd.Parameters.AddWithValue("@id", idAlat);
             cmd.Parameters.AddWithValue("@kategori", kategori);
             cmd.Parameters.AddWithValue("@merk", merk);
@@ -317,7 +293,6 @@ namespace FARMATE.Repositories
             cmd.Parameters.AddWithValue("@harga", harga);
             cmd.Parameters.AddWithValue("@stok", stok);
             cmd.Parameters.AddWithValue("@bbm", bbm);
-
             cmd.ExecuteNonQuery();
         }
 
@@ -329,18 +304,13 @@ namespace FARMATE.Repositories
             conn.Open();
 
             string sql = @"
-    SELECT *
-    FROM Alat
-    WHERE id_alat=@id";
+            SELECT *
+            FROM Alat
+            WHERE id_alat=@id";
 
-            using var cmd =
-                new NpgsqlCommand(sql, conn);
-
+            using var cmd = new NpgsqlCommand(sql, conn);
             cmd.Parameters.AddWithValue("@id", idAlat);
-
-            NpgsqlDataAdapter da =
-                new NpgsqlDataAdapter(cmd);
-
+            NpgsqlDataAdapter da = new NpgsqlDataAdapter(cmd);
             da.Fill(dt);
 
             if (dt.Rows.Count > 0)
@@ -357,15 +327,12 @@ namespace FARMATE.Repositories
             conn.Open();
 
             string sql = @"
-    SELECT
-    id_kategori,
-    nama_kategori
-    FROM KategoriAlat
-    ORDER BY id_kategori";
-
-            NpgsqlDataAdapter da =
-                new NpgsqlDataAdapter(sql, conn);
-
+            SELECT
+            id_kategori,
+            nama_kategori
+            FROM KategoriAlat
+            ORDER BY id_kategori";
+            NpgsqlDataAdapter da = new NpgsqlDataAdapter(sql, conn);
             da.Fill(dt);
 
             return dt;
@@ -377,28 +344,19 @@ namespace FARMATE.Repositories
 
             using var conn = Koneksi.GetConnection();
             conn.Open();
-
             string sql = "SELECT * FROM Alat";
-
-            NpgsqlCommand cmd =
-                new NpgsqlCommand();
-
+            NpgsqlCommand cmd = new NpgsqlCommand();
             cmd.Connection = conn;
 
             if (kategori != 0)
             {
                 sql += " WHERE id_kategori=@kategori";
-
-                cmd.Parameters.AddWithValue(
-                    "@kategori",
-                    kategori);
+                cmd.Parameters.AddWithValue("@kategori", kategori);
             }
 
             cmd.CommandText = sql;
 
-            NpgsqlDataAdapter da =
-                new NpgsqlDataAdapter(cmd);
-
+            NpgsqlDataAdapter da = new NpgsqlDataAdapter(cmd);
             da.Fill(dt);
 
             return dt;
@@ -412,22 +370,18 @@ namespace FARMATE.Repositories
                 conn.Open();
 
                 string sql = @"
-        SELECT
-            a.*,
-            k.nama_kategori
-        FROM Alat a
-        JOIN KategoriAlat k
-            ON a.id_kategori = k.id_kategori
-        WHERE a.id_alat = @id";
+                SELECT
+                a.*,
+                k.nama_kategori
+                FROM Alat a
+                JOIN KategoriAlat k
+                ON a.id_kategori = k.id_kategori
+                WHERE a.id_alat = @id";
 
-                NpgsqlCommand cmd =
-                    new NpgsqlCommand(sql, conn);
-
+                NpgsqlCommand cmd = new NpgsqlCommand(sql, conn);
                 cmd.Parameters.AddWithValue("@id", idAlat);
 
-                NpgsqlDataAdapter da =
-                    new NpgsqlDataAdapter(cmd);
-
+                NpgsqlDataAdapter da = new NpgsqlDataAdapter(cmd);
                 da.Fill(dt);
             }
 
@@ -452,40 +406,32 @@ namespace FARMATE.Repositories
 
                 try
                 {
-                    DateTime tglSewa =
-                        DateTime.Today;
-
-                    DateTime tglKembali =
-                        tglSewa.AddDays(jumlahHari);
-
-                    decimal total =
-                        hargaPerHari * jumlahHari;
-
+                    DateTime tglSewa = DateTime.Today;
+                    DateTime tglKembali = tglSewa.AddDays(jumlahHari);
+                    decimal total = hargaPerHari * jumlahHari;
                     string sql = @"
-            INSERT INTO Penyewaan
-            (
-                id_user,
-                id_alat,
-                jumlah_unit,
-                tgl_sewa,
-                tgl_pengembalian,
-                total_harga,
-                status_sewa
-            )
-            VALUES
-            (
-                @user,
-                @alat,
-                @jumlah,
-                @tglsewa,
-                @tglkembali,
-                @total,
-                @status
-            )";
+                    INSERT INTO Penyewaan
+                    (
+                    id_user,
+                    id_alat,
+                    jumlah_unit,
+                    tgl_sewa,
+                    tgl_pengembalian,
+                    total_harga,
+                    status_sewa
+                    )
+                    VALUES
+                    (
+                    @user,
+                    @alat,
+                    @jumlah,
+                    @tglsewa,
+                    @tglkembali,
+                    @total,
+                    @status
+                    )";
 
-                    NpgsqlCommand cmd =
-                        new NpgsqlCommand(sql, conn);
-
+                    NpgsqlCommand cmd = new NpgsqlCommand(sql, conn);
                     cmd.Transaction = trans;
 
                     cmd.Parameters.AddWithValue("@user", userId);
@@ -499,19 +445,14 @@ namespace FARMATE.Repositories
                     cmd.ExecuteNonQuery();
 
                     string sqlUpdate = @"
-            UPDATE Alat
-            SET stok_tersedia = stok_tersedia - 1
-            WHERE id_alat = @id";
+                    UPDATE Alat
+                    SET stok_tersedia = stok_tersedia - 1
+                    WHERE id_alat = @id";
 
-                    NpgsqlCommand cmdUpdate =
-                        new NpgsqlCommand(sqlUpdate, conn);
-
+                    NpgsqlCommand cmdUpdate = new NpgsqlCommand(sqlUpdate, conn);
                     cmdUpdate.Transaction = trans;
-
                     cmdUpdate.Parameters.AddWithValue("@id", alatId);
-
                     cmdUpdate.ExecuteNonQuery();
-
                     trans.Commit();
                 }
                 catch

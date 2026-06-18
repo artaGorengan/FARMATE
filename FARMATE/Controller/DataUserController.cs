@@ -12,9 +12,7 @@ namespace FARMATE.Controller
 {
     internal class DataUserController
     {
-        private readonly UserRepository _repo =
-            new UserRepository();
-
+        private readonly UserRepository _repo = new UserRepository();
         public DataTable GetDataUser()
         {
             return _repo.GetDataUser();

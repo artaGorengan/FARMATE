@@ -27,16 +27,11 @@ namespace FARMATE.Controller
 
     public class AdminController
     {
-        private readonly AuthRepo _repo =
-            new AuthRepo();
+        private readonly AuthRepo _repo = new AuthRepo();
 
-        public DataRow Login(
-            string username,
-            string password)
+        public DataRow Login(string username, string password)
         {
-            return _repo.LoginAdmin(
-                username,
-                password);
+            return _repo.LoginAdmin(username, password);
         }
     }
 }

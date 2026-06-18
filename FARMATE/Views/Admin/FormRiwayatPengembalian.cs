@@ -14,6 +14,8 @@ namespace FARMATE.Views.Admin
 {
     public partial class FormRiwayatPengembalian : Form
     {
+        private PengembalianController controller =
+        new PengembalianController();
         public FormRiwayatPengembalian()
         {
             InitializeComponent();
@@ -26,9 +28,6 @@ namespace FARMATE.Views.Admin
         private void LoadRiwayat()
         {
             flowRiwayat.Controls.Clear();
-
-            PengembalianController controller =
-                new PengembalianController();
 
             DataTable dt =
                 controller.GetRiwayat();
@@ -67,9 +66,6 @@ namespace FARMATE.Views.Admin
         }
         private void LoadStatistik()
         {
-            PengembalianController controller =
-                new PengembalianController();
-
             DataRow row =
                 controller.GetStatistik();
 
@@ -93,9 +89,6 @@ namespace FARMATE.Views.Admin
         {
             UCRiwayatPengembalian card =
                 (UCRiwayatPengembalian)sender;
-
-            PengembalianController controller =
-                new PengembalianController();
 
             decimal denda =
                 controller.KonfirmasiPengembalian(
@@ -148,25 +141,6 @@ namespace FARMATE.Views.Admin
             FormDataUser form = new FormDataUser();
             form.Show();
             this.Hide();
-        }
-        private void btnKonfirmasi_Click(
-    object sender,
-    EventArgs e)
-        {
-            Button btn = (Button)sender;
-
-            int idSewa =
-                Convert.ToInt32(btn.Tag);
-
-            PengembalianController controller =
-                new PengembalianController();
-
-            decimal denda =
-                controller.KonfirmasiPengembalian(
-                    idSewa);
-
-            LoadRiwayat();
-            LoadStatistik();
         }
         private void panelStatistik_Paint(object sender, PaintEventArgs e)
         {

@@ -24,6 +24,7 @@ namespace FARMATE.Controller
         public (bool ok, string msg) Edit(Alat a) => _svc.Edit(a);
         public (bool ok, string msg) Hapus(int id) => _svc.Hapus(id);
 
+        //---------------------------------------FITUR ADMIN---------------------------------------------
         public DataTable GetAllAlat()
         {
             return _repo.GetAllAlat();
@@ -44,45 +45,16 @@ namespace FARMATE.Controller
             return _repo.GetKategori();
         }
 
-        public void TambahAlat(
-     int adminId,
-     int kategori,
-     string merk,
-     string deskripsi,
-     decimal harga,
-     int stok,
-     string bbm,
-     string foto)
+        public void TambahAlat(int adminId, int kategori, string merk, string deskripsi, decimal harga, int stok, string bbm, string foto)
         {
-            _repo.TambahAlat(
-                adminId,
-                kategori,
-                merk,
-                deskripsi,
-                harga,
-                stok,
-                bbm,
-                foto);
+            _repo.TambahAlat(adminId, kategori, merk, deskripsi, harga, stok, bbm, foto);
         }
-        public void UpdateAlat(
-    int idAlat,
-    int kategori,
-    string merk,
-    string deskripsi,
-    decimal harga,
-    int stok,
-    string bbm)
+        public void UpdateAlat(int idAlat, int kategori, string merk, string deskripsi, decimal harga, int stok, string bbm)
         {
-            _repo.UpdateAlat(
-                idAlat,
-                kategori,
-                merk,
-                deskripsi,
-                harga,
-                stok,
-                bbm);
-        }
+            _repo.UpdateAlat(idAlat, kategori, merk, deskripsi, harga, stok, bbm);
 
+        }
+        //------------------------------------------FITUR USER------------------------------------------
         public DataTable GetKategoriUser()
         {
             return _repo.GetKategoriUser();
@@ -102,17 +74,9 @@ namespace FARMATE.Controller
             return _repo.GetDetailAlat(idAlat);
         }
 
-        public void SimpanPenyewaan(
-            int userId,
-            int alatId,
-            int jumlahHari,
-            decimal hargaPerHari)
+        public void SimpanPenyewaan(int userId, int alatId, int jumlahHari, decimal hargaPerHari)
         {
-            _repo.SimpanPenyewaan(
-                userId,
-                alatId,
-                jumlahHari,
-                hargaPerHari);
+            _repo.SimpanPenyewaan(userId, alatId, jumlahHari, hargaPerHari);
         }
     }
 }
