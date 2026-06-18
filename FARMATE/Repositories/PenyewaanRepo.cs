@@ -147,21 +147,14 @@ namespace FARMATE.Repositories
 
                 sql += " ORDER BY p.id_sewa DESC";
 
-                NpgsqlCommand cmd =
-                    new NpgsqlCommand(sql, conn);
-
+                NpgsqlCommand cmd = new NpgsqlCommand(sql, conn);
                 cmd.Parameters.AddWithValue("@user", userId);
-
                 if (kategoriId != 0)
                 {
-                    cmd.Parameters.AddWithValue(
-                        "@kategori",
-                        kategoriId);
+                    cmd.Parameters.AddWithValue("@kategori", kategoriId);
                 }
 
-                NpgsqlDataAdapter da =
-                    new NpgsqlDataAdapter(cmd);
-
+                NpgsqlDataAdapter da = new NpgsqlDataAdapter(cmd);
                 da.Fill(dt);
             }
 
@@ -191,16 +184,9 @@ namespace FARMATE.Repositories
                 FROM Penyewaan
                 WHERE id_user=@user";
 
-                NpgsqlCommand cmd =
-                    new NpgsqlCommand(sql, conn);
-
-                cmd.Parameters.AddWithValue(
-                    "@user",
-                    userId);
-
-                NpgsqlDataAdapter da =
-                    new NpgsqlDataAdapter(cmd);
-
+                NpgsqlCommand cmd = new NpgsqlCommand(sql, conn);
+                cmd.Parameters.AddWithValue("@user", userId);
+                NpgsqlDataAdapter da = new NpgsqlDataAdapter(cmd);
                 da.Fill(dt);
             }
 
@@ -210,7 +196,6 @@ namespace FARMATE.Repositories
         public DataTable GetKategori()
         {
             DataTable dt = new DataTable();
-
             using (var conn = Koneksi.GetConnection())
             {
                 conn.Open();
@@ -222,9 +207,7 @@ namespace FARMATE.Repositories
                 FROM KategoriAlat
                 ORDER BY nama_kategori";
 
-                NpgsqlDataAdapter da =
-                    new NpgsqlDataAdapter(sql, conn);
-
+                NpgsqlDataAdapter da = new NpgsqlDataAdapter(sql, conn);
                 da.Fill(dt);
             }
 

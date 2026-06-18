@@ -29,5 +29,10 @@ namespace FARMATE.Views.Admin
             lblAlamat.Text = alamat;
             lblTotal.Text = totalSewa;
         }
+
+        private void lblTotal_Click(object sender, EventArgs e)
+        {
+
+        }
     }
 }

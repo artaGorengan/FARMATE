@@ -33,9 +33,9 @@ namespace FARMATE.Views.Admin
 
         private void SembunyikanHalamanUtama()
         {
-            panelSidebar.Visible = false;
-            panelNavbar.Visible = false;
-            panelContent.Visible = false;
+            panelSidebar.Visible = true;
+            panelNavbar.Visible = true;
+            panelContent.Visible = true;
         }
         private void TampilHalamanUtama()
         {
@@ -46,7 +46,8 @@ namespace FARMATE.Views.Admin
         private void TampilTambahAlat()
         {
             ucTambah = new UCTambahAlat();
-            ucTambah.Dock = DockStyle.Fill;
+            ucTambah.Location = new Point(0, 100);
+            ucTambah.Size = new Size(741, 809);
             ucTambah.OnSimpanBerhasil += () =>
             {
                 this.Controls.Remove(ucTambah);
@@ -167,11 +168,17 @@ namespace FARMATE.Views.Admin
             if (hasil == DialogResult.No)
                 return;
 
-            AlatController controller =
-     new AlatController();
+            AlatController controller = new AlatController();
 
-            controller.HapusAlat(
-                selectedIdAlat);
+            controller.HapusAlat(selectedIdAlat);
+
+            selectedIdAlat = 0;
+            selectedCard = null;
+
+            LoadDataAlat();
+            LoadStatistik();
+
+            MessageBox.Show("Data berhasil dihapus");
         }
         private void btnTambah_Click(object sender, EventArgs e)
         {

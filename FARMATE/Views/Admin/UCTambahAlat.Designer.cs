@@ -44,6 +44,7 @@
             // 
             // pbFotoAlat
             // 
+            pbFotoAlat.BackgroundImageLayout = ImageLayout.Zoom;
             pbFotoAlat.Location = new Point(34, 55);
             pbFotoAlat.Name = "pbFotoAlat";
             pbFotoAlat.Size = new Size(371, 390);
@@ -65,40 +66,50 @@
             // cmbKategori
             // 
             cmbKategori.DropDownStyle = ComboBoxStyle.DropDownList;
+            cmbKategori.Font = new Font("Arial Rounded MT Bold", 9F, FontStyle.Regular, GraphicsUnit.Point, 0);
+            cmbKategori.ForeColor = Color.DarkOliveGreen;
             cmbKategori.FormattingEnabled = true;
             cmbKategori.Location = new Point(451, 72);
             cmbKategori.Name = "cmbKategori";
-            cmbKategori.Size = new Size(265, 33);
+            cmbKategori.Size = new Size(265, 29);
             cmbKategori.TabIndex = 17;
             // 
             // txtMerk
             // 
+            txtMerk.Font = new Font("Arial Rounded MT Bold", 9F, FontStyle.Regular, GraphicsUnit.Point, 0);
+            txtMerk.ForeColor = Color.DarkOliveGreen;
             txtMerk.Location = new Point(451, 141);
             txtMerk.Name = "txtMerk";
-            txtMerk.Size = new Size(265, 31);
+            txtMerk.Size = new Size(265, 28);
             txtMerk.TabIndex = 20;
             // 
             // txtHarga
             // 
+            txtHarga.Font = new Font("Arial Rounded MT Bold", 9F, FontStyle.Regular, GraphicsUnit.Point, 0);
+            txtHarga.ForeColor = Color.DarkOliveGreen;
             txtHarga.Location = new Point(451, 230);
             txtHarga.Name = "txtHarga";
-            txtHarga.Size = new Size(265, 31);
+            txtHarga.Size = new Size(265, 28);
             txtHarga.TabIndex = 24;
             // 
             // txtStok
             // 
+            txtStok.Font = new Font("Arial Rounded MT Bold", 9F, FontStyle.Regular, GraphicsUnit.Point, 0);
+            txtStok.ForeColor = Color.DarkOliveGreen;
             txtStok.Location = new Point(451, 318);
             txtStok.Name = "txtStok";
-            txtStok.Size = new Size(265, 31);
+            txtStok.Size = new Size(265, 28);
             txtStok.TabIndex = 26;
             // 
             // cmbBBM
             // 
             cmbBBM.DropDownStyle = ComboBoxStyle.DropDownList;
+            cmbBBM.Font = new Font("Arial Rounded MT Bold", 9F, FontStyle.Regular, GraphicsUnit.Point, 0);
+            cmbBBM.ForeColor = Color.DarkOliveGreen;
             cmbBBM.FormattingEnabled = true;
             cmbBBM.Location = new Point(451, 403);
             cmbBBM.Name = "cmbBBM";
-            cmbBBM.Size = new Size(265, 33);
+            cmbBBM.Size = new Size(265, 29);
             cmbBBM.TabIndex = 28;
             // 
             // btnSimpan
@@ -123,6 +134,8 @@
             // 
             // RTBDeskripsi
             // 
+            RTBDeskripsi.Font = new Font("Arial Rounded MT Bold", 9F, FontStyle.Regular, GraphicsUnit.Point, 0);
+            RTBDeskripsi.ForeColor = Color.DarkOliveGreen;
             RTBDeskripsi.Location = new Point(23, 543);
             RTBDeskripsi.Name = "RTBDeskripsi";
             RTBDeskripsi.Size = new Size(678, 142);
@@ -146,8 +159,9 @@
             Controls.Add(cmbKategori);
             Controls.Add(btnPilihGambar);
             Controls.Add(pbFotoAlat);
+            Location = new Point(0, 100);
             Name = "UCTambahAlat";
-            Size = new Size(741, 809);
+            Size = new Size(750, 809);
             Load += UCTambahAlat_Load;
             ((System.ComponentModel.ISupportInitialize)pbFotoAlat).EndInit();
             ResumeLayout(false);

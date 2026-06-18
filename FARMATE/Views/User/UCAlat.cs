@@ -28,7 +28,7 @@ namespace FARMATE.Views.User
             IdAlat = idAlat;
             lblMerk.Text = merk;
             lblDeskripsi.Text = deskripsi;
-            lblHarga.Text = "Rp " + harga.ToString("N0") + " /hari";
+            lblHarga.Text = "Rp " + harga.ToString("N0");
             if (File.Exists(foto))
             {
                 pbFoto.Image = Image.FromFile(foto);
@@ -42,6 +42,11 @@ namespace FARMATE.Views.User
         }
 
         private void UCAlat_Load_1(object sender, EventArgs e)
+        {
+
+        }
+
+        private void lblHarga_Click(object sender, EventArgs e)
         {
 
         }

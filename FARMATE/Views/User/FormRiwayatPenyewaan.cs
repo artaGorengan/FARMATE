@@ -17,6 +17,8 @@ namespace FARMATE.Views.User
         public FormRiwayatPenyewaan()
         {
             InitializeComponent();
+            cmbKategori.SelectedIndexChanged +=
+        cmbKategori_SelectedIndexChanged;
         }
 
         private void FormRiwayatPenyewaan_Load(object sender, EventArgs e)

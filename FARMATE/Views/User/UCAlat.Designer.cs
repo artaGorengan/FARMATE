@@ -39,6 +39,7 @@
             // 
             // pbFoto
             // 
+            pbFoto.BackgroundImageLayout = ImageLayout.Zoom;
             pbFoto.Location = new Point(0, 0);
             pbFoto.Name = "pbFoto";
             pbFoto.Size = new Size(275, 199);
@@ -81,6 +82,7 @@
             lblHarga.Size = new Size(65, 21);
             lblHarga.TabIndex = 3;
             lblHarga.Text = "Harga";
+            lblHarga.Click += lblHarga_Click;
             // 
             // btnDetail
             // 

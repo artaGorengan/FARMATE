@@ -74,14 +74,12 @@ namespace FARMATE.Repositories
                 p.status_sewa
                 FROM Penyewaan p
                 JOIN Users u
-                    ON p.id_user = u.id_user
+                ON p.id_user = u.id_user
                 JOIN Alat a
-                    ON p.id_alat = a.id_alat
+                ON p.id_alat = a.id_alat
                 ORDER BY p.id_sewa DESC";
 
-                NpgsqlDataAdapter da =
-                    new NpgsqlDataAdapter(sql, conn);
-
+                NpgsqlDataAdapter da = new NpgsqlDataAdapter(sql, conn);
                 da.Fill(dt);
             }
 
@@ -99,22 +97,17 @@ namespace FARMATE.Repositories
                 string sql = @"
                 SELECT
                 COUNT(*) AS total,
-
                 COUNT(*) FILTER
                 (
                     WHERE status_sewa='Sedang Disewa'
                 ) AS sedang,
-
                 COUNT(*) FILTER
                 (
                     WHERE status_sewa='Selesai'
                 ) AS selesai
-
                 FROM Penyewaan";
 
-                NpgsqlDataAdapter da =
-                    new NpgsqlDataAdapter(sql, conn);
-
+                NpgsqlDataAdapter da = new NpgsqlDataAdapter(sql, conn);
                 da.Fill(dt);
             }
 
@@ -133,11 +126,9 @@ namespace FARMATE.Repositories
                 WHERE status_sewa='Sedang Disewa'
                 AND tgl_pengembalian < CURRENT_DATE";
 
-                NpgsqlCommand cmd =
-                    new NpgsqlCommand(sql, conn);
+                NpgsqlCommand cmd = new NpgsqlCommand(sql, conn);
+                return Convert.ToInt32(cmd.ExecuteScalar());
 
-                return Convert.ToInt32(
-                    cmd.ExecuteScalar());
             }
         }
 
@@ -147,9 +138,7 @@ namespace FARMATE.Repositories
             {
                 conn.Open();
 
-                NpgsqlTransaction trans =
-                    conn.BeginTransaction();
-
+                NpgsqlTransaction trans = conn.BeginTransaction();
                 try
                 {
                     string sqlAlat = @"
@@ -157,42 +146,29 @@ namespace FARMATE.Repositories
                     FROM Penyewaan
                     WHERE id_sewa=@id";
 
-                    NpgsqlCommand cmdAlat =
-                        new NpgsqlCommand(sqlAlat, conn);
-
+                    NpgsqlCommand cmdAlat = new NpgsqlCommand(sqlAlat, conn);
                     cmdAlat.Transaction = trans;
                     cmdAlat.Parameters.AddWithValue("@id", idSewa);
 
-                    int idAlat =
-                        Convert.ToInt32(
-                            cmdAlat.ExecuteScalar());
-
+                    int idAlat = Convert.ToInt32(cmdAlat.ExecuteScalar());
                     string sqlTanggal = @"
                     SELECT tgl_pengembalian
                     FROM Penyewaan
                     WHERE id_sewa=@id";
 
-                    NpgsqlCommand cmdTanggal =
-                        new NpgsqlCommand(sqlTanggal, conn);
+                    NpgsqlCommand cmdTanggal = new NpgsqlCommand(sqlTanggal, conn);
+
 
                     cmdTanggal.Transaction = trans;
                     cmdTanggal.Parameters.AddWithValue("@id", idSewa);
 
-                    DateOnly batasKembali =
-                        (DateOnly)cmdTanggal.ExecuteScalar();
-
+                    DateOnly batasKembali = (DateOnly)cmdTanggal.ExecuteScalar();
                     decimal denda = 0;
 
-                    DateOnly hariIni =
-                        DateOnly.FromDateTime(
-                            DateTime.Today);
-
+                    DateOnly hariIni = DateOnly.FromDateTime(DateTime.Today);
                     if (hariIni > batasKembali)
                     {
-                        int hariTelat =
-                            hariIni.DayNumber -
-                            batasKembali.DayNumber;
-
+                        int hariTelat = hariIni.DayNumber - batasKembali.DayNumber;
                         denda = hariTelat * 50000;
                     }
 
@@ -210,9 +186,7 @@ namespace FARMATE.Repositories
                         @denda
                     )";
 
-                    NpgsqlCommand cmdInsert =
-                        new NpgsqlCommand(sqlInsert, conn);
-
+                    NpgsqlCommand cmdInsert = new NpgsqlCommand(sqlInsert, conn);
                     cmdInsert.Transaction = trans;
 
                     cmdInsert.Parameters.AddWithValue("@sewa", idSewa);
@@ -226,9 +200,7 @@ namespace FARMATE.Repositories
                     SET status_sewa='Selesai'
                     WHERE id_sewa=@id";
 
-                    NpgsqlCommand cmdSewa =
-                        new NpgsqlCommand(sqlUpdateSewa, conn);
-
+                    NpgsqlCommand cmdSewa = new NpgsqlCommand(sqlUpdateSewa, conn);
                     cmdSewa.Transaction = trans;
                     cmdSewa.Parameters.AddWithValue("@id", idSewa);
 
@@ -240,16 +212,11 @@ namespace FARMATE.Repositories
                     stok_tersedia + 1
                     WHERE id_alat=@alat";
 
-                    NpgsqlCommand cmdStok =
-                        new NpgsqlCommand(sqlUpdateStok, conn);
-
+                    NpgsqlCommand cmdStok = new NpgsqlCommand(sqlUpdateStok, conn);
                     cmdStok.Transaction = trans;
                     cmdStok.Parameters.AddWithValue("@alat", idAlat);
-
                     cmdStok.ExecuteNonQuery();
-
                     trans.Commit();
-
                     return denda;
                 }
                 catch

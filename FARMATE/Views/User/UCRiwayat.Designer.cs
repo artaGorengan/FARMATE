@@ -112,7 +112,7 @@
             // 
             AutoScaleDimensions = new SizeF(10F, 25F);
             AutoScaleMode = AutoScaleMode.Font;
-            BackColor = Color.White;
+            BackColor = Color.Transparent;
             Controls.Add(lblStatus);
             Controls.Add(lblDenda);
             Controls.Add(lblTanggalKembali);

@@ -22,20 +22,10 @@ namespace FARMATE.Repositories
                 WHERE username=@username
                 AND password=@password";
 
-                NpgsqlCommand cmd =
-                    new NpgsqlCommand(sql, conn);
-
-                cmd.Parameters.AddWithValue(
-                    "@username",
-                    username);
-
-                cmd.Parameters.AddWithValue(
-                    "@password",
-                    password);
-
-                NpgsqlDataAdapter da =
-                    new NpgsqlDataAdapter(cmd);
-
+                NpgsqlCommand cmd = new NpgsqlCommand(sql, conn);
+                cmd.Parameters.AddWithValue("@username", username);
+                cmd.Parameters.AddWithValue("@password", password);
+                NpgsqlDataAdapter da = new NpgsqlDataAdapter(cmd);
                 da.Fill(dt);
             }
 

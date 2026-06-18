@@ -38,6 +38,7 @@
             // 
             // pbFotoAlat
             // 
+            pbFotoAlat.BackgroundImageLayout = ImageLayout.Zoom;
             pbFotoAlat.Location = new Point(0, 0);
             pbFotoAlat.Name = "pbFotoAlat";
             pbFotoAlat.Size = new Size(367, 122);

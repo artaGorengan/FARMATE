@@ -98,8 +98,8 @@ namespace FARMATE.Repositories
                     u.no_telepon,
                     u.alamat";
 
-                NpgsqlDataAdapter da =
-                    new NpgsqlDataAdapter(sql, conn);
+                NpgsqlDataAdapter da = new NpgsqlDataAdapter(sql, conn);
+
 
                 da.Fill(dt);
             }

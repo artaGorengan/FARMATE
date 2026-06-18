@@ -39,40 +39,40 @@
             // lblNama
             // 
             lblNama.AutoSize = true;
-            lblNama.Font = new Font("Bookman Old Style", 9F, FontStyle.Bold, GraphicsUnit.Point, 0);
+            lblNama.Font = new Font("Arial Rounded MT Bold", 9F, FontStyle.Regular, GraphicsUnit.Point, 0);
             lblNama.ForeColor = Color.Ivory;
             lblNama.Location = new Point(98, 10);
             lblNama.Name = "lblNama";
-            lblNama.Size = new Size(61, 21);
+            lblNama.Size = new Size(62, 21);
             lblNama.TabIndex = 0;
             lblNama.Text = "Nama";
             // 
             // lblUsername
             // 
             lblUsername.AutoSize = true;
-            lblUsername.Font = new Font("Bookman Old Style", 9F, FontStyle.Bold, GraphicsUnit.Point, 0);
+            lblUsername.Font = new Font("Arial Rounded MT Bold", 9F, FontStyle.Regular, GraphicsUnit.Point, 0);
             lblUsername.ForeColor = Color.Ivory;
             lblUsername.Location = new Point(408, 10);
             lblUsername.Name = "lblUsername";
-            lblUsername.Size = new Size(100, 21);
+            lblUsername.Size = new Size(102, 21);
             lblUsername.TabIndex = 1;
             lblUsername.Text = "Username";
             // 
             // lblEmail
             // 
             lblEmail.AutoSize = true;
-            lblEmail.Font = new Font("Bookman Old Style", 9F, FontStyle.Bold, GraphicsUnit.Point, 0);
+            lblEmail.Font = new Font("Arial Rounded MT Bold", 9F, FontStyle.Regular, GraphicsUnit.Point, 0);
             lblEmail.ForeColor = Color.Ivory;
             lblEmail.Location = new Point(620, 10);
             lblEmail.Name = "lblEmail";
-            lblEmail.Size = new Size(64, 21);
+            lblEmail.Size = new Size(59, 21);
             lblEmail.TabIndex = 2;
             lblEmail.Text = "Email";
             // 
             // lblNoHp
             // 
             lblNoHp.AutoSize = true;
-            lblNoHp.Font = new Font("Bookman Old Style", 9F, FontStyle.Bold, GraphicsUnit.Point, 0);
+            lblNoHp.Font = new Font("Arial Rounded MT Bold", 9F, FontStyle.Regular, GraphicsUnit.Point, 0);
             lblNoHp.ForeColor = Color.Ivory;
             lblNoHp.Location = new Point(903, 10);
             lblNoHp.Name = "lblNoHp";
@@ -83,24 +83,25 @@
             // lblAlamat
             // 
             lblAlamat.AutoSize = true;
-            lblAlamat.Font = new Font("Bookman Old Style", 9F, FontStyle.Bold, GraphicsUnit.Point, 0);
+            lblAlamat.Font = new Font("Arial Rounded MT Bold", 9F, FontStyle.Regular, GraphicsUnit.Point, 0);
             lblAlamat.ForeColor = Color.Ivory;
             lblAlamat.Location = new Point(1239, 10);
             lblAlamat.Name = "lblAlamat";
-            lblAlamat.Size = new Size(75, 21);
+            lblAlamat.Size = new Size(72, 21);
             lblAlamat.TabIndex = 4;
             lblAlamat.Text = "Alamat";
             // 
             // lblTotal
             // 
             lblTotal.AutoSize = true;
-            lblTotal.Font = new Font("Bookman Old Style", 9F, FontStyle.Bold, GraphicsUnit.Point, 0);
+            lblTotal.Font = new Font("Arial Rounded MT Bold", 9F, FontStyle.Regular, GraphicsUnit.Point, 0);
             lblTotal.ForeColor = Color.Ivory;
             lblTotal.Location = new Point(1564, 10);
             lblTotal.Name = "lblTotal";
-            lblTotal.Size = new Size(58, 21);
+            lblTotal.Size = new Size(54, 21);
             lblTotal.TabIndex = 5;
             lblTotal.Text = "Total";
+            lblTotal.Click += lblTotal_Click;
             // 
             // UCDataUser
             // 
@@ -114,7 +115,7 @@
             Controls.Add(lblUsername);
             Controls.Add(lblNama);
             Name = "UCDataUser";
-            Size = new Size(1676, 50);
+            Size = new Size(1651, 50);
             Load += UCDataUser_Load;
             ResumeLayout(false);
             PerformLayout();

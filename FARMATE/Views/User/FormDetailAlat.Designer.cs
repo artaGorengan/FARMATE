@@ -135,10 +135,10 @@
             // 
             lblKategori.AutoSize = true;
             lblKategori.BackColor = Color.Transparent;
-            lblKategori.Font = new Font("Segoe UI Semibold", 7F, FontStyle.Bold, GraphicsUnit.Point, 0);
+            lblKategori.Font = new Font("Arial Rounded MT Bold", 8F, FontStyle.Regular, GraphicsUnit.Point, 0);
             lblKategori.Location = new Point(848, 394);
             lblKategori.Name = "lblKategori";
-            lblKategori.Size = new Size(62, 19);
+            lblKategori.Size = new Size(77, 18);
             lblKategori.TabIndex = 4;
             lblKategori.Text = "Kategori";
             // 
@@ -146,10 +146,10 @@
             // 
             lblBBM.AutoSize = true;
             lblBBM.BackColor = Color.Transparent;
-            lblBBM.Font = new Font("Segoe UI Semibold", 7F, FontStyle.Bold, GraphicsUnit.Point, 0);
+            lblBBM.Font = new Font("Arial Rounded MT Bold", 8F, FontStyle.Regular, GraphicsUnit.Point, 0);
             lblBBM.Location = new Point(880, 354);
             lblBBM.Name = "lblBBM";
-            lblBBM.Size = new Size(38, 19);
+            lblBBM.Size = new Size(45, 18);
             lblBBM.TabIndex = 5;
             lblBBM.Text = "BBM";
             // 
@@ -169,7 +169,7 @@
             lblTotalHarga.BackColor = Color.Transparent;
             lblTotalHarga.Font = new Font("Segoe UI Black", 18F, FontStyle.Bold, GraphicsUnit.Point, 0);
             lblTotalHarga.ForeColor = Color.FromArgb(106, 134, 81);
-            lblTotalHarga.Location = new Point(1604, 780);
+            lblTotalHarga.Location = new Point(1561, 780);
             lblTotalHarga.Name = "lblTotalHarga";
             lblTotalHarga.Size = new Size(42, 48);
             lblTotalHarga.TabIndex = 8;
@@ -235,10 +235,10 @@
             // 
             lblStok.AutoSize = true;
             lblStok.BackColor = Color.Transparent;
-            lblStok.Font = new Font("Segoe UI Semibold", 7F, FontStyle.Bold, GraphicsUnit.Point, 0);
+            lblStok.Font = new Font("Arial Rounded MT Bold", 8F, FontStyle.Regular, GraphicsUnit.Point, 0);
             lblStok.Location = new Point(820, 434);
             lblStok.Name = "lblStok";
-            lblStok.Size = new Size(37, 19);
+            lblStok.Size = new Size(44, 18);
             lblStok.TabIndex = 13;
             lblStok.Text = "Stok";
             // 

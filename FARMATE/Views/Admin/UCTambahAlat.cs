@@ -117,7 +117,7 @@ namespace FARMATE.Views.Admin
                 }
 
                 isEditMode = true;
-                btnSimpan.Text = "Update";
+                btnSimpan.Text = "";
             }
         }
         private void LoadKategori()

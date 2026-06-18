@@ -48,8 +48,8 @@ namespace FARMATE.Views.User
                     "Rp " +
                     Convert.ToDecimal(
                         row["harga_perhari"])
-                    .ToString("N0") +
-                    " /hari";
+                    .ToString("N0");
+                    
 
                 lblKategori.Text =
                     row["nama_kategori"].ToString();
@@ -67,6 +67,8 @@ namespace FARMATE.Views.User
                 stokTersedia =
                     Convert.ToInt32(
                         row["stok_tersedia"]);
+                lblStok.Text =
+      stokTersedia.ToString();
 
                 string foto =
                     row["foto_alat"].ToString();

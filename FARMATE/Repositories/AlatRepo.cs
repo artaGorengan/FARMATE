@@ -151,13 +151,27 @@ namespace FARMATE.Repositories
 
         public void HapusAlat(int idAlat)
         {
-            using var conn = Koneksi.GetConnection();
-            conn.Open();
-            string sql = "DELETE FROM Alat WHERE id_alat=@id";
-            using var cmd = new NpgsqlCommand(sql, conn);
-            cmd.Parameters.AddWithValue("@id", idAlat);
+            try
+            {
+                using var conn = Koneksi.GetConnection();
+                conn.Open();
 
-            cmd.ExecuteNonQuery();
+                string sql =
+                    "DELETE FROM Alat WHERE id_alat=@id";
+
+                using var cmd =
+                    new NpgsqlCommand(sql, conn);
+
+                cmd.Parameters.AddWithValue("@id", idAlat);
+
+                int hasil = cmd.ExecuteNonQuery();
+
+                
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message);
+            }
         }
 
         public DataTable GetStatistik()
@@ -216,15 +230,7 @@ namespace FARMATE.Repositories
             return dt;
         }
 
-        public void TambahAlat(
-        int adminId,
-        int kategori,
-        string merk,
-        string deskripsi,
-        decimal harga,
-        int stok,
-        string bbm,
-        string foto)
+        public void TambahAlat(int adminId, int kategori, string merk, string deskripsi, decimal harga, int stok, string bbm, string foto)
         {
             using var conn = Koneksi.GetConnection();
             conn.Open();
