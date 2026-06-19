@@ -15,6 +15,7 @@ namespace FARMATE.Services
         public List<Alat> GetTersedia() => _repo.GetTersedia();
         public Alat? GetById(int id) => _repo.GetById(id);
 
+        //implementasi abstract 
         public (bool ok, string msg) Tambah(Alat a)
         {
             if (string.IsNullOrWhiteSpace(a.MerkAlat)) return (false, "Merk/Nama alat wajib diisi.");

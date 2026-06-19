@@ -7,7 +7,7 @@ using FARMATE.Models;
 using System.Data;
 namespace FARMATE.Repositories
 {
-    internal class Login
+    internal class Login : BaseRepo
     {
         public User? GetByEmailAndPassword(string email, string passwordHash)
         {

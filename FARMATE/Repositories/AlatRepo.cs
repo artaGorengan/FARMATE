@@ -8,7 +8,7 @@ using System.Data;
 
 namespace FARMATE.Repositories
 {
-    internal class AlatRepo
+    internal class AlatRepo : BaseRepo
     {
         public List<Alat> GetAll(string keyword = "")
         {
@@ -60,7 +60,7 @@ namespace FARMATE.Repositories
             using var rd = cmd.ExecuteReader();
             return rd.Read() ? Map(rd) : null;
         }
-
+        //query dari implementasi abstract
         public void Insert(Alat a, int idAdmin)
         {
             using var conn = Koneksi.GetConnection();

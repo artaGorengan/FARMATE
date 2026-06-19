@@ -8,7 +8,7 @@ using System.Text;
 
 namespace FARMATE.Repositories
 {
-    internal class PenyewaanRepo
+    internal class PenyewaanRepo : BaseRepo
     {
         private const string SelectJoin = @"
             SELECT p.*, u.nama_user, u.username,

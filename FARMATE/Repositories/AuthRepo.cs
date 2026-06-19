@@ -4,7 +4,7 @@ using System.Data;
 
 namespace FARMATE.Repositories
 {
-    internal class AuthRepo
+    internal class AuthRepo : BaseRepo
     {
         public DataRow LoginAdmin(
             string username,

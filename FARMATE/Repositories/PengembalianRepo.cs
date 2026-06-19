@@ -8,7 +8,7 @@ using System.Text;
 
 namespace FARMATE.Repositories
 {
-    internal class PengembalianRepo
+    internal class PengembalianRepo : BaseRepo
     {
         public List<Pengembalian> GetAllForAdmin()
         {

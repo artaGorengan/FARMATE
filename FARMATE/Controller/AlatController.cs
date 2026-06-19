@@ -20,6 +20,7 @@ namespace FARMATE.Controller
         public List<Alat> GetTersedia() => _svc.GetTersedia();
         public Alat? GetById(int id) => _svc.GetById(id);
 
+        //abstract (blue print)
         public (bool ok, string msg) Tambah(Alat a) => _svc.Tambah(a);
         public (bool ok, string msg) Edit(Alat a) => _svc.Edit(a);
         public (bool ok, string msg) Hapus(int id) => _svc.Hapus(id);

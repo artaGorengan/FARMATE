@@ -14,6 +14,8 @@ namespace FARMATE.Controller
 
         public List<Penyewaan> GetAllAdmin(string keyword = "") => _svc.GetAllAdmin(keyword);
         public List<Penyewaan> GetAktifUser(int idUser) => _svc.GetAktifUser(idUser);
+        
+        //polimorfisme overloading
         public List<Penyewaan> GetRiwayatUser(int idUser) => _svc.GetRiwayatUser(idUser);
 
         public (bool ok, string msg) Sewa(int idUser, int idAlat, DateTime tglSewa,
@@ -23,6 +25,8 @@ namespace FARMATE.Controller
     internal class RiwayatController
     {
         private readonly PenyewaanRepo _repo = new PenyewaanRepo();
+
+        //implementasi polimor overloading
         public DataTable GetRiwayatUser(int userId, int kategoriId)
         {
             return _repo.GetRiwayatUser(userId, kategoriId);
