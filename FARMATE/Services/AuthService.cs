@@ -1,5 +1,4 @@
-﻿using FARMATE.Session;
-using FARMATE.Utils;
+﻿using FARMATE.Utils;
 using Npgsql;
 using System;
 using System.Collections.Generic;

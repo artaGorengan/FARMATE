@@ -1,5 +1,4 @@
 using FARMATE.Controller;
-using FARMATE.Session;
 using FARMATE.Utils;
 using FARMATE.Views;
 using FARMATE.Views.Admin;

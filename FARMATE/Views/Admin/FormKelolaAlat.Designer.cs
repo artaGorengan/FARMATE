@@ -56,9 +56,9 @@
             // btnHapus
             // 
             btnHapus.Image = (Image)resources.GetObject("btnHapus.Image");
-            btnHapus.Location = new Point(10, 358);
+            btnHapus.Location = new Point(12, 374);
             btnHapus.Name = "btnHapus";
-            btnHapus.Size = new Size(389, 121);
+            btnHapus.Size = new Size(373, 121);
             btnHapus.TabIndex = 2;
             btnHapus.UseVisualStyleBackColor = true;
             btnHapus.Click += btnHapus_Click;
@@ -66,9 +66,9 @@
             // btnEdit
             // 
             btnEdit.Image = (Image)resources.GetObject("btnEdit.Image");
-            btnEdit.Location = new Point(-35, 234);
+            btnEdit.Location = new Point(-17, 255);
             btnEdit.Name = "btnEdit";
-            btnEdit.Size = new Size(434, 125);
+            btnEdit.Size = new Size(402, 125);
             btnEdit.TabIndex = 1;
             btnEdit.UseVisualStyleBackColor = true;
             btnEdit.Click += btnEdit_Click;
@@ -77,9 +77,9 @@
             // 
             btnTambah.ForeColor = Color.Crimson;
             btnTambah.Image = (Image)resources.GetObject("btnTambah.Image");
-            btnTambah.Location = new Point(10, 118);
+            btnTambah.Location = new Point(12, 149);
             btnTambah.Name = "btnTambah";
-            btnTambah.Size = new Size(389, 117);
+            btnTambah.Size = new Size(373, 117);
             btnTambah.TabIndex = 0;
             btnTambah.UseVisualStyleBackColor = true;
             btnTambah.Click += btnTambah_Click;
@@ -154,9 +154,9 @@
             // 
             flowPanen.AutoScroll = true;
             flowPanen.BackColor = Color.Transparent;
-            flowPanen.Location = new Point(74, 674);
+            flowPanen.Location = new Point(74, 638);
             flowPanen.Name = "flowPanen";
-            flowPanen.Size = new Size(1181, 200);
+            flowPanen.Size = new Size(1181, 235);
             flowPanen.TabIndex = 2;
             flowPanen.WrapContents = false;
             flowPanen.Paint += flowPanen_Paint;
@@ -165,9 +165,9 @@
             // 
             flowTraktor.AutoScroll = true;
             flowTraktor.Controls.Add(lblTraktor);
-            flowTraktor.Location = new Point(74, 367);
+            flowTraktor.Location = new Point(74, 346);
             flowTraktor.Name = "flowTraktor";
-            flowTraktor.Size = new Size(1181, 200);
+            flowTraktor.Size = new Size(1181, 235);
             flowTraktor.TabIndex = 1;
             flowTraktor.WrapContents = false;
             flowTraktor.Paint += flowTraktor_Paint;
@@ -183,9 +183,9 @@
             // flowDrone
             // 
             flowDrone.AutoScroll = true;
-            flowDrone.Location = new Point(74, 83);
+            flowDrone.Location = new Point(74, 56);
             flowDrone.Name = "flowDrone";
-            flowDrone.Size = new Size(1181, 200);
+            flowDrone.Size = new Size(1181, 235);
             flowDrone.TabIndex = 0;
             flowDrone.WrapContents = false;
             flowDrone.Paint += flowDrone_Paint;
@@ -195,7 +195,7 @@
             lblTotalAlat.AutoSize = true;
             lblTotalAlat.BackColor = Color.Transparent;
             lblTotalAlat.Font = new Font("Arial Rounded MT Bold", 14F, FontStyle.Regular, GraphicsUnit.Point, 0);
-            lblTotalAlat.Location = new Point(1795, 301);
+            lblTotalAlat.Location = new Point(1779, 300);
             lblTotalAlat.Name = "lblTotalAlat";
             lblTotalAlat.Size = new Size(31, 32);
             lblTotalAlat.TabIndex = 1;
@@ -206,7 +206,7 @@
             lblTotalDrone.AutoSize = true;
             lblTotalDrone.BackColor = Color.Transparent;
             lblTotalDrone.Font = new Font("Arial Rounded MT Bold", 12F, FontStyle.Regular, GraphicsUnit.Point, 0);
-            lblTotalDrone.Location = new Point(1795, 487);
+            lblTotalDrone.Location = new Point(1782, 487);
             lblTotalDrone.Name = "lblTotalDrone";
             lblTotalDrone.Size = new Size(26, 28);
             lblTotalDrone.TabIndex = 3;
@@ -217,7 +217,7 @@
             lblTotalTraktor.AutoSize = true;
             lblTotalTraktor.BackColor = Color.Transparent;
             lblTotalTraktor.Font = new Font("Arial Rounded MT Bold", 14F, FontStyle.Regular, GraphicsUnit.Point, 0);
-            lblTotalTraktor.Location = new Point(1795, 695);
+            lblTotalTraktor.Location = new Point(1780, 695);
             lblTotalTraktor.Name = "lblTotalTraktor";
             lblTotalTraktor.Size = new Size(31, 32);
             lblTotalTraktor.TabIndex = 5;
@@ -228,7 +228,7 @@
             lblTotalPanen.AutoSize = true;
             lblTotalPanen.BackColor = Color.Transparent;
             lblTotalPanen.Font = new Font("Arial Rounded MT Bold", 14F, FontStyle.Regular, GraphicsUnit.Point, 0);
-            lblTotalPanen.Location = new Point(1795, 871);
+            lblTotalPanen.Location = new Point(1781, 871);
             lblTotalPanen.Name = "lblTotalPanen";
             lblTotalPanen.Size = new Size(31, 32);
             lblTotalPanen.TabIndex = 7;

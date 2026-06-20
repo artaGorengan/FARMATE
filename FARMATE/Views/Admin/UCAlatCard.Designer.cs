@@ -38,10 +38,10 @@
             // 
             // pbFotoAlat
             // 
-            pbFotoAlat.BackgroundImageLayout = ImageLayout.Zoom;
-            pbFotoAlat.Location = new Point(0, 0);
+            pbFotoAlat.BackgroundImageLayout = ImageLayout.Stretch;
+            pbFotoAlat.Location = new Point(0, 14);
             pbFotoAlat.Name = "pbFotoAlat";
-            pbFotoAlat.Size = new Size(367, 122);
+            pbFotoAlat.Size = new Size(367, 108);
             pbFotoAlat.TabIndex = 0;
             pbFotoAlat.TabStop = false;
             pbFotoAlat.Click += pbFotoAlat_Click;
@@ -83,10 +83,12 @@
             AutoScaleMode = AutoScaleMode.Font;
             BackColor = Color.Transparent;
             BackgroundImage = (Image)resources.GetObject("$this.BackgroundImage");
+            BackgroundImageLayout = ImageLayout.Zoom;
             Controls.Add(lblStok);
             Controls.Add(lblHarga);
             Controls.Add(lblMerk);
             Controls.Add(pbFotoAlat);
+            DoubleBuffered = true;
             Name = "UCAlatCard";
             Size = new Size(367, 227);
             Load += UCAlatCard_Load;

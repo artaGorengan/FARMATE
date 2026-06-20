@@ -1,5 +1,4 @@
 ﻿using FARMATE.Controller;
-using FARMATE.Session;
 using FARMATE.Utils;
 using Npgsql;
 using System;

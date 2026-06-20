@@ -172,6 +172,7 @@
             // cmbKategori
             // 
             cmbKategori.BackColor = Color.White;
+            cmbKategori.DropDownStyle = ComboBoxStyle.DropDownList;
             cmbKategori.Font = new Font("Arial Rounded MT Bold", 9F, FontStyle.Regular, GraphicsUnit.Point, 0);
             cmbKategori.ForeColor = Color.DarkOliveGreen;
             cmbKategori.FormattingEnabled = true;
