@@ -10,6 +10,11 @@ namespace FARMATE.Repositories
 {
     internal class PenyewaanRepo : BaseRepo
     {
+        public override string GetTableName()
+        {
+            return "Penyewaan";
+        }
+
         private const string SelectJoin = @"
             SELECT p.*, u.nama_user, u.username,
                    a.merk_alat AS nama_alat, a.harga_perhari

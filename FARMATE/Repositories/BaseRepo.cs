@@ -4,9 +4,10 @@ using System;
 using System.Collections.Generic;
 using System.Text;
 
+
 namespace FARMATE.Repositories
 {
-    internal class BaseRepo
+    internal abstract class BaseRepo
     {
         protected NpgsqlConnection GetOpenConnection()
         {
@@ -14,5 +15,14 @@ namespace FARMATE.Repositories
             conn.Open();
             return conn;
         }
+        public virtual string GetTableName()
+        {
+            return "Unknown";
+        }
+        protected virtual string GetLogPrefix()
+        {
+            return $"[{GetTableName()}Repo]";
+        }
     }
+    
 }

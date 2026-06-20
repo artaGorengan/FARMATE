@@ -10,6 +10,11 @@ namespace FARMATE.Repositories
 {
     internal class AlatRepo : BaseRepo
     {
+        public override string GetTableName()
+        {
+            return "Alat";
+        }
+
         public List<Alat> GetAll(string keyword = "")
         {
             var list = new List<Alat>();
